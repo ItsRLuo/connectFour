@@ -24,6 +24,9 @@ class Arcade extends CI_Controller {
 		    		$data['errmsg']=	$_SESSION['errmsg'];
 		    		unset($_SESSION['errmsg']);
 		    	}
+		    	
+		    	
+		    	
 		    	$this->load->view('arcade/mainPage',$data);
     }
 

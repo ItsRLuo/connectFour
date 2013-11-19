@@ -1,0 +1,9 @@
+Unassigned:
+-Create captcha for main menu
+
+Richard L:
+-Password Recovery
+-All LOGIN stuff
+
+Richard C:
+-Implementing multiple sessions

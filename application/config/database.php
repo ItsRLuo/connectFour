@@ -48,10 +48,10 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-$db['default']['hostname'] = '127.0.0.1';
-$db['default']['username'] = 'connect4';
-$db['default']['password'] = 'connect4';
-$db['default']['database'] = 'connect4';  
+$db['default']['hostname'] = 'bungle08.cs.toronto.edu';
+$db['default']['username'] = 'g2chenri';
+$db['default']['password'] = '987144';
+$db['default']['database'] = 'g2chenri';  
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;
