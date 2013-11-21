@@ -1,8 +1,9 @@
 Unassigned:
--Create captcha for main menu
+- Create all the functionailty of the game
 
 Richard L:
 - Create the game board
 
 Richard C:
-- Email send
+- Create captcha for main menu
+??? - Validate all input

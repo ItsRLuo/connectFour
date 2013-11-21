@@ -70,18 +70,27 @@ class Account extends CI_Controller {
 	}
 
 	function createNew() {
+		include_once $_SERVER['DOCUMENT_ROOT'] . '/A3/securimage/securimage.php';
+		$securimage = new Securimage();
+		
 		$this->load->library('form_validation');
 		$this->form_validation->set_rules('username', 'Username', 'required|is_unique[user.login]');
 		$this->form_validation->set_rules('password', 'Password', 'required');
 		$this->form_validation->set_rules('first', 'First', "required");
 		$this->form_validation->set_rules('last', 'last', "required");
 		$this->form_validation->set_rules('email', 'Email', "required|is_unique[user.email]");
-
+		$data['captchaErrorMessage'] = "";
 	  
 		if ($this->form_validation->run() == FALSE)
 		{
 			$this->load->view('account/newForm');
 		}
+		else if ($securimage->check($_POST['captcha_code']) == false) {
+			
+			$data['captchaErrorMessage'] = "<br />The security code entered was incorrect.<br />";
+			$this->load->view('account/newForm', $data);
+		}
+		
 		else
 		{
 			$user = new User();
