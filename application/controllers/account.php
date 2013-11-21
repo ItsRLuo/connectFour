@@ -165,8 +165,8 @@ class Account extends CI_Controller {
 				$config['smtp_host']    = 'ssl://smtp.gmail.com';
 				$config['smtp_port']    = '465';
 				$config['smtp_timeout'] = '7';
-				$config['smtp_user']    = 'your gmail user name';
-				$config['smtp_pass']    = 'your gmail password';
+				$config['smtp_user']    = 'richardchen922@gmail.com';
+				$config['smtp_pass']    = 'incarcerous';
 				$config['charset']    = 'utf-8';
 				$config['newline']    = "\r\n";
 				$config['mailtype'] = 'text'; // or html
@@ -174,7 +174,7 @@ class Account extends CI_Controller {
 
 				$this->email->initialize($config);
 
-				$this->email->from('csc309Login@cs.toronto.edu', 'Login App');
+				$this->email->from('richardchen922@gmail.com', 'Login App');
 				$this->email->to($user->email);
 
 				$this->email->subject('Password recovery');
