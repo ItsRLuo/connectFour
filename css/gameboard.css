@@ -1,0 +1,51 @@
+@CHARSET "US-ASCII";
+.rectangle {
+	background-color:white;
+	width:100px;
+	height:100px;
+	border: 1px solid black;
+	border-collapse: collapse;
+	top:25px;
+	position:relative;
+}
+
+.rectangle {
+	float:right;
+	right:25px;
+}
+
+
+.myCanvas{
+	background-color:white;
+	width:100px;
+	height:100px;
+	border: 1px solid black;
+	border-collapse: collapse;
+	top:25px;
+	position:relative;
+}
+.circleBase {
+    -webkit-border-radius: 999px;
+    -moz-border-radius: 999px;
+    border-radius: 999px;
+    behavior: url(PIE.htc);
+}
+
+.type1 {
+    width: 100px;
+    height: 100px;
+    background: yellow;
+    border: 3px solid red
+}
+.type2 {
+    width: 50px;
+    height: 50px;
+    background: #ccc;
+    border: 3px solid #000
+}
+.type3 {
+    width: 500px;
+    height: 500px;
+    background: aqua;
+    border: 30px solid blue
+}

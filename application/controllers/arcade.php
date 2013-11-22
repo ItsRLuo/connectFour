@@ -19,6 +19,8 @@ class Arcade extends CI_Controller {
        
     
     function index() {
+    			$this->load->helper('url');
+    			$this->base = $this->config->item('base_url');
 		    	$data['user']=$_SESSION['user'];
 		    	if (isset($_SESSION['errmsg'])) {
 		    		$data['errmsg']=	$_SESSION['errmsg'];
