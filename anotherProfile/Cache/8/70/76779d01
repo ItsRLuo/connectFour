@@ -1,0 +1,205 @@
+@CHARSET "UTF-8";.bbCodeBlock{margin:1em
+140px 1em 0;border:1px
+solid #c2dac7;-webkit-border-radius:5px;-moz-border-radius:5px;-khtml-border-radius:5px;border-radius:5px}.bbCodeBlock
+.bbCodeBlock{margin-right:0}.messageList.withSidebar
+.bbCodeBlock{margin-right:0}.bbCodeBlock pre,
+.bbCodeBlock
+blockquote{margin:0}.bbCodeBlock
+img{border:none}.bbCodeBlock
+.type{font-size:11px;font-family:'Trebuchet MS',Helvetica,Arial,sans-serif;color:#749b85;background:#c2dac7 url('styles/default/xenforo/gradients/form-button-white-25px.png') repeat-x top;padding:3px
+8px;border-bottom:1px solid #92baa7;-webkit-border-top-left-radius:4px;-moz-border-radius-topleft:4px;-khtml-border-top-left-radius:4px;border-top-left-radius:4px;-webkit-border-top-right-radius:4px;-moz-border-radius-topright:4px;-khtml-border-top-right-radius:4px;border-top-right-radius:4px;background:#c2dac7 linear-gradient(rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.0) 70%);background:#c2dac7 -webkit-linear-gradient(rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.0) 70%);background:#c2dac7 -moz-linear-gradient(rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.0) 70%);background:#c2dac7 -ms-linear-gradient(rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.0) 70%);background:#c2dac7 -o-linear-gradient(rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.0) 70%)}.bbCodeBlock pre,
+.bbCodeBlock
+.code{font-size:10pt;font-family:Consolas,'Courier New',Courier,monospace;background:#f2faf7 url('styles/default/xenforo/gradients/category-23px-light.png') repeat-x top;padding:10px;-webkit-border-radius:5px;-moz-border-radius:5px;-khtml-border-radius:5px;border-radius:5px;word-wrap:normal;overflow:auto;line-height:1.24;min-height:30px;max-height:500px;_width:600px;direction:ltr;background:#f2faf7 linear-gradient(rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.35) 50%, rgba(255, 255, 255, 0) 100%);background:#f2faf7 -webkit-linear-gradient(rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.35) 50%, rgba(255, 255, 255, 0) 100%);background:#f2faf7 -moz-linear-gradient(rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.35) 50%, rgba(255, 255, 255, 0) 100%);background:#f2faf7 -ms-linear-gradient(rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.35) 50%, rgba(255, 255, 255, 0) 100%);background:#f2faf7 -o-linear-gradient(rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.35) 50%, rgba(255, 255, 255, 0) 100%)}.bbCodeBlock
+.code{white-space:nowrap}.bbCodeQuote{border-color:#9cbb74}.bbCodeQuote
+.attribution{color:rgb(20,20,20);background:#9cbb74 url('styles/default/xenforo/gradients/form-button-white-25px.png') repeat-x top;border-bottom:1px solid #85ab52;background:rgba(156, 187, 116, .3) linear-gradient(rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.0) 70%);background:rgba(156, 187, 116, .3) -webkit-linear-gradient(rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.0) 70%);background:rgba(156, 187, 116, .3) -moz-linear-gradient(rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.0) 70%);background:rgba(156, 187, 116, .3) -ms-linear-gradient(rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.0) 70%);background:rgba(156, 187, 116, .3) -o-linear-gradient(rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.0) 70%)}.bbCodeQuote
+.quoteContainer{overflow:hidden;position:relative;font-style:italic;font-size:9pt;background:#cbdcb3 url('styles/default/xenforo/gradients/category-23px-light.png') repeat-x top;padding:10px;-webkit-border-radius:4px;-moz-border-radius:4px;-khtml-border-radius:4px;border-radius:4px;background:rgba(203, 220, 179, .3) linear-gradient(rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.35) 50%, rgba(255, 255, 255, 0) 100%);background:rgba(203, 220, 179, .3) -webkit-linear-gradient(rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.35) 50%, rgba(255, 255, 255, 0) 100%);background:rgba(203, 220, 179, .3) -moz-linear-gradient(rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.35) 50%, rgba(255, 255, 255, 0) 100%);background:rgba(203, 220, 179, .3) -ms-linear-gradient(rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.35) 50%, rgba(255, 255, 255, 0) 100%);background:rgba(203, 220, 179, .3) -o-linear-gradient(rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.35) 50%, rgba(255, 255, 255, 0) 100%)}.bbCodeQuote .quoteContainer
+.quote{max-height:150px;overflow:hidden}.bbCodeQuote .quoteContainer
+.quoteExpand{display:none;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;-ms-box-sizing:border-box;box-sizing:border-box;position:absolute;height:80px;top:90px;left:0;right:0;font-size:11px;line-height:1;text-align:center;color:#85ab52;cursor:pointer;padding-top:65px;background: -webkit-linear-gradient(top, rgba(203, 220, 179, 0) 0%, #cbdcb3 80%);background: -moz-linear-gradient(top, rgba(203, 220, 179, 0) 0%, #cbdcb3 80%);background: -o-linear-gradient(top, rgba(203, 220, 179, 0) 0%, #cbdcb3 80%);background:linear-gradient(to bottom, rgba(203, 220, 179, 0) 0%, #cbdcb3 80%);-webkit-border-bottom-left-radius:4px;-moz-border-radius-bottomleft:4px;-khtml-border-bottom-left-radius:4px;border-bottom-left-radius:4px;-webkit-border-bottom-right-radius:4px;-moz-border-radius-bottomright:4px;-khtml-border-bottom-right-radius:4px;border-bottom-right-radius:4px}.bbCodeQuote .quoteContainer
+.quoteExpand.quoteCut{display:block}.bbCodeQuote .quoteContainer.expanded
+.quote{max-height:none}.bbCodeQuote .quoteContainer.expanded
+.quoteExpand{display:none}.bbCodeQuote
+img{max-height:150px}.bbCodeQuote iframe,
+.bbCodeQuote object,
+.bbCodeQuote
+embed{max-width:200px;max-height:150px}@media (max-width:800px){.Responsive
+.bbCodeBlock{margin-right:0}}.bbCodePHP ol,
+.bbCodeHtml ol,
+.bbCodeCode
+ol{color:lightgrey;-moz-user-select: -moz-none;-khtml-user-select:none;-webkit-user-select:none;-ms-user-select:none;user-select:none}.bbCodePHP li > div,
+.bbCodeHtml li > div,
+.bbCodeCode li>div{color:grey;-moz-user-select:text;-khtml-user-select:text;-webkit-user-select:text;-ms-user-select:text;user-select:text}a.fbLogin,
+#loginBar
+a.fbLogin{background:#29447e url('//b.s-static.ak.facebook.com/images/connect_sprite.png');background-repeat:no-repeat;cursor:pointer;display:inline-block;padding:0px
+0px 0px 1px;text-decoration:none;outline:none;background-position:left -188px;font-size:11px;line-height:14px}a.fbLogin:active,
+#loginBar a.fbLogin:active{background-position:left -210px}a.fbLogin:hover,
+#loginBar a.fbLogin:hover{text-decoration:none}a.fbLogin
+span{background:#5f78ab url('//b.s-static.ak.facebook.com/images/connect_sprite.png');border-top:solid 1px #879ac0;border-bottom:solid 1px #1a356e;color:white;display:block;font-family:'lucida grande',tahoma,verdana,arial,sans-serif;font-weight:bold;padding:2px
+4px 3px;margin:1px
+1px 0px 21px;text-shadow:none;white-space:nowrap;overflow:hidden}a.fbLogin:active
+span{border-bottom:solid 1px #29447e;border-top:solid 1px #45619d;background:#4f6aa3;text-shadow:none}.likesSummary{overflow:hidden;zoom:1;font-size:11px}.LikeText{float:left}.likeInfo{float:right}#loginBar{color:#92baa7;background-color:#022A17;border-bottom:1px solid #618872;position:relative;z-index:1}#loginBar
+.ctrlWrapper{margin:0
+10px}#loginBar
+.pageContent{padding-top:5px;position:relative;_height:0px}#loginBar
+a{color:#749b85}#loginBar
+form{padding:5px
+0;margin:0
+auto;display:none;line-height:20px;position:relative}#loginBar .xenForm .ctrlUnit,
+#loginBar .xenForm .ctrlUnit > dt
+label{margin:0;border:none}#loginBar .xenForm .ctrlUnit>dd{position:relative}#loginBar .lostPassword,
+#loginBar
+.lostPasswordLogin{font-size:11px}#loginBar
+.rememberPassword{font-size:11px}#loginBar
+.textCtrl{color:#f2faf7;background-color:#224A37;border-color:#618872}#loginBar .textCtrl[type=text]{font-weight:bold;font-size:18px}#loginBar .textCtrl:-webkit-autofill{background:#224A37 !important;color:#f2faf7}#loginBar .textCtrl:focus{background:black none}#loginBar
+input.textCtrl.disabled{color:#92baa7;background-color:#022A17;border-style:dashed}#loginBar
+.button{min-width:85px;*width:85px}#loginBar
+.button.primary{font-weight:bold}#loginBar
+form.eAuth{-x-max-width:700px}#loginBar form.eAuth
+.ctrlWrapper{border-right:1px dotted #426a57;margin-right:200px;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;-ms-box-sizing:border-box;box-sizing:border-box}#loginBar form.eAuth
+#eAuthUnit{position:absolute;top:0px;right:10px}#eAuthUnit
+li{margin-top:10px}#eAuthUnit li
+a{width:180px;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;-ms-box-sizing:border-box;box-sizing:border-box}#loginBar
+#loginBarHandle{font-size:11px;color:#f2faf7;background-color:#022A17;padding:0
+10px;margin-right:20px;-webkit-border-bottom-right-radius:10px;-moz-border-radius-bottomright:10px;-khtml-border-bottom-right-radius:10px;border-bottom-right-radius:10px;-webkit-border-bottom-left-radius:10px;-moz-border-radius-bottomleft:10px;-khtml-border-bottom-left-radius:10px;border-bottom-left-radius:10px;position:absolute;right:0px;bottom: -20px;text-align:center;z-index:1;line-height:20px;-webkit-box-shadow:0px 2px 5px #022A17;-moz-box-shadow:0px 2px 5px #022A17;-khtml-box-shadow:0px 2px 5px #022A17;box-shadow:0px 2px 5px #022A17}@media (max-width:800px){.Responsive #loginBar form.eAuth
+.ctrlWrapper{border-right:none;margin-right:10px}.Responsive #loginBar form.eAuth
+#eAuthUnit{position:static;width:180px;margin:0
+auto 10px}}.messageList{}.messageList
+.message{padding-top:10px;padding-bottom:30px;border-top:1px solid #92baa7}.messageList
+.message{zoom:1}.messageList .message:after{content:'.';display:block;height:0;clear:both;visibility:hidden}.message
+.messageInfo{padding:0;margin-left:140px;border-bottom:1px none black;zoom:1}.message
+.newIndicator{font-size:11px;color:#426a57;background:#92baa7 url('styles/default/xenforo/gradients/form-button-white-25px.png') repeat-x top;padding:1px
+5px;margin: -5px -5px 5px 5px;border:1px
+solid #749b85;-webkit-border-radius:3px;-moz-border-radius:3px;-khtml-border-radius:3px;border-radius:3px;-webkit-border-top-right-radius:0px;-moz-border-radius-topright:0px;-khtml-border-top-right-radius:0px;border-top-right-radius:0px;display:block;float:right;position:relative;-webkit-box-shadow:1px 1px 3px rgba(0,0,0, 0.25);-moz-box-shadow:1px 1px 3px rgba(0,0,0, 0.25);-khtml-box-shadow:1px 1px 3px rgba(0,0,0, 0.25);box-shadow:1px 1px 3px rgba(0,0,0, 0.25);background:#92baa7 linear-gradient(rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.0) 70%);background:#92baa7 -webkit-linear-gradient(rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.0) 70%);background:#92baa7 -moz-linear-gradient(rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.0) 70%);background:#92baa7 -ms-linear-gradient(rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.0) 70%);background:#92baa7 -o-linear-gradient(rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.0) 70%);margin-right: -25px}.message .newIndicator
+span{background-color:#749b85;-webkit-border-top-right-radius:3px;-moz-border-radius-topright:3px;-khtml-border-top-right-radius:3px;border-top-right-radius:3px;position:absolute;top: -4px;right: -1px;width:5px;height:4px}.message
+.messageContent{min-height:150px;*zoom:1}.message
+.editDate{text-align:right;margin-top:5px;font-size:11px;color:rgb(150,150,150)}.message
+.signature{font-size:9pt;padding:5px
+0 0;margin-top:5px;border-top:1px dashed #c2dac7;line-height:1.2}.message
+.messageMeta{font-size:11px;padding:15px
+5px 5px;margin: -5px;overflow:hidden;zoom:1}.message
+.privateControls{float:left}.message
+.publicControls{float:right}.message .privateControls
+.item{margin-right:10px;float:left}.message .privateControls .item:last-child{margin-right:0}.message .publicControls
+.item{margin-left:10px;float:left}.message .messageMeta
+.control{}.message .messageMeta .control:focus{}.message .messageMeta .control:hover{}.message .messageMeta .control:active{}.messageNotices
+li{font-size:11px;background:#9cbb74 url('styles/default/xenforo/gradients/form-button-white-25px.png') repeat-x top;padding:5px;margin:10px
+0;border:1px
+solid #9cbb74;-webkit-border-radius:5px;-moz-border-radius:5px;-khtml-border-radius:5px;border-radius:5px;line-height:16px;background:#9cbb74 linear-gradient(rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.0) 70%);background:#9cbb74 -webkit-linear-gradient(rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.0) 70%);background:#9cbb74 -moz-linear-gradient(rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.0) 70%);background:#9cbb74 -ms-linear-gradient(rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.0) 70%);background:#9cbb74 -o-linear-gradient(rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.0) 70%)}.messageNotices
+.icon{float:right;width:16px;height:16px;background:url('styles/default/xenforo/xenforo-ui-sprite.png') no-repeat 1000px 1000px}.messageNotices .warningNotice
+.icon{background-position: -48px -32px}.messageNotices .deletedNotice
+.icon{background-position: -64px -32px}.messageNotices .moderatedNotice
+.icon{background-position: -32px -16px}.message
+.likesSummary{padding:5px;margin-top:10px;border:1px
+solid #c2dac7;-webkit-border-radius:5px;-moz-border-radius:5px;-khtml-border-radius:5px;border-radius:5px}.message .messageText>*:first-child{margin-top:0}.InlineModChecked .messageUserBlock,
+.InlineModChecked .messageInfo,
+.InlineModChecked .messageNotices,
+.InlineModChecked .bbCodeBlock .type,
+.InlineModChecked .bbCodeBlock blockquote,
+.InlineModChecked .attachedFiles .attachedFilesHeader,
+.InlineModChecked .attachedFiles
+.attachmentList{background:rgb(255, 255, 200) url('styles/default/xenforo/gradients/category-23px-light.png') repeat-x top;background:rgb(255, 255, 200) linear-gradient(rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.35) 50%, rgba(255, 255, 255, 0) 100%);background:rgb(255, 255, 200) -webkit-linear-gradient(rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.35) 50%, rgba(255, 255, 255, 0) 100%);background:rgb(255, 255, 200) -moz-linear-gradient(rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.35) 50%, rgba(255, 255, 255, 0) 100%);background:rgb(255, 255, 200) -ms-linear-gradient(rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.35) 50%, rgba(255, 255, 255, 0) 100%);background:rgb(255, 255, 200) -o-linear-gradient(rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.35) 50%, rgba(255, 255, 255, 0) 100%)}.InlineModChecked .messageUserBlock div.avatarHolder,
+.InlineModChecked .messageUserBlock
+.extraUserInfo{background:transparent}.InlineModChecked .messageUserBlock .arrow
+span{border-left-color:rgb(255, 255, 200)}.messageList
+.newMessagesNotice{margin:10px
+auto;padding:5px
+10px;-webkit-border-radius:5px;-moz-border-radius:5px;-khtml-border-radius:5px;border-radius:5px;border:1px
+solid #92baa7;background:#c2dac7 url(styles/default/xenforo/gradients/category-23px-light.png) repeat-x top;font-size:11px}.messageList
+.message.placeholder{}.messageList .placeholder
+.placeholderContent{overflow:hidden;zoom:1;color:#618872;font-size:11px}.messageList .placeholder
+a.avatar{float:left;display:block}.messageList .placeholder a.avatar
+img{display:block;width:32px;height:32px}.messageList .placeholder
+.privateControls{margin-top: -5px}.postsRemaining a,a.postsRemaining{font-size:11px;color:rgb(150,150,150)}@media (max-width:800px){.Responsive .message
+.newIndicator{margin-right:0;-webkit-border-top-right-radius:3px;-moz-border-radius-topright:3px;-khtml-border-top-right-radius:3px;border-top-right-radius:3px}.Responsive .message .newIndicator
+span{display:none}}@media (max-width:480px){.Responsive .message
+.messageInfo{margin-left:0;padding:0
+10px}.Responsive .message
+.messageContent{min-height:0}.Responsive .message
+.newIndicator{margin-right: -5px;margin-top: -16px}.Responsive .message .postNumber,
+.Responsive .message
+.authorEnd{display:none}.Responsive .message
+.signature{display:none}.Responsive .messageList .placeholder
+a.avatar{margin-right:10px}}.canBestAnswer{border:1px
+dashed #426a57;font-weight:bold;text-align:center;padding:1em;margin:1.5em 1em;background:#92baa7 linear-gradient(rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.0) 70%);background:#92baa7 -webkit-linear-gradient(rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.0) 70%);background:#92baa7 -moz-linear-gradient(rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.0) 70%);background:#92baa7 -ms-linear-gradient(rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.0) 70%);background:#92baa7 -o-linear-gradient(rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.0) 70%);font-size:14px;-webkit-border-radius:10px;-moz-border-radius:10px;-khtml-border-radius:10px;border-radius:10px}.canBestAnswer.solved{background-color:rgb(255,255,200);border-color:#92baa7}.messageUserBlock.bestAnswer{-webkit-box-shadow:0 0 20px #6CB2E4;-moz-box-shadow:0 0 20px #6CB2E4;-khtml-box-shadow:0 0 20px #6CB2E4;box-shadow:0 0 20px #6CB2E4}.userBanner.bannerBest{color:black;background-color:#6CB2E4;border-color:#6CB2E4}.userBanner.bannerBest.wrapped
+span{background-color:#6CB2E4}.messageUserInfo{float:left;width:124px}.messageUserBlock{background:#c2dac7 url('styles/default/xenforo/gradients/tab-selected-light.png') repeat-x bottom;border:1px
+solid #92baa7;-webkit-border-radius:5px;-moz-border-radius:5px;-khtml-border-radius:5px;border-radius:5px;background:#c2dac7 linear-gradient(rgba(255, 255, 255, 0) 95%, rgba(255, 255, 255, .5) 100%);background:#c2dac7 -webkit-linear-gradient(rgba(255, 255, 255, 0) 95%, rgba(255, 255, 255, .5) 100%);background:#c2dac7 -moz-linear-gradient(rgba(255, 255, 255, 0) 95%, rgba(255, 255, 255, .5) 100%);background:#c2dac7 -ms-linear-gradient(rgba(255, 255, 255, 0) 95%, rgba(255, 255, 255, .5) 100%);background:#c2dac7 -o-linear-gradient(rgba(255, 255, 255, 0) 95%, rgba(255, 255, 255, .5) 100%);-webkit-box-shadow:0 0 7px #92baa7;-moz-box-shadow:0 0 7px #92baa7;-khtml-box-shadow:0 0 7px #92baa7;box-shadow:0 0 7px #92baa7;position:relative}.messageUserBlock
+div.avatarHolder{background-color:#f2faf7;padding:10px;-webkit-border-radius:4px;-moz-border-radius:4px;-khtml-border-radius:4px;border-radius:4px}.messageUserBlock div.avatarHolder
+.avatar{display:block;font-size:0}.messageUserBlock
+h3.userText{padding:6px}.messageUserBlock
+.userBanner{display:block;margin-bottom:5px;margin-left: -12px;margin-right: -12px}.messageUserBlock .userBanner:last-child{margin-bottom:0}.messageUserBlock
+a.username{font-weight:bold;display:block;overflow:hidden;line-height:16px}.messageUserBlock
+.userTitle{font-size:11px;display:block}.messageUserBlock
+.extraUserInfo{font-size:10px;background-color:#f2faf7;padding:4px
+6px;-webkit-border-radius:4px;-moz-border-radius:4px;-khtml-border-radius:4px;border-radius:4px}.messageUserBlock .extraUserInfo
+dl{margin:2px
+0 0}.messageUserBlock .extraUserInfo
+img{max-width:100%}.messageUserBlock
+.arrow{position:absolute;top:10px;right: -10px;display:block;width:0px;height:0px;line-height:0px;border:10px
+solid transparent;border-left-color:#92baa7;-moz-border-left-colors:#92baa7;border-right:none;_display:none}.messageUserBlock .arrow
+span{position:absolute;top: -10px;left: -11px;display:block;width:0px;height:0px;line-height:0px;border:10px
+solid transparent;border-left-color:#f2faf7;-moz-border-left-colors:#f2faf7;border-right:none}@media (max-width:480px){.Responsive
+.messageUserInfo{float:none;width:auto}.Responsive
+.messageUserBlock{overflow:hidden;margin-bottom:5px;position:relative}.Responsive .messageUserBlock
+div.avatarHolder{float:left;padding:5px}.Responsive .messageUserBlock div.avatarHolder .avatar
+img{width:48px;height:48px}.Responsive .messageUserBlock
+h3.userText{margin-left:64px}.Responsive .messageUserBlock
+.userBanner{max-width:150px;margin-left:0;margin-right:0;-webkit-border-top-left-radius:3px;-moz-border-radius-topleft:3px;-khtml-border-top-left-radius:3px;border-top-left-radius:3px;-webkit-border-top-right-radius:3px;-moz-border-radius-topright:3px;-khtml-border-top-right-radius:3px;border-top-right-radius:3px;position:static;display:inline-block}.Responsive .messageUserBlock .userBanner
+span{display:none}.Responsive .messageUserBlock
+.extraUserInfo{display:none}.Responsive .messageUserBlock
+.arrow{display:none}}.hasJs
+#Notices.PanelScroller{display:none}.PanelScroller .scrollContainer,
+.PanelScrollerOff
+.panel{background-color:rgb(252, 255, 252);padding:3px;margin-bottom:10px;border:1px
+solid #92baa7;-webkit-border-radius:5px;-moz-border-radius:5px;-khtml-border-radius:5px;border-radius:5px;font-size:13pt}.PanelScroller
+.PanelContainer{position:relative;clear:both;width:100%;overflow:auto}.hasJs .PanelScroller
+.Panels{position:absolute}.PanelScroller
+.Panels{clear:both;margin:0;padding:0}.PanelScroller .panel,
+.PanelScrollerOff
+.panel{overflow:hidden;position:relative;padding:0
+!important;background:#c2dac7 url('styles/default/xenforo/gradients/category-23px-light.png') repeat-x top;padding:10px;background:#c2dac7 linear-gradient(rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.35) 50%, rgba(255, 255, 255, 0) 100%);background:#c2dac7 -webkit-linear-gradient(rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.35) 50%, rgba(255, 255, 255, 0) 100%);background:#c2dac7 -moz-linear-gradient(rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.35) 50%, rgba(255, 255, 255, 0) 100%);background:#c2dac7 -ms-linear-gradient(rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.35) 50%, rgba(255, 255, 255, 0) 100%);background:#c2dac7 -o-linear-gradient(rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.35) 50%, rgba(255, 255, 255, 0) 100%)}.PanelScroller .panel .noticeContent,
+.PanelScrollerOff .panel
+.noticeContent{padding:10px}.PanelScroller
+.navContainer{margin: -11px 21px 10px;overflow:hidden;zoom:1}.PanelScroller
+.navControls{float:right}.PanelScroller
+.navControls{zoom:1}.PanelScroller .navControls:after{content:'.';display:block;height:0;clear:both;visibility:hidden}.PanelScroller .navControls
+a{font-size:9px;color: @contentTextColor;background-color:#f2faf7;padding:3px
+6px 2px;margin-left: -1px;float:left;display:block;position:relative;border:1px
+solid #92baa7;-webkit-border-radius:5px;-moz-border-radius:5px;-khtml-border-radius:5px;border-radius:5px;-webkit-border-radius:0;-moz-border-radius:0;-khtml-border-radius:0;border-radius:0}.PanelScroller .navControls>a:first-child{-webkit-border-bottom-left-radius:5px;-moz-border-radius-bottomleft:5px;-khtml-border-bottom-left-radius:5px;border-bottom-left-radius:5px}.PanelScroller .navControls>a:last-child{-webkit-border-bottom-right-radius:5px;-moz-border-radius-bottomright:5px;-khtml-border-bottom-right-radius:5px;border-bottom-right-radius:5px}.PanelScroller .navControls a:hover{text-decoration:none;background-color:#f2faf7}.PanelScroller .navControls
+a.current{background-color:#c2dac7}.PanelScroller .navControls a
+.arrow{display:none}.PanelScroller .navControls a.current
+span{display:block;line-height:0px;width:0px;height:0px;border-top:5px solid #92baa7;border-right:5px solid transparent;border-bottom:1px none black;border-left:5px solid transparent;-moz-border-bottom-colors:#92baa7;position:absolute}.PanelScroller .navControls a.current
+.arrow{border-top-color:#92baa7;top:0px;left:50%;margin-left: -5px}.PanelScroller .navControls a .arrow
+span{border-top-color:rgb(252, 255, 252);top: -6px;left: -5px}#Notices .panel
+.noticeContent{padding-right:25px}.avatar
+.img.s{background-size:48px}.avatar
+.img.m{background-size:96px}.avatar
+.img.l{background-size:192px}.avatar.Avs img,
+.avatar.s
+img{width:48px;height:48px}.avatar.Avm img,
+.avatar.m
+img{width:96px;height:96px}.avatar.Avl img,
+.avatar.l
+img{width:192px;height:192px}.avatarCropper .avatar.Avl
+img{width:auto;height:auto}.AAAlert .avatar.Avs
+img{width:32px;height:32px}.searchResult .avatar img,
+.profilePage #postings .avatar img,
+.search_results .sidebar .avatarList.userResults .avatar img,
+.search_results_users_only .sidebar .avatarList.userResults .avatar
+img{width:48px;height:48px}.visitorPanel .avatar
+img{width:96px;height:96px}.memberCard .avatar
+img{zoom:0.5;-moz-transform:scale(.5);-moz-transform-origin:0 0}.messageSimple .avatar
+img{width:48px;height:48px}.avatarHolder .avatar
+img{width:96px;height:96px}.thread_view
+.threadAlerts{border:1px
+solid #c2dac7;-webkit-border-radius:5px;-moz-border-radius:5px;-khtml-border-radius:5px;border-radius:5px;font-size:11px;margin:10px
+0;padding:5px;line-height:16px;background-image:url('styles/default/xenforo/gradients/form-button-white-25px.png')}.thread_view .threadAlerts
+dt{color:#749b85;display:inline}.thread_view .threadAlerts
+dd{color:#224A37;font-weight:bold;display:inline}.thread_view .threadAlerts
+.icon{float:right;width:16px;height:16px;margin-left:5px;background:url('styles/default/xenforo/xenforo-ui-sprite.png') no-repeat -1000px -1000px}.thread_view .threadAlerts .deletedAlert
+.icon{background-position: -64px -32px}.thread_view .threadAlerts .moderatedAlert
+.icon{background-position: -32px -16px}.thread_view .threadAlerts .lockedAlert
+.icon{background-position: -16px -16px}.thread_view .threadAlerts+*>.messageList{border-top:none}.thread_view
+.threadNotices{background-color:#f2faf7;border:1px
+solid #92baa7;-webkit-border-radius:5px;-moz-border-radius:5px;-khtml-border-radius:5px;border-radius:5px;padding:10px;margin:10px
+auto}.thread_view
+.InlineMod{overflow:hidden;zoom:1}
+/* CSS returned from cache. */

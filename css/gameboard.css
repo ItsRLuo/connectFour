@@ -14,16 +14,21 @@
 	right:25px;
 }
 
-
-.myCanvas{
-	background-color:white;
-	width:100px;
-	height:100px;
-	border: 1px solid black;
-	border-collapse: collapse;
-	top:25px;
-	position:relative;
+.boardSlot {
+width: 71px;
+height: 71px;
+background-color: white;
+position: relative;
+left: 8px;
 }
+
+.gameBoard {
+background-color: rgb(0, 162, 250);
+height: 558px;
+width: 650px;
+float: left;
+}
+
 .circleBase {
     -webkit-border-radius: 999px;
     -moz-border-radius: 999px;

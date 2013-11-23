@@ -5,5 +5,5 @@ Richard L:
 - Create the game board
 
 Richard C:
-- Create captcha for main menu
+- Create captcha for main menu (THIS LOOKS LIKE IT'S FINISHED)
 ??? - Validate all input

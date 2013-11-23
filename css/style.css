@@ -1,3 +1,13 @@
-			input {
-				display: block;
-			}
+input {
+	display: block;
+}
+
+.infoMessage {
+	display:block;
+}
+
+.chatSection{
+    display: inline-block;
+    float: left;
+    padding-left:10px;
+}

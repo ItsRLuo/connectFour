@@ -49,9 +49,9 @@ $active_group = 'default';
 $active_record = TRUE;
 
 $db['default']['hostname'] = 'bungle08.cs.toronto.edu';
-$db['default']['username'] = 'c2luojia';
-$db['default']['password'] = '141557';
-$db['default']['database'] = 'c2luojia';  
+$db['default']['username'] = 'g2chenri';
+$db['default']['password'] = '987144';
+$db['default']['database'] = 'g2chenri';  
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;

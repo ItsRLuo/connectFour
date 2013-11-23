@@ -1,27 +1,21 @@
 <?xml version="1.0"?>
 <RDF:RDF xmlns:NC="http://home.netscape.com/NC-rdf#"
          xmlns:RDF="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-  <RDF:Description RDF:about="chrome://mozapps/content/downloads/unknownContentType.xul#unknownContentType"
-                   screenX="110"
-                   screenY="43" />
   <RDF:Description RDF:about="chrome://browser/content/browser.xul">
     <NC:persist RDF:resource="chrome://browser/content/browser.xul#main-window"/>
     <NC:persist RDF:resource="chrome://browser/content/browser.xul#sidebar-box"/>
     <NC:persist RDF:resource="chrome://browser/content/browser.xul#sidebar-title"/>
   </RDF:Description>
   <RDF:Description RDF:about="chrome://browser/content/browser.xul#main-window"
-                   width="730"
-                   height="455"
-                   screenX="172"
-                   screenY="78"
+                   height="947"
+                   width="1167"
+                   screenX="82"
+                   screenY="73"
                    sizemode="maximized" />
-  <RDF:Description RDF:about="chrome://browser/content/browser.xul#sidebar-title"
-                   value="" />
   <RDF:Description RDF:about="chrome://mozapps/content/downloads/unknownContentType.xul">
     <NC:persist RDF:resource="chrome://mozapps/content/downloads/unknownContentType.xul#unknownContentType"/>
   </RDF:Description>
-  <RDF:Description RDF:about="chrome://browser/content/browser.xul#sidebar-box"
-                   sidebarcommand=""
-                   width=""
-                   src="" />
+  <RDF:Description RDF:about="chrome://mozapps/content/downloads/unknownContentType.xul#unknownContentType"
+                   screenX="110"
+                   screenY="43" />
 </RDF:RDF>
