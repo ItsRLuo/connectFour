@@ -102,11 +102,15 @@
 </script>
 <script>
 $(document).ready(function(){
-  $("p").click(function(){
-	var a=  document.getElementById("2-4");
-	a[0].innerHTML += string;
-			
-  });
+	
+  	$("p").click(function(){
+	var a=  document.getElementById("0-0");
+	var scrolltimes = 0;
+	$(document).ready(function() {
+	$('#clay').scroll(function() {
+	$('#scrollamount p')
+	.html({'<p>Scrolled: '+ .scrolltimes++ + '</p>'});
+	});
 });
  
 
