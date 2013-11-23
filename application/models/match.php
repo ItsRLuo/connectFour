@@ -22,7 +22,7 @@ class Match  {
 // // 				array_push($match_arr[$i], "N");
 // // 			}
 // // 		}
-		$board_state = serialize("Hi there wazzup?");
+		$board_state = "ssss";
 		
 	}
 	

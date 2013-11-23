@@ -35,6 +35,13 @@ class Board extends CI_Controller {
 	    	}
 	    	else if ($user->user_status_id == User::PLAYING) {
 	    		$match = $this->match_model->get($user->match_id);
+	    		$arr = json_decode($match->board_state);
+	    		foreach ($arr as $arrElem) {
+	    			foreach ($arrElem as $arrElemElem) {
+	    				echo $arrElemElem;
+	    			}
+	    			echo "<br/>";
+	    		};
 	    		if ($match->user1_id == $user->id)
 	    			$otherUser = $this->user_model->getFromId($match->user2_id);
 	    		else
@@ -52,6 +59,8 @@ class Board extends CI_Controller {
 	    			$data['status'] = 'waiting';
 	    			break;
 	    	}
+	    	
+
 	    	
 		$this->load->view('match/board',$data);
     }
