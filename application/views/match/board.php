@@ -7,6 +7,8 @@
 <script src="<?= base_url() ?>/js/jquery.timers.js"></script>
 <link rel='stylesheet' type='text/css' href="<?php echo base_url(); ?>css/gameboard.css"></link>
 <link rel='stylesheet' type='text/css' href="<?php echo base_url(); ?>css/style.css"></link>
+
+
 <script>
 	var otherUser = "<?= $otherUser->login ?>";
 	var user = "<?= $user->login ?>";
@@ -75,12 +77,14 @@
 			for ($row = 0; $row < 6; $row++) {
 				echo "<tr>";
 				for ($col = 0; $col < 7; $col++) {
-					echo "<td><div class='circleBase boardSlot'></div></td>";
+					echo "<td><div id= '$row-$col' class='circleBase boardSlot'></div></td>";
 				}
 				echo "</tr>";
 			}
 		?>
 	</table>
+	
+
 	<div class="chatSection">
 		<?php 
 			echo form_textarea(array('name' => 'conversation', 'disabled'));
@@ -92,6 +96,27 @@
 	</div>
 
 
+<head>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
+</script>
+<script>
+$(document).ready(function(){
+  $("p").click(function(){
+	var a=  document.getElementById("2-4");
+	a[0].innerHTML += string;
+			
+  });
+});
+ 
+
+</script>
+</head>
+<body>
+
+</body>
+
+	
+	
 
 </body>
 
