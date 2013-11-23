@@ -1,7 +1,6 @@
 
 <table>
 <?php 
-	echo "Users: <br/>";
 	if ($users) {
 		foreach ($users as $user) {
 			if ($user->id != $currentUser->id) {

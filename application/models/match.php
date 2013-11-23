@@ -12,19 +12,17 @@ class Match  {
 	public $match_status_id = self::ACTIVE;
 		
 	public $board_state;
-	
-	
-	public $match_arr = array();
 	  
 	function __construct() {
 		
-// 		for ($i = 0; $i < 7; $i++) {
-// 			array_push($match_arr, array());
-// 			for ($j = 0; $j < 6; $j++) {
-// 				array_push($match_arr[$i], "");
-// 			}
-// 		}
-// 		$board_state = serialize($match_arr);
+// // 		$match_arr = array(1, 3, 4, 2);
+// // 		for ($i = 0; $i < 7; $i++) {
+// // 			array_push($match_arr, array());
+// // 			for ($j = 0; $j < 6; $j++) {
+// // 				array_push($match_arr[$i], "N");
+// // 			}
+// // 		}
+		$board_state = serialize("Hi there wazzup?");
 		
 	}
 	
@@ -36,3 +34,4 @@ class Match  {
 
 	
 }
+?>
