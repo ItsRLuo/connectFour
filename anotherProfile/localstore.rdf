@@ -9,9 +9,9 @@
   <RDF:Description RDF:about="chrome://browser/content/browser.xul#main-window"
                    height="947"
                    width="1167"
-                   screenX="82"
-                   screenY="73"
-                   sizemode="maximized" />
+                   sizemode="normal"
+                   screenX="272"
+                   screenY="887" />
   <RDF:Description RDF:about="chrome://mozapps/content/downloads/unknownContentType.xul">
     <NC:persist RDF:resource="chrome://mozapps/content/downloads/unknownContentType.xul#unknownContentType"/>
   </RDF:Description>
