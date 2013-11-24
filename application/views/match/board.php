@@ -7,8 +7,6 @@
 <script src="<?= base_url() ?>/js/jquery.timers.js"></script>
 <link rel='stylesheet' type='text/css' href="<?php echo base_url(); ?>css/gameboard.css"></link>
 <link rel='stylesheet' type='text/css' href="<?php echo base_url(); ?>css/style.css"></link>
-
-
 <script>
 	var otherUser = "<?= $otherUser->login ?>";
 	var user = "<?= $user->login ?>";
@@ -61,7 +59,6 @@
 			<?= $user->fullName() ?>
 			<?= anchor('account/logout','(Logout)') ?>
 		</div>
-
 		<div id='status'>
 			<?php 
 				if ($status == "playing")
@@ -75,44 +72,66 @@
 	<table class="gameBoard">
 		<?php 
 			for ($row = 0; $row < 6; $row++) {
-				echo "<tr>";
+				echo "<tr class='row$row'>";
 				for ($col = 0; $col < 7; $col++) {
-					echo "<td><div id= '$row-$col' class='circleBase boardSlot'></div></td>";
+					echo "<td><div id='row$row-col$col' class='circleBase boardSlot emptySlot'></div></td>";
 				}
 				echo "</tr>";
 			}
 		?>
 	</table>
-	
-
 	<div class="chatSection">
 		<?php 
 			echo form_textarea(array('name' => 'conversation', 'disabled'));
 			echo form_open();
 			echo form_input('msg');
 			echo form_submit('Send','Send');
+			if (isset($userPlayerID)) { 
+				echo $userPlayerID; 
+			}
+			
 			echo form_close();
-			echo json_encode(array(1, 3, 4, 2));
 		?>
 	</div>
-	
-
 <head>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
 </script>
 <script>
-$(document).ready(function(){
+$(document).ready(function() {
+
+	var currTurnID = <?php echo $currentTurn; ?>;
+	var userID = <?php echo $userPlayerID; ?>;
 	
-  	$("p").click(function(){
-	var a=  document.getElementById("0-0");
-	var scrolltimes = 0;
-	$(document).ready(function() {
-	$('#clay').scroll(function() {
-	$('#scrollamount p')
-	.html({'<p>Scrolled: '+ .scrolltimes++ + '</p>'});
-	});
+	if (userID == currTurnID) {
+		
+		$(".boardSlot.emptySlot").click(function() {
+
+			var lowestSlot = getLowestRowInColumn(extractColNum($(this).attr('id')));
+			lowestSlot.removeClass('emptySlot').addClass('player1');
+			
+		});
+
+	}
+
+	function getLowestRowInColumn(colNum) {
+
+	}
+	
+	function extractRowNum(slot) {
+		var regex = /row(\d)-col\d/;
+		slot = slot.replace(regex, "$1");
+		return slot;
+	}
+
+	function extractColNum() {
+		var regex = /row\d-col(\d)/;
+		slot = slot.replace(regex, "$1");
+		return slot;
+	}
+	
+	
 });
- 
+
 
 </script>
 </head>
@@ -133,4 +152,17 @@ $(document).ready(function(){
 <!-- <div class='circleBase type2'></div> -->
 <!-- <div class='circleBase type2'></div> -->
 <!-- <div class='circleBase type3'></div> -->
+<!-- 
+$(document).ready(function(){
+	
+  /*	$("p").click(function(){
+	var a=  document.getElementById("0-0");
+	var scrolltimes = 0;
+	$(document).ready(function() {
+	$('#clay').scroll(function() {
+	$('#scrollamount p').html({'<p>Scrolled: '+ .scrolltimes++ + '</p>'});
+	});*/
+});
 
+
+-->

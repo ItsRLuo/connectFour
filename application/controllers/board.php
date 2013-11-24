@@ -35,17 +35,29 @@ class Board extends CI_Controller {
 	    	}
 	    	else if ($user->user_status_id == User::PLAYING) {
 	    		$match = $this->match_model->get($user->match_id);
+	    		
+	    		// Get the current board state:
 	    		$arr = json_decode($match->board_state);
-	    		foreach ($arr as $arrElem) {
-	    			foreach ($arrElem as $arrElemElem) {
-	    				echo $arrElemElem;
-	    			}
-	    			echo "<br/>";
-	    		};
-	    		if ($match->user1_id == $user->id)
+// 	    		foreach ($arr as $arrElem) {
+// 	    			foreach ($arrElem as $arrElemElem) {
+// 	    				echo $arrElemElem;
+// 	    			}
+// 	    			echo "<br/>";
+// 	    		};
+	    		
+	    		// Determine who the other user is.
+	    		if ($match->user1_id == $user->id) {
 	    			$otherUser = $this->user_model->getFromId($match->user2_id);
-	    		else
+	    			$data["userPlayerID"] = 2;
+	    			$data["otherPlayerID"] = 1;
+	    		} else {
 	    			$otherUser = $this->user_model->getFromId($match->user1_id);
+	    			$data["userPlayerID"] = 1;
+	    			$data["otherPlayerID"] = 2;
+	    		}
+	    		
+	    		// The inviter 
+	    		$data["currentTurn"] = 1;
 	    	}
 	    	
 	    	$data['user']=$user;
@@ -59,10 +71,9 @@ class Board extends CI_Controller {
 	    			$data['status'] = 'waiting';
 	    			break;
 	    	}
-	    	
-
-	    	
-		$this->load->view('match/board',$data);
+	    		
+		$this->load->view('match/board', $data);
+		
     }
 
  	function postMsg() {

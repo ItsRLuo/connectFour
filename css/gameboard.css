@@ -17,7 +17,6 @@
 .boardSlot {
 width: 71px;
 height: 71px;
-background-color: white;
 position: relative;
 left: 8px;
 }
@@ -27,6 +26,18 @@ background-color: rgb(0, 162, 250);
 height: 558px;
 width: 650px;
 float: left;
+}
+
+.player1 {
+	background-color:red;
+}
+
+.player2 {
+	background-color:yellow;
+}
+
+.emptySlot {
+	background-color:white;
 }
 
 .circleBase {
