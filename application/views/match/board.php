@@ -97,37 +97,77 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
 </script>
 <script>
+
+Array.prototype.max = function() {
+  return Math.max.apply(null, this);
+};
+
 $(document).ready(function() {
 
+
+	
 	var currTurnID = <?php echo $currentTurn; ?>;
 	var userID = <?php echo $userPlayerID; ?>;
 	
 	if (userID == currTurnID) {
-		
-		$(".boardSlot.emptySlot").click(function() {
 
-			var lowestSlot = getLowestRowInColumn(extractColNum($(this).attr('id')));
-			lowestSlot.removeClass('emptySlot').addClass('player1');
+		$('body').delegate('.emptySlot','click',function() {
 			
+			var thisColNum = extractColNum($(this).attr('id'));
+			var lowestSlot = getLowestRowInColumn(thisColNum);
+			if (retVal == null) {
+				alert("Column is full!");
+			}
+			else {
+				lowestSlot.addClass('player' + userID).removeClass('emptySlot');
+			}
+
 		});
 
 	}
 
 	function getLowestRowInColumn(colNum) {
+		
+		slots = new Array();
+		$(".boardSlot.emptySlot").each(function() {
+			var thisColNum = extractColNum($(this).attr('id'));
+			if (colNum == thisColNum) {
+				slots.push(extractRowNum($(this).attr('id')));
+			}
+		});
+
+		var lowestRow = slots.max();
+		return getByRowColIndex(lowestRow, colNum);
+		
+	}
+
+	function getByRowColIndex(row, col) {
+
+		retVal = null;
+		$(".boardSlot.emptySlot").each(function() {
+			if ((extractRowNum($(this).attr('id')) == row) && (extractColNum($(this).attr('id')) == col)) {
+				retVal = $(this);
+				return false;
+			} 
+		});
+		return retVal;
 
 	}
 	
 	function extractRowNum(slot) {
 		var regex = /row(\d)-col\d/;
-		slot = slot.replace(regex, "$1");
-		return slot;
+		var returnSlot = slot.replace(regex, "$1");
+		return parseInt(returnSlot);
 	}
 
-	function extractColNum() {
+	function extractColNum(slot) {
 		var regex = /row\d-col(\d)/;
-		slot = slot.replace(regex, "$1");
-		return slot;
+		var returnSlot = slot.replace(regex, "$1");
+		return parseInt(returnSlot);
 	}
+
+
+			
 	
 	
 });
