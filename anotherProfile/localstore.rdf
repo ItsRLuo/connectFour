@@ -1,37 +1,28 @@
 <?xml version="1.0"?>
 <RDF:RDF xmlns:NC="http://home.netscape.com/NC-rdf#"
          xmlns:RDF="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-  <RDF:Description RDF:about="chrome://browser/content/browser.xul#search-container"
-                   width="205" />
-  <RDF:Description RDF:about="chrome://mozapps/content/downloads/unknownContentType.xul#unknownContentType"
-                   screenX="110"
-                   screenY="43" />
   <RDF:Description RDF:about="chrome://mozapps/content/downloads/unknownContentType.xul">
     <NC:persist RDF:resource="chrome://mozapps/content/downloads/unknownContentType.xul#unknownContentType"/>
   </RDF:Description>
-  <RDF:Description RDF:about="chrome://browser/content/browser.xul#sidebar-title"
-                   value="" />
-  <RDF:Description RDF:about="chrome://browser/content/browser.xul#urlbar-container"
-                   width="633" />
-  <RDF:Description RDF:about="chrome://browser/content/devtools/framework/toolbox-window.xul">
-    <NC:persist RDF:resource="chrome://browser/content/devtools/framework/toolbox-window.xul#devtools-toolbox-window"/>
-  </RDF:Description>
-  <RDF:Description RDF:about="chrome://browser/content/browser.xul#main-window"
-                   sizemode="normal"
-                   width="1593"
-                   height="1052"
-                   screenX="104"
-                   screenY="105" />
-  <RDF:Description RDF:about="chrome://browser/content/browser.xul#sidebar-box"
-                   sidebarcommand=""
-                   width=""
-                   src="" />
   <RDF:Description RDF:about="chrome://browser/content/devtools/framework/toolbox-window.xul#devtools-toolbox-window"
                    sizemode="normal"
                    height="742"
                    screenX="77"
                    screenY="145"
                    width="724" />
+  <RDF:Description RDF:about="chrome://browser/content/browser.xul#main-window"
+                   width="1593"
+                   screenY="0"
+                   height="1005"
+                   screenX="321"
+                   sizemode="maximized" />
+  <RDF:Description RDF:about="chrome://browser/content/browser.xul#sidebar-title"
+                   value="" />
+  <RDF:Description RDF:about="chrome://browser/content/devtools/framework/toolbox-window.xul">
+    <NC:persist RDF:resource="chrome://browser/content/devtools/framework/toolbox-window.xul#devtools-toolbox-window"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="chrome://browser/content/browser.xul#urlbar-container"
+                   width="633" />
   <RDF:Description RDF:about="chrome://browser/content/browser.xul">
     <NC:persist RDF:resource="chrome://browser/content/browser.xul#main-window"/>
     <NC:persist RDF:resource="chrome://browser/content/browser.xul#sidebar-box"/>
@@ -39,4 +30,9 @@
     <NC:persist RDF:resource="chrome://browser/content/browser.xul#urlbar-container"/>
     <NC:persist RDF:resource="chrome://browser/content/browser.xul#search-container"/>
   </RDF:Description>
+  <RDF:Description RDF:about="chrome://mozapps/content/downloads/unknownContentType.xul#unknownContentType"
+                   screenX="110"
+                   screenY="43" />
+  <RDF:Description RDF:about="chrome://browser/content/browser.xul#search-container"
+                   width="205" />
 </RDF:RDF>

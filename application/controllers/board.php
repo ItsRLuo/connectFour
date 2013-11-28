@@ -87,8 +87,6 @@ class Board extends CI_Controller {
  		// Get the current match info.
     	$match = $this->match_model->get($user->match_id);
     	
-    	
-    	
     	echo json_encode(array('status'=>'success'));
     	return;
     }
