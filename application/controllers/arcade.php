@@ -62,14 +62,14 @@ class Arcade extends CI_Controller {
     }
     
     function acceptInvitation() {
-	    	$user = $_SESSION['user'];
-	    	 
-	    	$this->load->model('user_model');
-	    	$this->load->model('invite_model');
-	    	$this->load->model('match_model');
-	    	
-	    	
-	    	$user = $this->user_model->get($user->login);
+    	$user = $_SESSION['user'];
+    	 
+    	$this->load->model('user_model');
+    	$this->load->model('invite_model');
+    	$this->load->model('match_model');
+    	
+    	
+    	$user = $this->user_model->get($user->login);
 	    	
 	    $invite = $this->invite_model->get($user->invite_id);
 	    $hostUser = $this->user_model->getFromId($invite->user1_id);
@@ -96,7 +96,7 @@ class Arcade extends CI_Controller {
     		}
 	    
 	    
-	    $match->board_state = json_encode($match_arr);
+    	$match->board_state = json_encode(array("match_arr" => $match_arr, "curr_player" => 1));
 	    
 	    $this->match_model->insert($match);
 	    $matchId = mysql_insert_id();

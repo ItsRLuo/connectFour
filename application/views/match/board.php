@@ -2,17 +2,32 @@
 <!DOCTYPE html>
 
 <html>
+	
 <head>
-<script src="http://code.jquery.com/jquery-latest.js"></script>
-<script src="<?= base_url() ?>/js/jquery.timers.js"></script>
-<link rel='stylesheet' type='text/css' href="<?php echo base_url(); ?>css/gameboard.css"></link>
-<link rel='stylesheet' type='text/css' href="<?php echo base_url(); ?>css/style.css"></link>
-<script>
+
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+	<script src="<?= base_url() ?>/js/jquery.timers.js"></script>
+	<script type="text/javascript" src="<?= base_url() ?>/js/scripts/board.php"></script>
+	<link rel='stylesheet' type='text/css' href="<?= base_url(); ?>css/gameboard.css"></link>
+	<link rel='stylesheet' type='text/css' href="<?= base_url(); ?>css/style.css"></link>
+	<script>
 	var otherUser = "<?= $otherUser->login ?>";
 	var user = "<?= $user->login ?>";
 	var status = "<?= $status ?>";
 	
-	$(function () {
+	$(document).ready(function () {
+
+	    $('form').submit(function () {
+	        var arguments = $(this).serialize();
+	        var url = "<?= base_url() ?>board/postMsg";
+	        $.post(url, arguments, function (data, textStatus, jqXHR) {
+	            var conversation = $('[name=conversation]').val();
+	            var msg = $('[name=msg]').val();
+	            $('[name=conversation]').val(conversation + "\n" + user + ": " + msg);
+	        });
+	        return false;
+	    });
+
 	    $('body').everyTime(2000, function () {
 	        if (status == 'waiting') {
 	            $.getJSON('<?= base_url() ?>arcade/checkInvitation', function (data, text, jqZHR) {
@@ -32,24 +47,18 @@
 	            if (data && data.status == 'success') {
 	                var conversation = $('[name=conversation]').val();
 	                var msg = data.message;
-	                if (msg.length > 0)
+	                if (msg.length > 0) {
 	                    $('[name=conversation]').val(conversation + "\n" + otherUser + ": " + msg);
+	                }
 	            }
 	        });
 	    });
 	
-	    $('form').submit(function () {
-	        var arguments = $(this).serialize();
-	        var url = "<?= base_url() ?>board/postMsg";
-	        $.post(url, arguments, function (data, textStatus, jqXHR) {
-	            var conversation = $('[name=conversation]').val();
-	            var msg = $('[name=msg]').val();
-	            $('[name=conversation]').val(conversation + "\n" + user + ": " + msg);
-	        });
-	        return false;
-	    });
+
+	    
 	});
 </script>
+
 </head>
 <body>
 	<h1>Game Area</h1>
@@ -78,6 +87,10 @@
 				}
 				echo "</tr>";
 			}
+
+			if (isset($userPlayerID)) {
+				echo $userPlayerID;
+			}
 		?>
 	</table>
 	<div class="chatSection">
@@ -86,98 +99,110 @@
 			echo form_open();
 			echo form_input('msg');
 			echo form_submit('Send','Send');
-			if (isset($userPlayerID)) { 
-				echo $userPlayerID; 
-			}
-			
 			echo form_close();
 		?>
 	</div>
-<head>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
-</script>
-<script>
-
-Array.prototype.max = function() {
-  return Math.max.apply(null, this);
-};
-
-$(document).ready(function() {
-
-
+	<script>
+	var userID;
+	var currTurnID;
 	
-	var currTurnID = <?php echo $currentTurn; ?>;
-	var userID = <?php echo $userPlayerID; ?>;
+	$(document).ready(function() {
 	
-	if (userID == currTurnID) {
+		currTurnID = <?php echo $currentTurn; ?>;
+		userID = <?php echo $userPlayerID; ?>;
+		
+		// Inserts a token into a slot, if it's the user's turn.
+		$('body').delegate('.emptySlot','click', makeMove);
 
-		$('body').delegate('.emptySlot','click',function() {
-			
-			var thisColNum = extractColNum($(this).attr('id'));
-			var lowestSlot = getLowestRowInColumn(thisColNum);
-			if (retVal == null) {
-				alert("Column is full!");
-			}
-			else {
-				lowestSlot.addClass('player' + userID).removeClass('emptySlot');
-			}
+		// If it's the opponent's turn, this waits for the opponent to make a move.
+		$('body').everyTime(200, waitForOpponent);
 
-		});
+		
+	});
 
+	function waitForOpponent() {
+		if (userID != currTurnID) {
+	        var url = "<?= base_url() ?>board/opponentMadeMove";
+	        $.getJSON(url, function (data, text, jqXHR) {
+	            if (data && data.status == 'success') {
+					console.log("Received a message, loud and clear!");
+	            }
+	            currTurnID = 3 - currTurnID;
+	        });
+		}
 	}
 
+	Array.prototype.max = function() {
+		 return Math.max.apply(null, this);
+	};
+	
+	function makeMove() {
+		
+		if (userID == currTurnID) {
+			// Get the column clicked, and the lowest slot in the column.
+			var thisColNum = extractColNum($(this));
+			var lowestSlot = getLowestRowInColumn(thisColNum);
+
+			// Insert a token into the selected column, if there is room.
+			lowestSlot.addClass('player' + userID).removeClass('emptySlot');
+			
+			var argArray = {"currentPlayerTurn": currTurnID, "pieceAdded": new Array(thisColNum, extractRowNum(lowestSlot))};
+			var arguments = $.param(argArray);
+
+			
+	        var url = "<?= base_url() ?>board/makeMove";
+	        $.post(url, arguments, function (data, textStatus, jqXHR) {
+	        
+	        });
+			
+	        currTurnID = 3 - currTurnID;
+			return false;
+		}
+	}
+	
+
+	
 	function getLowestRowInColumn(colNum) {
 		
 		slots = new Array();
 		$(".boardSlot.emptySlot").each(function() {
-			var thisColNum = extractColNum($(this).attr('id'));
+			var thisColNum = extractColNum($(this));
 			if (colNum == thisColNum) {
-				slots.push(extractRowNum($(this).attr('id')));
+				slots.push(extractRowNum($(this)));
 			}
 		});
-
+	
 		var lowestRow = slots.max();
 		return getByRowColIndex(lowestRow, colNum);
 		
 	}
-
+	
 	function getByRowColIndex(row, col) {
-
+	
 		retVal = null;
 		$(".boardSlot.emptySlot").each(function() {
-			if ((extractRowNum($(this).attr('id')) == row) && (extractColNum($(this).attr('id')) == col)) {
+			if ((extractRowNum($(this)) == row) && (extractColNum($(this)) == col)) {
 				retVal = $(this);
 				return false;
 			} 
 		});
 		return retVal;
-
+	
 	}
 	
 	function extractRowNum(slot) {
 		var regex = /row(\d)-col\d/;
-		var returnSlot = slot.replace(regex, "$1");
+		var returnSlot = slot.attr('id').replace(regex, "$1");
 		return parseInt(returnSlot);
 	}
-
+	
 	function extractColNum(slot) {
 		var regex = /row\d-col(\d)/;
-		var returnSlot = slot.replace(regex, "$1");
+		var returnSlot = slot.attr('id').replace(regex, "$1");
 		return parseInt(returnSlot);
 	}
-
-
-			
-	
-	
-});
-
-
 </script>
-</head>
-<body>
 
-</body>
 
 	
 	

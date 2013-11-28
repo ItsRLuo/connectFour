@@ -11,9 +11,9 @@ class Board extends CI_Controller {
     public function _remap($method, $params = array()) {
 	    	// enforce access control to protected functions	
     		
-    		if (!isset($_SESSION['user']))
-   			redirect('account/loginForm', 'refresh'); //Then we redirect to the index page again
- 	    	
+    		if (!isset($_SESSION['user'])) {
+   				redirect('account/loginForm', 'refresh'); //Then we redirect to the index page again
+    		}
 	    	return call_user_func_array(array($this, $method), $params);
     }
     
@@ -21,61 +21,84 @@ class Board extends CI_Controller {
     function index() {
 		$user = $_SESSION['user'];
     		    	
-	    	$this->load->model('user_model');
-	    	$this->load->model('invite_model');
-	    	$this->load->model('match_model');
-	    	
-	    	$user = $this->user_model->get($user->login);
+    	$this->load->model('user_model');
+    	$this->load->model('invite_model');
+    	$this->load->model('match_model');
+    	
+    	$user = $this->user_model->get($user->login);
 
-	    	$invite = $this->invite_model->get($user->invite_id);
-	    	
-	    	if ($user->user_status_id == User::WAITING) {
-	    		$invite = $this->invite_model->get($user->invite_id);
-	    		$otherUser = $this->user_model->getFromId($invite->user2_id);
-	    	}
-	    	else if ($user->user_status_id == User::PLAYING) {
-	    		$match = $this->match_model->get($user->match_id);
-	    		
-	    		// Get the current board state:
-	    		$arr = json_decode($match->board_state);
-// 	    		foreach ($arr as $arrElem) {
-// 	    			foreach ($arrElem as $arrElemElem) {
-// 	    				echo $arrElemElem;
-// 	    			}
-// 	    			echo "<br/>";
-// 	    		};
-	    		
-	    		// Determine who the other user is.
-	    		if ($match->user1_id == $user->id) {
-	    			$otherUser = $this->user_model->getFromId($match->user2_id);
-	    			$data["userPlayerID"] = 2;
-	    			$data["otherPlayerID"] = 1;
-	    		} else {
-	    			$otherUser = $this->user_model->getFromId($match->user1_id);
-	    			$data["userPlayerID"] = 1;
-	    			$data["otherPlayerID"] = 2;
-	    		}
-	    		
-	    		// The inviter 
-	    		$data["currentTurn"] = 1;
-	    	}
-	    	
-	    	$data['user']=$user;
-	    	$data['otherUser']=$otherUser;
-	    	
-	    	switch($user->user_status_id) {
-	    		case User::PLAYING:	
-	    			$data['status'] = 'playing';
-	    			break;
-	    		case User::WAITING:
-	    			$data['status'] = 'waiting';
-	    			break;
-	    	}
+    	$invite = $this->invite_model->get($user->invite_id);
+    	
+    	if ($user->user_status_id == User::WAITING) {
+    		$invite = $this->invite_model->get($user->invite_id);
+    		$otherUser = $this->user_model->getFromId($invite->user2_id);
+    		$data['otherUser'] = $otherUser;
+    	}
+    	else if ($user->user_status_id == User::PLAYING) {
+    		$match = $this->match_model->get($user->match_id);
+    		
+    		$arr = json_decode($match->board_state);
+
+    		
+    		// Determine who the other user is.
+    		if ($match->user1_id == $user->id) {
+    			$otherUser = $this->user_model->getFromId($match->user2_id);
+    			$data["userPlayerID"] = 2;
+    			$data["otherPlayerID"] = 1;
+    		} else {
+    			$otherUser = $this->user_model->getFromId($match->user1_id);
+    			$data["userPlayerID"] = 1;
+    			$data["otherPlayerID"] = 2;
+    		}
+    		
+    		// The inviter 
+    		$data["currentTurn"] = 1;
+    		$data['otherUser'] = $otherUser;
+    	}
+    	
+    	$data['user'] = $user;
+
+    	
+    	switch($user->user_status_id) {
+    		case User::PLAYING:	
+    			$data['status'] = 'playing';
+    			break;
+    		case User::WAITING:
+    			$data['status'] = 'waiting';
+    			break;
+    	}
 	    		
 		$this->load->view('match/board', $data);
 		
     }
 
+    function makeMove() {
+    	
+    	$this->load->model('user_model');
+    	$this->load->model('match_model');
+    	
+    	// Get the current user info.
+     	$user = $_SESSION['user'];
+ 		$user = $this->user_model->getExclusive($user->login);
+ 		if ($user->user_status_id != User::PLAYING) {	
+			$errormsg="Not in PLAYING state";
+ 		}
+ 		
+ 		// Get the current match info.
+    	$match = $this->match_model->get($user->match_id);
+    	
+    	
+    	
+    	echo json_encode(array('status'=>'success'));
+    	return;
+    }
+    
+    function opponentMadeMove() {
+    	echo json_encode(array('status'=>'success'));
+    	return;
+    }
+    
+    
  	function postMsg() {
  		$this->load->library('form_validation');
  		$this->form_validation->set_rules('msg', 'Message', 'required');
@@ -160,4 +183,4 @@ class Board extends CI_Controller {
  	}
  	
  }
-
+?>

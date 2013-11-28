@@ -1,0 +1,776 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<link rel="shortcut icon" href="http://xkoder.com/favicon.ico" type="image/x-icon"/>
+	<title>xk0der &raquo; JavaScript Associative Arrays Demystified</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<meta name="generator" content="WordPress 3.7.1" />
+
+	<!-- feeds -->
+	<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://blog.xkoder.com/feed/" />
+	<link rel="alternate" type="text/xml" title="RSS .92" href="http://blog.xkoder.com/feed/rss/" />
+	<link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="http://blog.xkoder.com/feed/atom/" />
+
+	<link rel="pingback" href="http://blog.xkoder.com/xmlrpc.php" />
+    	<link rel='archives' title='August 2011' href='http://blog.xkoder.com/2011/08/' />
+	<link rel='archives' title='June 2009' href='http://blog.xkoder.com/2009/06/' />
+	<link rel='archives' title='August 2008' href='http://blog.xkoder.com/2008/08/' />
+	<link rel='archives' title='July 2008' href='http://blog.xkoder.com/2008/07/' />
+	<link rel='archives' title='June 2008' href='http://blog.xkoder.com/2008/06/' />
+	<link rel='archives' title='May 2008' href='http://blog.xkoder.com/2008/05/' />
+	<link rel='archives' title='April 2008' href='http://blog.xkoder.com/2008/04/' />
+	<link rel='archives' title='January 2008' href='http://blog.xkoder.com/2008/01/' />
+	<link rel='archives' title='November 2007' href='http://blog.xkoder.com/2007/11/' />
+	<link rel='archives' title='May 2007' href='http://blog.xkoder.com/2007/05/' />
+	<link rel='archives' title='November 2006' href='http://blog.xkoder.com/2006/11/' />
+	<link rel='archives' title='June 2006' href='http://blog.xkoder.com/2006/06/' />
+	<link rel='archives' title='January 2005' href='http://blog.xkoder.com/2005/01/' />
+
+	<link href="http://blog.xkoder.com/wp-content/themes/regulus/style.css" type="text/css" rel="stylesheet" />
+	<link href="http://blog.xkoder.com/wp-content/themes/regulus/switch.css" type="text/css" rel="stylesheet" />
+
+	<style type='text/css'>
+		.stpulldown-gradient
+		{
+			background: #E1E1E1;
+			background: -moz-linear-gradient(top, #E1E1E1 0%, #A7A7A7 100%); /* firefox */
+			background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#E1E1E1), color-stop(100%,#A7A7A7)); /* webkit */
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#E1E1E1', endColorstr='#A7A7A7',GradientType=0 ); /* ie */
+			background: -o-linear-gradient(top, #E1E1E1 0%,#A7A7A7 100%); /* opera */
+			color: #636363;
+		}
+		#stpulldown .stpulldown-logo
+		{
+			height: 40px;
+			width: 300px;
+			margin-left: 20px;
+			margin-top: 5px;
+			background:url('') no-repeat;
+		}
+</style>
+<link rel="alternate" type="application/rss+xml" title="xk0der &raquo; JavaScript Associative Arrays Demystified Comments Feed" href="http://blog.xkoder.com/2008/07/10/javascript-associative-arrays-demystified/feed/" />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://blog.xkoder.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://blog.xkoder.com/wp-includes/wlwmanifest.xml" /> 
+<link rel='prev' title='x86 Emulator in Java &#8211; Cool!' href='http://blog.xkoder.com/2008/06/26/x86-emulator-in-java-cool/' />
+<link rel='next' title='Git Tutorial : Starting with git using just 10 commands' href='http://blog.xkoder.com/2008/08/13/git-tutorial-starting-with-git-using-just-10-commands/' />
+<meta name="generator" content="WordPress 3.7.1" />
+<link rel='canonical' href='http://blog.xkoder.com/2008/07/10/javascript-associative-arrays-demystified/' />
+<link rel='shortlink' href='http://wp.me/piy8D-22' />
+<script charset="utf-8" type="text/javascript">var switchTo5x=true;</script><script charset="utf-8" type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script><script type="text/javascript">stLight.options({publisher:'wp.d2e56fbc-efdf-4b41-972c-f24117bec4df'});var st_type='wordpress3.2.1';</script>	<style type="text/css">.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style>
+	
+	<!--
+	Regulus Theme Created by Ben Gillbanks @ Binary Moon (http://www.binarymoon.co.uk/)
+	-->
+	
+</head>
+
+<body class=" hid_1">
+<div id="superwrapper" style="width:1000px; margin: auto; margin-top:0px">
+<div id="spacer" style="width:60px; margin:0px; float:left;">&nbsp;</div>
+<div id="wrapper" style="float:left;">
+
+	<div id="header">
+
+				<a href="http://blog.xkoder.com" id="homeLink">xk0der</a>
+				<h1>xk0der</h1>
+		<p class="site_description">therez light</p>
+		
+		<ul id="nav">
+		<li class="current_page_item" >
+			<a href="http://blog.xkoder.com" >Home</a>
+		</li>
+		<li class="page_item page-item-56"><a href="http://blog.xkoder.com/about-amit-singh-xk0der/">About Amit Singh (xk0der)</a></li>
+		</ul>
+
+	</div>
+	
+	<a href="#nav" class="skipnav">jump to navigation</a>
+	
+<div id="content">
+
+	<h2><a href="http://blog.xkoder.com/2008/07/10/javascript-associative-arrays-demystified/" title="Permalink for : JavaScript Associative Arrays Demystified">JavaScript Associative Arrays Demystified</a>
+	<em>July 10, 2008</em>        	  
+</h2>
+
+
+	<em class="info">Posted by xk0der in : <a href="http://blog.xkoder.com/category/programming/" title="View all posts in Programming" rel="category tag">Programming</a>		    , <a href="http://blog.xkoder.com/2008/07/10/javascript-associative-arrays-demystified/trackback/" title="trackback url">trackback</a>
+			</em>
+		
+	
+        		<div style="float:left; padding:5px;">
+			<script type="text/javascript"><!--
+google_ad_client = "ca-pub-2464902403098719";
+/* BlogPost */
+google_ad_slot = "6448510198";
+google_ad_width = 200;
+google_ad_height = 200;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+		</div>
+		<p>Javascript hides a lot of arsenal beneath its simplicity. In this post I’ve tried to explain <strong>normal javascript arrays</strong> and <strong>associative arrays</strong> starting with absolute basics and then presenting the <em>advance concepts</em> that are often overlooked but are simple to understand and are very handy. I’m not a Javascript guru <img class="wp-smiley" src="../wp-includes/images/smilies/icon_smile.gif" alt=":)" /> . This post is more about what I’ve discovered overtime while coding in Javascript. Hope it helps and saves your time.</p>
+<p><em><span style="text-decoration: underline;">Please Note</span>: A single line in the code snippet may wrap or may have been split to fit it into the blog’s page layout. </em><em>All code snippets are provided for illustration purpose. Though they should work (execute) fine without any modification, I’ve not tested all the snippets presented here.</em></p>
+<h2>Normal indexed arrays</h2>
+<p>I’ll start the discussion with normal indexed arrays. Most of the text in this section would be known to many, but might be useful for Javascript newbies.</p>
+<p>In Javascript you can create and use normal arrays as follows:</p>
+<pre>var myArray = new Array();</pre>
+<p>Normal arrays uses positive integers numbers (including <em>zero</em>) as index. To store elements to this array. you can use the following syntax.</p>
+<pre>myArray[0] = 200;
+myArray[1] = 300;</pre>
+<p>Where <em>200</em> and<em> 300</em> are the values stored at the <em>first</em> and the <em>second</em> location in the array, respectively ( <em>index 0</em> is the <em>first location</em>).</p>
+<p>Another way to assign elements is to use the <em>array constructor</em> as follows.</p>
+<pre>var myArray = new Array(200, 300);</pre>
+<p>The above code has the same effect as the previous one, storing 200 at the first location (index 0) and 300 at the second location (index 1)</p>
+<p><strong>Tip 1 : The array.length property </strong><br />
+If you want to add an element at the end of a normal, number indexed array (the one we used above). use the following code.</p>
+<pre>myArray[myArray.length] = someValue;</pre>
+<p>For example:</p>
+<pre>var myArray = new Array();
+
+myArray[myArray.length] = 200;
+myArray[myArray.length] = 300;</pre>
+<p>For the first assignment,<em> myArray.length</em> would be 0, so 200 is stored at the first location (index 0). after the assignment the <em>array</em> <em>length</em> becomes 1 hence 300 is stored at the second location (index 1). At the end if you try to check the length property of myArray, it will contain the value 2. As you would have guessed, you can always find the number of elements in an array by using it <em>length</em> property, as follows</p>
+<pre>arrayObject.length</pre>
+<p><strong>Tip 2 : Quick array creation.</strong><br />
+You can use the square bracket operator to quickly create an array. This is specially useful when you need to pass array arguments to functions. An example follows.</p>
+<pre>var myArray = [200, 300];
+
+alert(myArray); // outputs: 200,300
+alert(myArray.length); // outputs: 2</pre>
+<p>The first line in the code, is equivalen to:</p>
+<pre>var myArray = new Array(200, 300);</pre>
+<p>Here’s how you can use this trick while passing argument to functions:</p>
+<pre>function sumAll( arrayArg )
+{
+    var sum = 0;
+    for ( i = 0 ; i &lt; arrayArg.length; i++)
+    {
+        sum = sum + arrayArg[i];
+    }
+     alert("Sum is:" + sum);
+}
+
+sumAll([100,200,300,400]);
+// the alert in sumAll() function should
+// display - Sum is: 1000</pre>
+<p><strong>Tip 3 : Javascript array elements can be heterogeneous </strong><br />
+I’m only storing numbers in all the above examples but Javascript arrays can store a string, an object and for that matter another array itself (as an array is nothing but an object). And one important thing to remember is that unlike many other programming language, all elements need not be of the same type. You can store numbers and strings in an array at the same time as illustrated below.</p>
+<pre>var mixArray = new Array();
+
+mixArray[0] = "Hello World";
+mixArray[1] = 100;
+
+var anotherMixArray = new Array(200,
+                                300,
+                                "Hello Again",
+                                500);
+
+var moreMixArray = new Array();
+
+moreMixArray[0] = 600;
+moreMixArray[1] = mixArray;
+
+moreMixArray[2] = new Array(700,
+                            anotherMixArray);
+
+moreMixArray[3] = "Incredible!";</pre>
+<p>The above code may look like madness at first glance, but is perfectly valid and provides a great bit of flexibility to the programmer. if you cannot figure out what’s going in that piece of code, draw it out and things will make sense, look at the figure below. <img class="wp-smiley" src="../wp-includes/images/smilies/icon_smile.gif" alt=":)" /></p>
+<p><a href="http://blog.xkoder.com/wp-content/uploads/2008/07/array_madness.png"><img class="size-full wp-image-115" src="http://blog.xkoder.com/wp-content/uploads/2008/07/array_madness.png" alt="Array Madness Explained" width="460" height="485" /></a></p>
+<p><strong>Sparsely populated Array</strong></p>
+<p>In Javascript arrays can be sparsely populated, that is, you need not fill-up each and every location in an array. Consider the following example.</p>
+<pre>var myArray = new Array();
+
+myArray[0] = 200;
+myArray[5] = 300;
+
+alert(myArray);
+
+// the alert dialog box shows 200.
+alert(myArray[0]);
+
+// 300 will be shown in the alert box.
+alert(myArray[5]);
+
+// this shows 'undefined'
+alert(myArray[2]);
+
+// this will show '6' in the alert box.
+alert(myArray.length);</pre>
+<p>The above code creates a sparsely populated array, courtesy the statement myArray[5] = 300; All intermediate locations from index 1 to index 2 are created but nothing is stored there, essentially they are not-defined. <strong>Note</strong> that though the number of elements stored is two the array length is shown as 6. This is because, though the elements may be empty (technically undefined) they are part of the array.</p>
+<p><strong>An examples that uses the techniques shown above.</strong></p>
+<pre>// Store Fibonacci series in an array
+
+// Disclaimer: the code snippet here
+// just serves the purpose of
+// illustrating usage of array and by
+// no means is an efficient or
+// elegant solution (even if it is one</pre>
+<p><img class="wp-smiley" src="../wp-includes/images/smilies/icon_wink.gif" alt=";)" /></p>
+<pre> )
+// to calculate or find Fibonacci series/numbers.
+
+var myArray = new Array;
+var maxNum = 100;
+
+var a = 0;
+var b = 0;
+var c = 1;
+
+while(c &lt; maxNum)
+{
+    myArray[myArray.length] = c;
+    a = b;
+    b = c;
+    c = a + b;
+}
+
+// displays
+// Fibonacci Series : 1,1,2,3,5,8,13,21,34,55,89
+alert("Fibonacci Series :" +  myArray);
+
+// display - Array Length : 11
+alert("Array Length :" + myArray.length);</pre>
+<h2>Associative Arrays or something else!</h2>
+<p>Before we explain the “something else!” part in the heading, some definitions and examples.</p>
+<p><strong>Associative Array:</strong> In simple words associative arrays use Strings instead of Integer numbers as index. So we can have something like,</p>
+<pre>var myArray = new Array();
+
+myArray["abc"] = 200;
+myArray["xyz"] = 300;</pre>
+<p>Here the indexes “abc” and “xyz” are called keys and these keys are mapped to the values 200 and 300. So we say that the key “abc” maps to ‘200′ and similarly the key “xyz” maps to ‘200′. It’s that simple!</p>
+<p><strong>Where to use associative arrays?</strong><br />
+I’m presenting few example here, where associative arrays may be helpful.</p>
+<p><strong>Databases:</strong> Consider a table with following columns and types, in the format COLUMN_NAME as TYPE</p>
+<p>NAME as TEXT, MARKS as NUMBER, DOB as DATE.</p>
+<p>In your code if you were to find the type of a column, you can create an associative array as follows:</p>
+<pre>var studentTypes = new Array();
+
+studentTypes["NAME"] = "TEXT";
+studentTypes["MARKS"] = "NUMBER";
+studentTypes["DOB"] = "DATE";
+
+alert("Type of MARKS is :" +
+      studentTypes["MARKS"] );</pre>
+<p>As with normal arrays we need not remember the index number. Using the column names as keys we can directly get the types from the mapping.</p>
+<p>This is a very trivial example, but the associative array concept can greatly simply coding for similar scenarios.</p>
+<p><em>“But what about the ’something else!’ part”</em>, I hear you saying <img class="wp-smiley" src="../wp-includes/images/smilies/icon_smile.gif" alt=":)" /> read ahead to know the truth about Javascript associative arrays.</p>
+<p><strong>Magic and mystery continued…</strong></p>
+<p>Try the following code snippet.</p>
+<pre>var myArray = new Array();
+
+myArray["a"] = 100;
+myArray["c"] = 200;
+
+// the alert box will contain nothing,
+// it'll be empty!!
+alert(myArray);</pre>
+<p><em>“What happened here? why did the alert box print nothing? why didn’t it output 100,200?”</em>, don’t be too startled, more mysterious things are about to happen…</p>
+<p>Try another piece of code.</p>
+<pre>var myArray = new Array();
+
+myArray["a"] = 100;
+myArray["c"] = 200;
+
+alert(myArray.length); // output: 0</pre>
+<p><em>“What? ZERO!”</em> … yes zero, because my friend there is NO such things as associative arrays in Javascript. <em>“WHAT!”</em>, you say, but you read it correct. Read ahead to know what these <em>“key” to “value”</em> mappings are.</p>
+<p><strong>Object and Properties and Not Associative Arrays</strong></p>
+<p>Javascript allows you to add properties to objects by using the following syntax:</p>
+<pre>Object.yourProperty = value;</pre>
+<p>An alternate syntax for the same is:</p>
+<pre>Object["yourProperty"] = value;</pre>
+<p>Shoosh!… If you are not getting what’s going on, you may skip to the next section, and I promise, it won’t hurt your usage of the so called associative arrays in Javascript.</p>
+<p>Well, back to the discussion. In the code where we say <em>myArray["a"] = 100;</em> What we really are doing is creating a property named “a” for the “myArray” object and storing the value 100 in the property.</p>
+<p>try the following code, to make things clearer,</p>
+<pre>var myArray = new Array();
+
+myArray["a"] = 100;
+
+myArray.b = 200;
+
+alert(myArray.a);
+alert(myArray["b"]);</pre>
+<p><strong>Remember:</strong> These are not alternate ways to assign values to an associative arrays, these are alternate ways to assign properties to an object.</p>
+<p>The object “myArray” is of the type Array() in our example, courtesy the statement <em>“var myArray = new Array();”</em>. But in theory and in practice you can use <em>any Class’s</em> object to simulate the associative array. Try the following code and you’ll get what I mean by <em>using any Class’s object</em>.</p>
+<pre>var myArray = new Date();
+
+myArray["a"] = 100;
+myArray["b"] = 200;
+
+alert(myArray["b"]); // output: 200.</pre>
+<p>Got the point? Good! <img src='http://blog.xkoder.com/wp-includes/images/smilies/icon_smile.gif' alt=':)' class='wp-smiley' /> , but<span style="text-decoration: line-through;"> I suggest you use the Array class (for simulating the associative array behavior), as it makes the code more obvious (when read)</span>. As pointed by <a title="Why not to use Array class" href="http://blog.xkoder.com/2008/07/10/javascript-associative-arrays-demystified/#4264">Nelson</a>, using an Array class comes with extra baggage, like the functions push(), pop() and sort() and the property .length, which are of no use with the data we are storing. So as suggested by Nelson, we can use the plain Object class or the curly bracket notation to simulate the associative array behavior.</p>
+<p>Now that the mystery is solved, just to avoid confusion, let’s use the term “associative arrays” for the Object-Property assignment behavior.</p>
+<p><strong>Tip 4 &#8211; Quick associative array creation</strong></p>
+<p>We cannot use the Array() constructor to assign elements to associative arrays as we did with normal (proper) arrays. But we can use the Javascript’s object notation to simulate the square bracket effect. (<em>see tip 2</em>).</p>
+<p>Check out the code first:</p>
+<pre>var myArray = { "abc":200, "xyz": 300};
+
+alert(myArray["abc"]); // output: 200</pre>
+<p>The curly braces is a quick way to define an object, specifically and unnamed object or an object with no class. Normally we have been creating objects using the new operator, which expects a class name to be present.</p>
+<p>The colon separates the property name and the value associated with it. The property name goes to the left of the colon and the value goes to the right. Multiple properties are separated using a comma.</p>
+<p><em>The quotation marks enclosing the property names is optional, but is required if you are going to use property names with spaces.</em></p>
+<p>In the associative array terminology, just replace the term <em>property</em> from the above paragraph with <em>key</em>.</p>
+<p><strong>Tip 5 &#8211; using for(in) to iterate through an Associative array</strong></p>
+<p>You can iterate through an associative array using the for..in loop construct as follows.</p>
+<pre>var myArray = {abc: 200, "x y z": 300};
+
+for(key in myArray)
+{
+   alert("key " + key
+         + " has value "
+         + myArray[key]);
+}</pre>
+<p>The above code snippet will display two alert boxes with the following text “key abc has value 200″ and “key x y z has value 300″ respectively.</p>
+<p><em>Some explanation:</em><br />
+The for loop here iterates through all the properties of the object “myArray”. The variable “key” will contain the property name inside the for block, which can be used with the object to retrieve the property’s value.</p>
+<p>In terms of associative array, you can think of the <em>for..in</em> construct to be iterating through all the “keys” in the array one by one, assigning the key’s name to the variable “key”.</p>
+<h3>Epilogue</h3>
+<p>I’ve not gone into much details about the Javascript object notation and neither have I dealt too extensively with the associative array concept, but nevertheless I’ve tried to present the concept of associative arrays in as simple a manner possible. I hope the post will help the newcomers to Javascript and experienced programmers alike.</p>
+<p>Thank you for reading. <img class="wp-smiley" src="../wp-includes/images/smilies/icon_smile.gif" alt=":)" /></p>
+<p><span class='st_facebook_vcount' st_title='JavaScript Associative Arrays Demystified' st_url='http://blog.xkoder.com/2008/07/10/javascript-associative-arrays-demystified/' displayText='share'></span><span class='st_twitter_vcount' st_title='JavaScript Associative Arrays Demystified' st_url='http://blog.xkoder.com/2008/07/10/javascript-associative-arrays-demystified/' displayText='share'></span><span class='st_email_vcount' st_title='JavaScript Associative Arrays Demystified' st_url='http://blog.xkoder.com/2008/07/10/javascript-associative-arrays-demystified/' displayText='share'></span><span class='st_sharethis_vcount' st_title='JavaScript Associative Arrays Demystified' st_url='http://blog.xkoder.com/2008/07/10/javascript-associative-arrays-demystified/' displayText='share'></span></p> 
+        
+        <em>Like this post? </em>
+        <!--<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+			xmlns:dc="http://purl.org/dc/elements/1.1/"
+			xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/">
+		<rdf:Description rdf:about="http://blog.xkoder.com/2008/07/10/javascript-associative-arrays-demystified/"
+    dc:identifier="http://blog.xkoder.com/2008/07/10/javascript-associative-arrays-demystified/"
+    dc:title="JavaScript Associative Arrays Demystified"
+    trackback:ping="http://blog.xkoder.com/2008/07/10/javascript-associative-arrays-demystified/trackback/" />
+</rdf:RDF>--><div class="tags">Tags:<a href="http://blog.xkoder.com/tag/arrays/" rel="tag">arrays</a>, <a href="http://blog.xkoder.com/tag/associative/" rel="tag">associative</a>, <a href="http://blog.xkoder.com/tag/javascript/" rel="tag">javascript</a></div>
+<div id="disqus_thread">
+                    <div id="dsq-content">
+
+
+            <ul id="dsq-comments">
+                    <li class="comment even thread-even depth-1" id="dsq-comment-83">
+        <div id="dsq-comment-header-83" class="dsq-comment-header">
+            <cite id="dsq-cite-83">
+http://santmedia.co.uk                <span id="dsq-author-user-83">Steve Sant</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-83" class="dsq-comment-body">
+            <div id="dsq-comment-message-83" class="dsq-comment-message"><p>Great! I&#8217;ve been looking for an explanation of the curly bracket, and colon type notation of nested associative arrays for hours! Your site was the first I found with anything my poor brain could absorb! Thanks!</p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+    <li class="comment odd alt thread-odd thread-alt depth-1" id="dsq-comment-84">
+        <div id="dsq-comment-header-84" class="dsq-comment-header">
+            <cite id="dsq-cite-84">
+http://www.fuzzystyle.com                <span id="dsq-author-user-84">Fuzzystyle</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-84" class="dsq-comment-body">
+            <div id="dsq-comment-message-84" class="dsq-comment-message"><p>Thank you for the article, you clarified a few points for me.</p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+    <li class="comment even thread-even depth-1" id="dsq-comment-85">
+        <div id="dsq-comment-header-85" class="dsq-comment-header">
+            <cite id="dsq-cite-85">
+                <span id="dsq-author-user-85">Noah</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-85" class="dsq-comment-body">
+            <div id="dsq-comment-message-85" class="dsq-comment-message"><p>Nice article.  Thanks!</p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+    <li class="comment odd alt thread-odd thread-alt depth-1" id="dsq-comment-86">
+        <div id="dsq-comment-header-86" class="dsq-comment-header">
+            <cite id="dsq-cite-86">
+http://alekdavis.blogspot.com                <span id="dsq-author-user-86">Alek Davis</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-86" class="dsq-comment-body">
+            <div id="dsq-comment-message-86" class="dsq-comment-message"><p>Good explanation. Thank you.</p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+    <li class="comment even thread-even depth-1" id="dsq-comment-87">
+        <div id="dsq-comment-header-87" class="dsq-comment-header">
+            <cite id="dsq-cite-87">
+http://www.somebits.com/weblog/                <span id="dsq-author-user-87">Nelson</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-87" class="dsq-comment-body">
+            <div id="dsq-comment-message-87" class="dsq-comment-message"><p>This is a great explanation and I&#8217;m seeing it pointed to a lot (like on StackOverflow). Thanks!</p>
+<p>I&#8217;m new to Javascript, but I have opinions <img src='http://blog.xkoder.com/wp-includes/images/smilies/icon_smile.gif' alt=':-)' class='wp-smiley' />  I think &#8220;I suggest you use the Array class (for simulating the associative array behavior)&#8221; may be bad advice. The problem is that your associative array thingie will have a bunch of properties like .length and functions like push() and sort() that don&#8217;t work on the data you&#8217;re actually storing there. A lot of the Javascript code I&#8217;m reading uses a plain Object instead, it seems clearer that way.</p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+    <li class="comment odd alt thread-odd thread-alt depth-1" id="dsq-comment-88">
+        <div id="dsq-comment-header-88" class="dsq-comment-header">
+            <cite id="dsq-cite-88">
+http://xkoder.com                <span id="dsq-author-user-88">xk0der</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-88" class="dsq-comment-body">
+            <div id="dsq-comment-message-88" class="dsq-comment-message"><p>@Nelson:<br />
+You have a valid point, I just didn&#8217;t think about it, while writing. <img src='http://blog.xkoder.com/wp-includes/images/smilies/icon_smile.gif' alt=':)' class='wp-smiley' /> </p>
+<p>I&#8217;ll correct the post.</p>
+<p>Thanks for pointing out this issue <img src='http://blog.xkoder.com/wp-includes/images/smilies/icon_smile.gif' alt=':)' class='wp-smiley' /> </p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+    <li class="comment even thread-even depth-1" id="dsq-comment-89">
+        <div id="dsq-comment-header-89" class="dsq-comment-header">
+            <cite id="dsq-cite-89">
+                <span id="dsq-author-user-89">Hans Schou</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-89" class="dsq-comment-body">
+            <div id="dsq-comment-message-89" class="dsq-comment-message"><p>As Steve, I was also looking for that curly bracket colon notation.</p>
+<p>Thanks.</p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+    <li class="comment odd alt thread-odd thread-alt depth-1" id="dsq-comment-90">
+        <div id="dsq-comment-header-90" class="dsq-comment-header">
+            <cite id="dsq-cite-90">
+http://www.commacommacrash.com                <span id="dsq-author-user-90">Joel Bradshaw</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-90" class="dsq-comment-body">
+            <div id="dsq-comment-message-90" class="dsq-comment-message"><p>Awesome post!  I&#8217;ve never quite understood how all this works, and this post cleared it right up.  Thanks much!</p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+    <li class="comment even thread-even depth-1" id="dsq-comment-91">
+        <div id="dsq-comment-header-91" class="dsq-comment-header">
+            <cite id="dsq-cite-91">
+http://lesliesblog.smartsnight.com/                <span id="dsq-author-user-91">seedogiag</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-91" class="dsq-comment-body">
+            <div id="dsq-comment-message-91" class="dsq-comment-message"><p>Great, I didn&#8217;t heard about that until now. Thx!!</p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+    <li class="comment odd alt thread-odd thread-alt depth-1" id="dsq-comment-92">
+        <div id="dsq-comment-header-92" class="dsq-comment-header">
+            <cite id="dsq-cite-92">
+                <span id="dsq-author-user-92">Ulrich</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-92" class="dsq-comment-body">
+            <div id="dsq-comment-message-92" class="dsq-comment-message"><p>I would use new Object() instead of new Array() for creation, because there are no real associative _arrays_ in JS.</p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+    <li class="comment even thread-even depth-1" id="dsq-comment-93">
+        <div id="dsq-comment-header-93" class="dsq-comment-header">
+            <cite id="dsq-cite-93">
+http://xkoder.com                <span id="dsq-author-user-93">xk0der</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-93" class="dsq-comment-body">
+            <div id="dsq-comment-message-93" class="dsq-comment-message"><p>@Ulrich wrote &#8220;there are no real associative _arrays_ in JS&#8221;</p>
+<p>That&#8217;s the whole point of this blog post <img src='http://blog.xkoder.com/wp-includes/images/smilies/icon_smile.gif' alt=':)' class='wp-smiley' /> , to clarify and put forth the point that &#8220;there are no associative arrays in JavaScript&#8221; instead they are properties of an Object.</p>
+<p>Use of Array() in the initial examples is make it easier for the reader to understand the concept.</p>
+<p>If you read the two paragraph above sub heading &#8220;Tip-4&#8243; it mentions what you state in your comment. <img src='http://blog.xkoder.com/wp-includes/images/smilies/icon_smile.gif' alt=':)' class='wp-smiley' /> </p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+    <li class="post pingback">
+        <p>Pingback: <a href='http://selfloud.net/idia619/?p=85' rel='external nofollow' class='url'>Review and Geolocation | IDIA 619: Interactive Multimedia</a></p>
+    </li>
+    </li><!-- #comment-## -->
+    <li class="post pingback">
+        <p>Pingback: <a href='http://themanfromtheministry.wordpress.com/2012/03/20/codecademy-codeyear-lesson-10-arrays-and-rock-paper-scissors/' rel='external nofollow' class='url'>Codecademy CodeYear Lesson 10 &#8211; Arrays and Rock, Paper, Scissors &laquo; The Man from the Ministry</a></p>
+    </li>
+    </li><!-- #comment-## -->
+    <li class="post pingback">
+        <p>Pingback: <a href='http://blog.kevinchisholm.com/javascript/associative-arrays-in-javascript/' rel='external nofollow' class='url'>Associative Arrays in JavaScript | Kevin Chisholm - Blog</a></p>
+    </li>
+    </li><!-- #comment-## -->
+            </ul>
+
+
+        </div>
+
+    </div>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+    var disqus_url = 'http://blog.xkoder.com/2008/07/10/javascript-associative-arrays-demystified/';
+    var disqus_identifier = '126 http://blog.xkoder.com/?p=4';
+    var disqus_container_id = 'disqus_thread';
+    var disqus_domain = 'disqus.com';
+    var disqus_shortname = 'xk0der';
+    var disqus_title = "JavaScript Associative Arrays Demystified";
+        var disqus_config = function () {
+        var config = this; // Access to the config object
+        config.language = '';
+
+        /*
+           All currently supported events:
+            * preData — fires just before we request for initial data
+            * preInit - fires after we get initial data but before we load any dependencies
+            * onInit  - fires when all dependencies are resolved but before dtpl template is rendered
+            * afterRender - fires when template is rendered but before we show it
+            * onReady - everything is done
+         */
+
+        config.callbacks.preData.push(function() {
+            // clear out the container (its filled for SEO/legacy purposes)
+            document.getElementById(disqus_container_id).innerHTML = '';
+        });
+                config.callbacks.onReady.push(function() {
+            // sync comments in the background so we don't block the page
+            var script = document.createElement('script');
+            script.async = true;
+            script.src = '?cf_action=sync_comments&post_id=126';
+
+            var firstScript = document.getElementsByTagName( "script" )[0];
+            firstScript.parentNode.insertBefore(script, firstScript);
+        });
+                    };
+/* ]]> */
+</script>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+    var DsqLocal = {
+        'trackbacks': [
+            {
+                'author_name':    "Review and Geolocation | IDIA 619: Interactive Multimedia",
+                'author_url':    "http:\/\/selfloud.net\/idia619\/?p=85",
+                'date':            "03\/12\/2012 08:12 PM",
+                'excerpt':        "[...] Associative Arrays ( {} ) [...] ",
+                'type':            "pingback"            }
+,            {
+                'author_name':    "Codecademy CodeYear Lesson 10 &#8211; Arrays and Rock, Paper, Scissors &laquo; The Man from the Ministry",
+                'author_url':    "http:\/\/themanfromtheministry.wordpress.com\/2012\/03\/20\/codecademy-codeyear-lesson-10-arrays-and-rock-paper-scissors\/",
+                'date':            "03\/20\/2012 08:47 PM",
+                'excerpt':        "[...] keys just didn&#8217;t gel with me &#8211; and I ended up Googling to find out more.  Try this excellent &hellip;",
+                'type':            "pingback"            }
+,            {
+                'author_name':    "Associative Arrays in JavaScript | Kevin Chisholm - Blog",
+                'author_url':    "http:\/\/blog.kevinchisholm.com\/javascript\/associative-arrays-in-javascript\/",
+                'date':            "07\/14\/2012 11:08 PM",
+                'excerpt':        "[...] http:\/\/blog.xkoder.com\/2008\/07\/10\/javascript-associative-arrays-demystified\/ [...] ",
+                'type':            "pingback"            }
+        ],
+        'trackback_url': "http:\/\/blog.xkoder.com\/2008\/07\/10\/javascript-associative-arrays-demystified\/trackback\/"    };
+/* ]]> */
+</script>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.' + 'disqus.com' + '/embed.js?pname=wordpress&pver=2.74';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+/* ]]> */
+</script>
+
+</div>
+
+<div id="sidebar" style="float:left;">
+
+		<form action="http://blog.xkoder.com" method="get" id="search">
+		<p><label for="s">search</label>
+		<input value="" name="s" id="s" />
+		<input type="submit" value="go!" class="button" id="searchbutton" name="searchbutton" /></p>
+		</form>
+		
+		<ul>
+		
+		<a href='http://xkoder.com'>http://xkoder.com</a>	
+                 <p>
+                        <a href="http://feeds.feedburner.com/xk0der" rel="alternate" type="application/rss+xml">
+                        	<img src="http://www.feedburner.com/fb/images/pub/feed-icon16x16.png" 
+                        		alt="" 
+                        		style="vertical-align:middle;border:0"/>
+                        </a>
+			<a href="http://feeds.feedburner.com/xk0der">
+				<img src="http://feeds.feedburner.com/~fc/xk0der?bg=99CCFF&amp;fg=444444&amp;anim=0" 
+					  height="26" 
+					  width="88" 
+					  style="border:0" 
+					  alt="" 
+					  align="center">
+			</a>
+	 	 </p>
+<li><div id="wp-cal-container"><table id="wp-calendar">
+	<caption>July 2008</caption>
+	<thead>
+	<tr>
+		<th scope="col" title="Monday">M</th>
+		<th scope="col" title="Tuesday">T</th>
+		<th scope="col" title="Wednesday">W</th>
+		<th scope="col" title="Thursday">T</th>
+		<th scope="col" title="Friday">F</th>
+		<th scope="col" title="Saturday">S</th>
+		<th scope="col" title="Sunday">S</th>
+	</tr>
+	</thead>
+
+	<tfoot>
+	<tr>
+		<td colspan="3" id="prev"><a href="http://blog.xkoder.com/2008/06/" title="View posts for June 2008">&laquo; Jun</a></td>
+		<td class="pad">&nbsp;</td>
+		<td colspan="3" id="next"><a href="http://blog.xkoder.com/2008/08/" title="View posts for August 2008">Aug &raquo;</a></td>
+	</tr>
+	</tfoot>
+
+	<tbody>
+	<tr>
+		<td colspan="1" class="pad">&nbsp;</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td>
+	</tr>
+	<tr>
+		<td>7</td><td>8</td><td>9</td><td><a href="http://blog.xkoder.com/2008/07/10/" title="JavaScript Associative Arrays Demystified">10</a></td><td>11</td><td>12</td><td>13</td>
+	</tr>
+	<tr>
+		<td>14</td><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td><td>20</td>
+	</tr>
+	<tr>
+		<td>21</td><td>22</td><td>23</td><td>24</td><td>25</td><td>26</td><td>27</td>
+	</tr>
+	<tr>
+		<td>28</td><td>29</td><td>30</td><td>31</td>
+		<td class="pad" colspan="3">&nbsp;</td>
+	</tr>
+	</tbody>
+	</table></div></li><li id="rss-3" class="widget widget_rss"><h2 class="widgettitle"><a class='rsswidget' href='http://twitter.com/xk0der' title='Syndicate this content'><img style='border:0' width='14' height='14' src='http://blog.xkoder.com/wp-includes/images/rss.png' alt='RSS' /></a> <a class='rsswidget' href='' title=''>My Tweets</a></h2>
+</li>
+<li id="recent-comments-3" class="widget widget_recent_comments"><h2 class="widgettitle">Recent Comments</h2>
+<ul id="recentcomments"><li class="recentcomments">Mohit Garg on <a href="http://blog.xkoder.com/2008/08/13/git-tutorial-starting-with-git-using-just-10-commands/#comment-5613">Git Tutorial : Starting with git using just 10 commands</a></li><li class="recentcomments">Yati on <a href="http://blog.xkoder.com/2008/06/04/setting-up-linksys-wifi-router-with-airtel-broadband/#comment-4039">Setting up Linksys WiFi router with Airtel Broadband</a></li><li class="recentcomments">Mitch on <a href="http://blog.xkoder.com/2006/06/08/c-and-net-will-die/#comment-3437">C# and .NET will die!</a></li><li class="recentcomments"><a href='https://confluence.broadinstitute.org/display/PIC/Git+Primer' rel='external nofollow' class='url'>Confluence: Picard</a> on <a href="http://blog.xkoder.com/2008/08/13/git-tutorial-starting-with-git-using-just-10-commands/#comment-2740">Git Tutorial : Starting with git using just 10 commands</a></li><li class="recentcomments">Martin Hansen on <a href="http://blog.xkoder.com/2008/08/13/git-tutorial-starting-with-git-using-just-10-commands/#comment-2608">Git Tutorial : Starting with git using just 10 commands</a></li></ul></li>
+		<li id="recent-posts-3" class="widget widget_recent_entries">		<h2 class="widgettitle">Recent Posts</h2>
+		<ul>
+					<li>
+				<a href="http://blog.xkoder.com/2011/08/08/my-wifes-cesarean/">My Wife&#8217;s Cesarean</a>
+						</li>
+					<li>
+				<a href="http://blog.xkoder.com/2009/06/06/git-tutorial-part-ii-sharpen-you-git-fu-with-10-more-commands/">Git Tutorial Part II &#8211; Sharpen your Git-Fu with 10 more commands.</a>
+						</li>
+					<li>
+				<a href="http://blog.xkoder.com/2008/08/29/google-ads-under-testing/">Google Ads : Under Testing :)</a>
+						</li>
+					<li>
+				<a href="http://blog.xkoder.com/2008/08/13/git-tutorial-starting-with-git-using-just-10-commands/">Git Tutorial : Starting with git using just 10 commands</a>
+						</li>
+					<li>
+				<a href="http://blog.xkoder.com/2008/07/10/javascript-associative-arrays-demystified/">JavaScript Associative Arrays Demystified</a>
+						</li>
+				</ul>
+		</li>
+<li id="tag_cloud-3" class="widget widget_tag_cloud"><h2 class="widgettitle">Tag Cloud</h2>
+<div class="tagcloud"><a href='http://blog.xkoder.com/tag/net/' class='tag-link-8' title='1 topic' style='font-size: 8pt;'>.net</a>
+<a href='http://blog.xkoder.com/tag/ad/' class='tag-link-9' title='1 topic' style='font-size: 8pt;'>ad</a>
+<a href='http://blog.xkoder.com/tag/airtel/' class='tag-link-10' title='1 topic' style='font-size: 8pt;'>airtel</a>
+<a href='http://blog.xkoder.com/tag/apache/' class='tag-link-11' title='1 topic' style='font-size: 8pt;'>apache</a>
+<a href='http://blog.xkoder.com/tag/arrays/' class='tag-link-12' title='1 topic' style='font-size: 8pt;'>arrays</a>
+<a href='http://blog.xkoder.com/tag/associative/' class='tag-link-13' title='1 topic' style='font-size: 8pt;'>associative</a>
+<a href='http://blog.xkoder.com/tag/c/' class='tag-link-14' title='1 topic' style='font-size: 8pt;'>c#</a>
+<a href='http://blog.xkoder.com/tag/communication/' class='tag-link-15' title='1 topic' style='font-size: 8pt;'>communication</a>
+<a href='http://blog.xkoder.com/tag/current/' class='tag-link-16' title='1 topic' style='font-size: 8pt;'>current</a>
+<a href='http://blog.xkoder.com/tag/cyber/' class='tag-link-17' title='1 topic' style='font-size: 8pt;'>cyber</a>
+<a href='http://blog.xkoder.com/tag/democracy/' class='tag-link-18' title='1 topic' style='font-size: 8pt;'>democracy</a>
+<a href='http://blog.xkoder.com/tag/design/' class='tag-link-19' title='1 topic' style='font-size: 8pt;'>design</a>
+<a href='http://blog.xkoder.com/tag/emulator/' class='tag-link-20' title='1 topic' style='font-size: 8pt;'>emulator</a>
+<a href='http://blog.xkoder.com/tag/engineering/' class='tag-link-21' title='1 topic' style='font-size: 8pt;'>engineering</a>
+<a href='http://blog.xkoder.com/tag/fedora/' class='tag-link-22' title='1 topic' style='font-size: 8pt;'>fedora</a>
+<a href='http://blog.xkoder.com/tag/firefox/' class='tag-link-23' title='1 topic' style='font-size: 8pt;'>firefox</a>
+<a href='http://blog.xkoder.com/tag/fu/' class='tag-link-24' title='1 topic' style='font-size: 8pt;'>fu</a>
+<a href='http://blog.xkoder.com/tag/funny/' class='tag-link-25' title='1 topic' style='font-size: 8pt;'>funny</a>
+<a href='http://blog.xkoder.com/tag/git/' class='tag-link-26' title='3 topics' style='font-size: 22pt;'>git</a>
+<a href='http://blog.xkoder.com/tag/google/' class='tag-link-27' title='1 topic' style='font-size: 8pt;'>google</a>
+<a href='http://blog.xkoder.com/tag/india/' class='tag-link-28' title='2 topics' style='font-size: 16.4pt;'>india</a>
+<a href='http://blog.xkoder.com/tag/java/' class='tag-link-29' title='2 topics' style='font-size: 16.4pt;'>java</a>
+<a href='http://blog.xkoder.com/tag/javascript/' class='tag-link-30' title='1 topic' style='font-size: 8pt;'>javascript</a>
+<a href='http://blog.xkoder.com/tag/language/' class='tag-link-31' title='2 topics' style='font-size: 16.4pt;'>language</a>
+<a href='http://blog.xkoder.com/tag/linksys/' class='tag-link-32' title='1 topic' style='font-size: 8pt;'>linksys</a>
+<a href='http://blog.xkoder.com/tag/mail/' class='tag-link-33' title='2 topics' style='font-size: 16.4pt;'>mail</a>
+<a href='http://blog.xkoder.com/tag/media-defender/' class='tag-link-34' title='1 topic' style='font-size: 8pt;'>media defender</a>
+<a href='http://blog.xkoder.com/tag/programming/' class='tag-link-6' title='1 topic' style='font-size: 8pt;'>Programming</a>
+<a href='http://blog.xkoder.com/tag/python/' class='tag-link-35' title='1 topic' style='font-size: 8pt;'>python</a>
+<a href='http://blog.xkoder.com/tag/revision3/' class='tag-link-36' title='1 topic' style='font-size: 8pt;'>revision3</a>
+<a href='http://blog.xkoder.com/tag/router/' class='tag-link-37' title='1 topic' style='font-size: 8pt;'>router</a>
+<a href='http://blog.xkoder.com/tag/ruby/' class='tag-link-38' title='1 topic' style='font-size: 8pt;'>ruby</a>
+<a href='http://blog.xkoder.com/tag/scripting/' class='tag-link-39' title='1 topic' style='font-size: 8pt;'>scripting</a>
+<a href='http://blog.xkoder.com/tag/service/' class='tag-link-40' title='1 topic' style='font-size: 8pt;'>service</a>
+<a href='http://blog.xkoder.com/tag/smtp/' class='tag-link-41' title='1 topic' style='font-size: 8pt;'>smtp</a>
+<a href='http://blog.xkoder.com/tag/software/' class='tag-link-42' title='1 topic' style='font-size: 8pt;'>software</a>
+<a href='http://blog.xkoder.com/tag/stress/' class='tag-link-43' title='1 topic' style='font-size: 8pt;'>stress</a>
+<a href='http://blog.xkoder.com/tag/testing/' class='tag-link-44' title='1 topic' style='font-size: 8pt;'>testing</a>
+<a href='http://blog.xkoder.com/tag/tool/' class='tag-link-45' title='1 topic' style='font-size: 8pt;'>tool</a>
+<a href='http://blog.xkoder.com/tag/trac/' class='tag-link-46' title='1 topic' style='font-size: 8pt;'>trac</a>
+<a href='http://blog.xkoder.com/tag/tutorial/' class='tag-link-47' title='1 topic' style='font-size: 8pt;'>tutorial</a>
+<a href='http://blog.xkoder.com/tag/url/' class='tag-link-48' title='1 topic' style='font-size: 8pt;'>url</a>
+<a href='http://blog.xkoder.com/tag/urlbar/' class='tag-link-49' title='1 topic' style='font-size: 8pt;'>urlbar</a>
+<a href='http://blog.xkoder.com/tag/version-control/' class='tag-link-50' title='3 topics' style='font-size: 22pt;'>version control</a>
+<a href='http://blog.xkoder.com/tag/virtualization/' class='tag-link-51' title='1 topic' style='font-size: 8pt;'>virtualization</a></div>
+</li>
+			
+  	</ul>
+  		
+
+		<ul id="feeds">
+		<li><h3>Feeds</h3></li>
+		<li><a href="http://blog.xkoder.com/feed/">Full</a></li>
+		<li><a href="http://xk0der.disqus.com/latest.rss">Comments</a></li>
+		</ul>
+		
+</div>
+
+
+		<ul id="footer">
+			<li>&copy; 2007-09 Amit Singh (xk0der), All rights reserved.</li>
+			<!-- I'd appreciate the credit being left in, thanks in advance -->
+			<li><a href="http://www.binarymoon.co.uk/" title="Regulus by Ben Gillbanks from Binary Moon - video games and emtertainment">Regulus by Ben @ Binary Moon</a></li>
+			<li><a href="http://www.wordpress.org/" title="Powered by Wordpress">Created with WordPress</a></li>
+			<li><a href="#nav" title="Jump to top of page">Top</a></li>
+		</ul>
+		
+	</div>
+	
+	<div style="margin-left:auto; margin-right:50px; margin-top:10px;">
+		<br/>
+		<script type="text/javascript"><!--
+		google_ad_client = "pub-2464902403098719";
+		/* Blog-side */
+		google_ad_slot = "5049206853";
+		google_ad_width = 120;
+		google_ad_height = 600;
+		//-->
+		</script>
+		<script type="text/javascript"
+		src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+		</script>
+	</div>
+	
+	</div>
+
+	<script type='text/javascript' src='http://s0.wp.com/wp-content/js/devicepx-jetpack.js?ver=201348'></script>
+<!--stats_footer_test--><script src="http://stats.wordpress.com/e-201348.js" type="text/javascript"></script>
+<script type="text/javascript">
+st_go({blog:'4421135',v:'ext',post:'126'});
+var load_cmc = function(){linktracker_init(4421135,126,2);};
+if ( typeof addLoadEvent != 'undefined' ) addLoadEvent(load_cmc);
+else load_cmc();
+</script>
+
+</body>
+</html>
+<!-- Dynamic page generated in 1.025 seconds. -->
+<!-- Cached page generated by WP-Super-Cache on 2013-11-27 00:21:15 -->
+
+<!-- super cache -->
