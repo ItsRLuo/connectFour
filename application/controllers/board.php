@@ -100,11 +100,9 @@ class Board extends CI_Controller {
     	$rowNum = $position[1];
     	echo print_r($board_state);
     	
-    	$board_state["match_arr"][$rowNum][$colNum] = 1;
+    	$board_state->match_arr[$rowNum][$colNum] = $board_state->curr_player;
 
-    	$board_state["currPlayer"] = 3 - $board_state["currPlayer"];
-    	
-    	
+    	$board_state->curr_player = 3 - $board_state->curr_player;
     	
     	$board_state = json_encode($board_state);
     	// start transactional mode

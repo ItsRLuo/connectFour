@@ -25,8 +25,8 @@
                    sizemode="normal"
                    height="903"
                    width="1251"
-                   screenX="762"
-                   screenY="301" />
+                   screenX="513"
+                   screenY="36" />
   <RDF:Description RDF:about="chrome://browser/content/places/places.xul#placesContentKeyword"
                    ordinal="11" />
   <RDF:Description RDF:about="chrome://browser/content/places/places.xul#placesContentUrl"
@@ -34,9 +34,9 @@
   <RDF:Description RDF:about="chrome://browser/content/devtools/framework/toolbox-window.xul#devtools-toolbox-window"
                    sizemode="normal"
                    height="742"
-                   width="2010"
-                   screenX="-31"
-                   screenY="865" />
+                   width="2086"
+                   screenX="-506"
+                   screenY="132" />
   <RDF:Description RDF:about="chrome://browser/content/places/places.xul#placesContentDate"
                    ordinal="7" />
   <RDF:Description RDF:about="chrome://mozapps/content/downloads/unknownContentType.xul">
@@ -56,7 +56,7 @@
   <RDF:Description RDF:about="chrome://browser/content/places/places.xul#placesContentLastModified"
                    ordinal="17" />
   <RDF:Description RDF:about="chrome://browser/content/browser.xul#search-container"
-                   width="205" />
+                   width="270" />
   <RDF:Description RDF:about="chrome://browser/content/browser.xul">
     <NC:persist RDF:resource="chrome://browser/content/browser.xul#main-window"/>
     <NC:persist RDF:resource="chrome://browser/content/browser.xul#sidebar-box"/>
@@ -65,5 +65,5 @@
     <NC:persist RDF:resource="chrome://browser/content/browser.xul#search-container"/>
   </RDF:Description>
   <RDF:Description RDF:about="chrome://browser/content/browser.xul#urlbar-container"
-                   width="633" />
+                   width="864" />
 </RDF:RDF>
