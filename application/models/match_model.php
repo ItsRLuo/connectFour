@@ -47,5 +47,7 @@ class Match_model extends CI_Model {
 		return $this->db->update('match',array('board_state'=>$boardState));
 	}
 	
+
+	
 }
 ?>

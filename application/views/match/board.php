@@ -14,7 +14,6 @@
 	var otherUser = "<?= $otherUser->login ?>";
 	var user = "<?= $user->login ?>";
 	var status = "<?= $status ?>";
-	
 	$(document).ready(function () {
 
 	    $('form').submit(function () {
@@ -43,6 +42,16 @@
 	
 	            });
 	        }
+	        var url = "<?= base_url() ?>board/getMsg";
+	        $.getJSON(url, function (data, text, jqXHR) {
+	            if (data && data.status == 'success') {
+	                var conversation = $('[name=conversation]').val();
+	                var msg = data.message;
+	                if (msg != null && msg.length > 0 ) {
+	                    $('[name=conversation]').val(conversation + "\n" + otherUser + ": " + msg);
+	                }
+	            }
+	        });
 	        var url = "<?= base_url() ?>board/getMsg";
 	        $.getJSON(url, function (data, text, jqXHR) {
 	            if (data && data.status == 'success') {
@@ -106,15 +115,12 @@
 	<script>
 	var userID;
 	var currTurnID;
-	
 	$(document).ready(function() {
 	
 		currTurnID = <?php echo $currentTurn; ?>;
 		userID = <?php echo $userPlayerID; ?>;
-		
 		// Inserts a token into a slot, if it's the user's turn.
 		$('body').delegate('.emptySlot','click', makeMove);
-
 		// If it's the opponent's turn, this waits for the opponent to make a move.
 		$('body').everyTime(200, waitForOpponent);
 
@@ -128,6 +134,7 @@
 	            if (data && data.status == 'success') {
 					console.log("Received a message, loud and clear!");
 	            }
+	            // Update the board.
 	            currTurnID = 3 - currTurnID;
 	        });
 		}
@@ -143,10 +150,10 @@
 			// Get the column clicked, and the lowest slot in the column.
 			var thisColNum = extractColNum($(this));
 			var lowestSlot = getLowestRowInColumn(thisColNum);
-
+			var lowestSlots = getLowestRowInColumn(2);
 			// Insert a token into the selected column, if there is room.
 			lowestSlot.addClass('player' + userID).removeClass('emptySlot');
-			
+			lowestSlots.addClass('player' + 1).removeClass('emptySlot');
 			var argArray = {"currentPlayerTurn": currTurnID, "pieceAdded": new Array(thisColNum, extractRowNum(lowestSlot))};
 			var arguments = $.param(argArray);
 
