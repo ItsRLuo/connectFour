@@ -110,13 +110,13 @@ class Arcade extends CI_Controller {
 	     
 	    
 	    if ($this->db->trans_status() === FALSE)
-	    		goto transactionerror;
+	    	goto transactionerror;
 	    
 	    // if all went well commit changes
 	    $this->db->trans_commit();
 	    
 	    echo json_encode(array('status'=>'success'));
-	    
+
 	    return;
 	    
 	    // something went wrong

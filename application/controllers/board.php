@@ -29,17 +29,23 @@ class Board extends CI_Controller {
 
     	$invite = $this->invite_model->get($user->invite_id);
     	
+    	// The inviter
     	if ($user->user_status_id == User::WAITING) {
     		$invite = $this->invite_model->get($user->invite_id);
     		$otherUser = $this->user_model->getFromId($invite->user2_id);
     		$data['otherUser'] = $otherUser;
+    		
+    		// The inviter
+    		$data["currentTurn"] = 1;
+    		$data['otherUser'] = $otherUser;
     	}
+    	
+    	// The invited
     	else if ($user->user_status_id == User::PLAYING) {
     		$match = $this->match_model->get($user->match_id);
     		
     		$arr = json_decode($match->board_state);
 
-    		
     		// Determine who the other user is.
     		if ($match->user1_id == $user->id) {
     			$otherUser = $this->user_model->getFromId($match->user2_id);
@@ -82,13 +88,47 @@ class Board extends CI_Controller {
  		$user = $this->user_model->getExclusive($user->login);
  		if ($user->user_status_id != User::PLAYING) {	
 			$errormsg="Not in PLAYING state";
+			goto error;
  		}
  		
  		// Get the current match info.
     	$match = $this->match_model->get($user->match_id);
+    	$board_state = json_decode($match->board_state);
+    	$position = $this->input->post('pieceAdded');
     	
-    	echo json_encode(array('status'=>'success'));
+    	$colNum = $position[0];
+    	$rowNum = $position[1];
+    	echo print_r($board_state);
+    	
+    	$board_state["match_arr"][$rowNum][$colNum] = 1;
+
+    	$board_state["currPlayer"] = 3 - $board_state["currPlayer"];
+    	
+    	
+    	
+    	$board_state = json_encode($board_state);
+    	// start transactional mode
+    	$this->db->trans_begin();
+    	
+    	$this->match_model->updateBoard($user->match_id, $board_state);
+    	
+    	if ($this->db->trans_status() === FALSE) {
+    		$errormsg = "Transaction error";
+    		goto transactionerror;
+    	}
+    		
+    	// if all went well commit changes
+    	$this->db->trans_commit();
+    		
+    	echo json_encode(array('status'=>'success','message'=>$msg));
     	return;
+    	
+    	transactionerror:
+    	$this->db->trans_rollback();
+    	
+    	error:
+    	echo json_encode(array('status'=>'failure','message'=>$errormsg));
+
     }
     
     function opponentMadeMove() {

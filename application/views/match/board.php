@@ -38,6 +38,7 @@
 	                if (data && data.status == 'accepted') {
 	                    status = 'playing';
 	                    $('#status').html('Playing ' + otherUser);
+	                    window.location.href = '<?= base_url() ?>board/index';
 	                }
 	
 	            });
@@ -47,7 +48,7 @@
 	            if (data && data.status == 'success') {
 	                var conversation = $('[name=conversation]').val();
 	                var msg = data.message;
-	                if (msg.length > 0) {
+	                if (msg != null && msg.length > 0 ) {
 	                    $('[name=conversation]').val(conversation + "\n" + otherUser + ": " + msg);
 	                }
 	            }
@@ -152,7 +153,9 @@
 			
 	        var url = "<?= base_url() ?>board/makeMove";
 	        $.post(url, arguments, function (data, textStatus, jqXHR) {
-	        
+                if (data) {
+                
+                }
 	        });
 			
 	        currTurnID = 3 - currTurnID;
