@@ -45,7 +45,28 @@ class Board extends CI_Controller {
     		$match = $this->match_model->get($user->match_id);
     		
     		$arr = json_decode($match->board_state);
-
+    		try
+    		{
+    			foreach ($arr as $arrElem) {
+    				//place holder
+    				if (gettype($arrElem) != gettype(2)){
+    					foreach ($arrElem as $arrElemElem) {
+    						echo gettype($arrElemElem);
+    						foreach ($arrElemElem as $arrElemElemElem){
+    							echo $arrElemElemElem;
+    						}
+    					}
+    					//echo "<br/>";
+    				}
+    			};
+    			// Get the current match info.
+    		}
+    		catch (Exception $e)
+    		{
+    			throw new Exception( 'Something really gone wrong', 0, $e);
+    		}
+    		 
+    		
     		// Determine who the other user is.
     		if ($match->user1_id == $user->id) {
     			$otherUser = $this->user_model->getFromId($match->user2_id);
@@ -98,7 +119,7 @@ class Board extends CI_Controller {
     	
     	$colNum = $position[0];
     	$rowNum = $position[1];
-    	echo print_r($board_state);
+    	//echo print_r($board_state);
     	
     	// Update the board with a player's move and change the current player.
     	$board_state->match_arr[$rowNum][$colNum] = $board_state->curr_player;
@@ -110,7 +131,7 @@ class Board extends CI_Controller {
     	$this->db->trans_begin();
     	
     	$this->match_model->updateBoard($user->match_id, $board_state);
-    	
+
     	if ($this->db->trans_status() === FALSE) {
     		$errormsg = "Transaction error";
     		goto transactionerror;
@@ -119,7 +140,7 @@ class Board extends CI_Controller {
     	// if all went well commit changes
     	$this->db->trans_commit();
     		
-    	echo json_encode(array('status'=>'success','message'=>$msg));
+    	echo json_encode(array('status'=>'success'));
     	return;
     	
     	transactionerror:
@@ -128,11 +149,64 @@ class Board extends CI_Controller {
     	error:
     	echo json_encode(array('status'=>'failure','message'=>$errormsg));
 
+    	
+    	//////////////////////////////////
+    	
+    	
     }
     
     function opponentMadeMove() {
+    	
+    	// Get the user and match info.
+    	// Get teh match from the SQL database.
+    	
+    	// If the baord has changed:
+    		// get the board
+    	
+    	// Otherwise
+    		// .....
+    		
+    	$this->load->model('match_model');
+    	$this->load->model('user_model');
+    	 
+    	$user = $_SESSION['user'];
+    	 
+    	$user = $this->user_model->get($user->login);
+    	if ($user->user_status_id != User::PLAYING) {
+    		$errormsg="Not in PLAYING state";
+    		goto error;
+    	}
+    	// start transactional mode
+    	$this->db->trans_begin();
+    	 
+
+    	$match = $this->match_model->get($user->match_id);
+    	
+    	$arr = json_decode($match->board_state);
+    	
+    	
+		
+    	if ($this->db->trans_status() === FALSE) {
+    		$errormsg = "Transaction error";
+    		goto transactionerror;
+    	}
+    	
+    	// if all went well commit changes
+    	$this->db->trans_commit();
+    	
+    	
     	echo json_encode(array('status'=>'success'));
     	return;
+    	 
+    	transactionerror:
+    	$this->db->trans_rollback();
+    	 
+    	error:
+    	echo json_encode(array('status'=>'failure','message'=>$errormsg));
+    	
+    	///////////////
+    	//echo json_encode(array('status'=>'success'));
+    	//return;
     }
     
     
