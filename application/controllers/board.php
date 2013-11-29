@@ -100,11 +100,12 @@ class Board extends CI_Controller {
     	$rowNum = $position[1];
     	echo print_r($board_state);
     	
+    	// Update the board with a player's move and change the current player.
     	$board_state->match_arr[$rowNum][$colNum] = $board_state->curr_player;
-
     	$board_state->curr_player = 3 - $board_state->curr_player;
     	
     	$board_state = json_encode($board_state);
+    	
     	// start transactional mode
     	$this->db->trans_begin();
     	
@@ -195,6 +196,7 @@ class Board extends CI_Controller {
 			$msg = $match->u2_msg;
  			$this->match_model->updateMsgU2($match->id,"");
  		}
+ 		
  		else {
  			$msg = $match->u1_msg;
  			$this->match_model->updateMsgU1($match->id,"");

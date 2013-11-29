@@ -54,8 +54,6 @@
 	            }
 	        });
 	    });
-	
-
 	    
 	});
 </script>
@@ -106,6 +104,17 @@
 	<script>
 	var userID;
 	var currTurnID;
+	var boardState = new Array();
+	for (var i = 0; i < 6; i++) {
+		for (var j = 0; j < 7; j++) {
+			boardState[i][j] = 0;
+		}
+	}
+	
+
+	Array.prototype.max = function() {
+		 return Math.max.apply(null, this);
+	};
 	
 	$(document).ready(function() {
 	
@@ -132,10 +141,7 @@
 	        });
 		}
 	}
-
-	Array.prototype.max = function() {
-		 return Math.max.apply(null, this);
-	};
+	
 	
 	function makeMove() {
 		
@@ -150,25 +156,19 @@
 			var argArray = {"currentPlayerTurn": currTurnID, "pieceAdded": new Array(thisColNum, extractRowNum(lowestSlot))};
 			var arguments = $.param(argArray);
 
-			
 	        var url = "<?= base_url() ?>board/makeMove";
-	        $.post(url, arguments, function (data, textStatus, jqXHR) {
-                if (data) {
-                
-                }
-	        });
+	        $.post(url, arguments, function (data, textStatus, jqXHR) {});
 			
 	        currTurnID = 3 - currTurnID;
 			return false;
 		}
 	}
 	
-
-	
 	function getLowestRowInColumn(colNum) {
 		
 		slots = new Array();
-		$(".boardSlot.emptySlot").each(function() {
+		$(".boardSlot.emptySlot").each(function() { 
+
 			var thisColNum = extractColNum($(this));
 			if (colNum == thisColNum) {
 				slots.push(extractRowNum($(this)));
@@ -205,11 +205,8 @@
 		return parseInt(returnSlot);
 	}
 </script>
-
-
-	
-	
-
+ 
+ 
 </body>
 
 </html>
@@ -218,7 +215,9 @@
 <!--  <canvas id="myCanvas" width="500" height="500" style="border:5px solid #c3c3c3;"> </canvas> -->
 <!-- <div class='circleBase type1'></div> -->
 <!-- <div class='circleBase type2'></div> -->
+
 <!-- <div class='circleBase type2'></div> -->
+
 <!-- <div class='circleBase type3'></div> -->
 <!-- 
 $(document).ready(function(){

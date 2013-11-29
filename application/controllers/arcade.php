@@ -87,14 +87,13 @@ class Arcade extends CI_Controller {
 	    $match->user1_id = $user->id;
 	    $match->user2_id = $hostUser->id;
 	    
-    		$match_arr = array();
-    		for ($i = 0; $i < 6; $i++) {
-    			array_push($match_arr, array());
-    			for ($j = 0; $j < 7; $j++) {
-    				array_push($match_arr[$i], 0);
-    			}
+    	$match_arr = array();
+    	for ($i = 0; $i < 6; $i++) {
+    		array_push($match_arr, array());
+    		for ($j = 0; $j < 7; $j++) {
+    			array_push($match_arr[$i], 0);
     		}
-	    
+    	}
 	    
     	$match->board_state = json_encode(array("match_arr" => $match_arr, "curr_player" => 1));
 	    
@@ -107,7 +106,6 @@ class Arcade extends CI_Controller {
 	    
 	    $this->user_model->updateMatch($user->id,$matchId);
 	    $this->user_model->updateMatch($hostUser->id,$matchId);
-	     
 	    
 	    if ($this->db->trans_status() === FALSE)
 	    	goto transactionerror;
