@@ -113,12 +113,13 @@
 	<script>
 	var userID;
 	var currTurnID;
-	var boardState = new Array();
-	for (var i = 0; i < 6; i++) {
-		for (var j = 0; j < 7; j++) {
-			boardState[i][j] = 0;
-		}
-	}
+	//*****************************
+	//var boardState = new Array();
+	//for (var i = 0; i < 6; i++) {
+	//	for (var j = 0; j < 7; j++) {
+	//		boardState[i][j] = 0;
+	//	}
+	//}
 	
 
 	Array.prototype.max = function() {
@@ -129,6 +130,7 @@
 	
 		currTurnID = <?php echo $currentTurn; ?>;
 		userID = <?php echo $userPlayerID; ?>;
+		
 		// Inserts a token into a slot, if it's the user's turn.
 		$('body').delegate('.emptySlot','click', makeMove);
 		// If it's the opponent's turn, this waits for the opponent to make a move.
@@ -160,7 +162,19 @@
 			var lowestSlots = getLowestRowInColumn(2);
 			// Insert a token into the selected column, if there is room.
 			lowestSlot.addClass('player' + userID).removeClass('emptySlot');
-			lowestSlots.addClass('player' + 1).removeClass('emptySlot');
+			//lowestSlots.addClass('player' + 1).removeClass('emptySlot');
+			//alert(arr);
+			
+			var arz = <?php print json_encode($arrs)?>;
+			alert(arz);
+			for (var i=0;i<arrs.length;i++)
+			{
+				alert(arz[0]);
+			}
+			 //alert(u[0]);
+			//for (index = 0; index < arr.length; ++index) {
+    		//	alert(arr[index]);
+			//}
 			var argArray = {"currentPlayerTurn": currTurnID, "pieceAdded": new Array(thisColNum, extractRowNum(lowestSlot))};
 			var arguments = $.param(argArray);
 

@@ -45,6 +45,7 @@ class Board extends CI_Controller {
     		$match = $this->match_model->get($user->match_id);
     		
     		$arr = json_decode($match->board_state);
+   			$arrs = array();
     		try
     		{
     			foreach ($arr as $arrElem) {
@@ -54,6 +55,7 @@ class Board extends CI_Controller {
     						echo gettype($arrElemElem);
     						foreach ($arrElemElem as $arrElemElemElem){
     							echo $arrElemElemElem;
+								array_push($arrs, $arrElemElemElem);
     						}
     					}
     					//echo "<br/>";
@@ -65,8 +67,10 @@ class Board extends CI_Controller {
     		{
     			throw new Exception( 'Something really gone wrong', 0, $e);
     		}
-    		 
-    		
+
+    		//$loowestSlots = getLowestRowInColumn(2);
+    		// Insert a token into the selected column, if there is room.
+    		//lowestSlots.addClass('player' + 1).removeClass('emptySlot');
     		// Determine who the other user is.
     		if ($match->user1_id == $user->id) {
     			$otherUser = $this->user_model->getFromId($match->user2_id);
@@ -79,8 +83,10 @@ class Board extends CI_Controller {
     		}
     		
     		// The inviter 
+
     		$data["currentTurn"] = 1;
     		$data['otherUser'] = $otherUser;
+    		$date['arrs'] = $arrs;
     	}
     	
     	$data['user'] = $user;
@@ -98,6 +104,7 @@ class Board extends CI_Controller {
 		$this->load->view('match/board', $data);
 		
     }
+
 
     function makeMove() {
     	
@@ -184,7 +191,7 @@ class Board extends CI_Controller {
     	
     	$arr = json_decode($match->board_state);
     	
-    	
+
 		
     	if ($this->db->trans_status() === FALSE) {
     		$errormsg = "Transaction error";
