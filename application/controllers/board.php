@@ -44,29 +44,29 @@ class Board extends CI_Controller {
     	else if ($user->user_status_id == User::PLAYING) {
     		$match = $this->match_model->get($user->match_id);
     		
-    		$arr = json_decode($match->board_state);
-   			$arrs = array();
-    		try
-    		{
-    			foreach ($arr as $arrElem) {
-    				//place holder
-    				if (gettype($arrElem) != gettype(2)){
-    					foreach ($arrElem as $arrElemElem) {
-    						echo gettype($arrElemElem);
-    						foreach ($arrElemElem as $arrElemElemElem){
-    							echo $arrElemElemElem;
-								array_push($arrs, $arrElemElemElem);
-    						}
-    					}
-    					//echo "<br/>";
-    				}
-    			};
-    			// Get the current match info.
-    		}
-    		catch (Exception $e)
-    		{
-    			throw new Exception( 'Something really gone wrong', 0, $e);
-    		}
+//     		$arr = json_decode($match->board_state);
+//    			$arrs = array();
+//     		try
+//     		{
+//     			foreach ($arr as $arrElem) {
+//     				//place holder
+//     				if (gettype($arrElem) != gettype(2)){
+//     					foreach ($arrElem as $arrElemElem) {
+//     						echo gettype($arrElemElem);
+//     						foreach ($arrElemElem as $arrElemElemElem){
+//     							echo $arrElemElemElem;
+// 								array_push($arrs, $arrElemElemElem);
+//     						}
+//     					}
+//     					//echo "<br/>";
+//     				}
+//     			};
+//     			// Get the current match info.
+//     		}
+//     		catch (Exception $e)
+//     		{
+//     			throw new Exception( 'Something really gone wrong', 0, $e);
+//     		}
 
     		//$loowestSlots = getLowestRowInColumn(2);
     		// Insert a token into the selected column, if there is room.
@@ -86,7 +86,7 @@ class Board extends CI_Controller {
 
     		$data["currentTurn"] = 1;
     		$data['otherUser'] = $otherUser;
-    		$date['arrs'] = $arrs;
+    		// $date['arrs'] = $arrs;
     	}
     	
     	$data['user'] = $user;
@@ -131,6 +131,9 @@ class Board extends CI_Controller {
     	// Update the board with a player's move and change the current player.
     	$board_state->match_arr[$rowNum][$colNum] = $board_state->curr_player;
     	$board_state->curr_player = 3 - $board_state->curr_player;
+    	$board_state->col_num = $colNum;
+    	$board_state->row_num = $rowNum;
+    	
     	
     	$board_state = json_encode($board_state);
     	
@@ -189,20 +192,18 @@ class Board extends CI_Controller {
 
     	$match = $this->match_model->get($user->match_id);
     	
-    	$arr = json_decode($match->board_state);
-    	
-
-		
     	if ($this->db->trans_status() === FALSE) {
     		$errormsg = "Transaction error";
     		goto transactionerror;
     	}
     	
+    	$board_state = json_decode($match->board_state);
+
     	// if all went well commit changes
     	$this->db->trans_commit();
     	
     	
-    	echo json_encode(array('status'=>'success'));
+    	echo json_encode(array('status'=>'success', 'col_num' => $board_state->col_num, 'row_num' => $board_state->row_num));
     	return;
     	 
     	transactionerror:

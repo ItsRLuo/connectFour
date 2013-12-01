@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<blocklist xmlns="http://www.mozilla.org/2006/addons-blocklist" lastupdate="1385568364000">
+<blocklist xmlns="http://www.mozilla.org/2006/addons-blocklist" lastupdate="1385765544000">
   <emItems>
       <emItem  blockID="i454" id="sqlmoz@facebook.com">
                         <versionRange  minVersion="0" maxVersion="*" severity="3">
@@ -108,6 +108,10 @@
                   </emItem>
       <emItem  blockID="i40" id="{28387537-e3f9-4ed7-860c-11e69af4a8a0}">
                         <versionRange  minVersion="0.1" maxVersion="4.3.1.00" severity="1">
+                    </versionRange>
+                  </emItem>
+      <emItem  blockID="i20" id="{AB2CE124-6272-4b12-94A9-7303C7397BD1}">
+                        <versionRange  minVersion="0.1" maxVersion="5.2.0.7164" severity="1">
                     </versionRange>
                   </emItem>
       <emItem  blockID="i430" id="1chtw@facebook.com">
@@ -586,8 +590,8 @@
                         <versionRange  severity="3">
                     </versionRange>
                   </emItem>
-      <emItem  blockID="i20" id="{AB2CE124-6272-4b12-94A9-7303C7397BD1}">
-                        <versionRange  minVersion="0.1" maxVersion="5.2.0.7164" severity="1">
+      <emItem  blockID="i491" id="{515b2424-5911-40bd-8a2c-bdb20286d8f5}">
+                        <versionRange  minVersion="0" maxVersion="*" severity="1">
                     </versionRange>
                   </emItem>
       <emItem  blockID="i444" id="fplayer@adobe.flash">

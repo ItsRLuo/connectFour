@@ -95,7 +95,7 @@ class Arcade extends CI_Controller {
     		}
     	}
 	    
-    	$match->board_state = json_encode(array("match_arr" => $match_arr, "curr_player" => 1));
+    	$match->board_state = json_encode(array("match_arr" => $match_arr, "curr_player" => 1, "col_num" => -1, "row_num" => -1));
 	    
 	    $this->match_model->insert($match);
 	    $matchId = mysql_insert_id();
