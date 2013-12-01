@@ -147,6 +147,7 @@
 					console.log("Received a message, loud and clear!");
 	            }
 	            // Update the board.
+
 	            currTurnID = 3 - currTurnID;
 	        });
 		}
@@ -165,12 +166,7 @@
 			//lowestSlots.addClass('player' + 1).removeClass('emptySlot');
 			//alert(arr);
 			
-			var arz = <?php print json_encode($arrs)?>;
-			alert(arz);
-			for (var i=0;i<arrs.length;i++)
-			{
-				alert(arz[0]);
-			}
+	
 			 //alert(u[0]);
 			//for (index = 0; index < arr.length; ++index) {
     		//	alert(arr[index]);

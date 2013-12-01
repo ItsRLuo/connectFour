@@ -16,11 +16,12 @@ class Board extends CI_Controller {
     		}
 	    	return call_user_func_array(array($this, $method), $params);
     }
-    
+    function win_state($win){
+    	//save to database here
+    }
     
     function index() {
 		$user = $_SESSION['user'];
-    		    	
     	$this->load->model('user_model');
     	$this->load->model('invite_model');
     	$this->load->model('match_model');
@@ -46,28 +47,142 @@ class Board extends CI_Controller {
     		
     		$arr = json_decode($match->board_state);
    			$arrs = array();
-    		try
-    		{
-    			foreach ($arr as $arrElem) {
-    				//place holder
-    				if (gettype($arrElem) != gettype(2)){
-    					foreach ($arrElem as $arrElemElem) {
-    						echo gettype($arrElemElem);
-    						foreach ($arrElemElem as $arrElemElemElem){
-    							echo $arrElemElemElem;
-								array_push($arrs, $arrElemElemElem);
-    						}
-    					}
-    					//echo "<br/>";
-    				}
-    			};
-    			// Get the current match info.
-    		}
-    		catch (Exception $e)
-    		{
-    			throw new Exception( 'Something really gone wrong', 0, $e);
-    		}
+   			$match = $this->match_model->get($user->match_id);
+   			 
+   			$arr = json_decode($match->board_state);
 
+   			try
+   			{
+   				foreach ($arr as $arrElem) {
+   					//place holder
+   					if (gettype($arrElem) != gettype(2)){
+   						foreach ($arrElem as $arrElemElem) {
+   							//echo gettype($arrElemElem);
+   							foreach ($arrElemElem as $arrElemElemElem){
+   								//echo $arrElemElemElem;
+   								array_push($arrs, $arrElemElemElem);
+   							}
+   						}
+   						//echo "<br/>";
+   					}
+   				};
+   				// Get the current match info.
+   			}
+   			catch (Exception $e)
+   			{
+   				throw new Exception( 'Something really gone wrong', 0, $e);
+   			}
+   			$win = 0;
+   			$count = 0;
+   			$count2 = 0;
+   			for ($x=0;$x<sizeof($arrs);$x++){
+   				for ($y = 0;$y<4;$y++){
+   					$count = $count +1;
+   					if ($arrs[$x+$y] == $arr[$x+1+$y]){
+   						$win = $arrs[$x+$y];
+   					}
+   					else{
+   						$win = 0;
+   						$count = $y;
+   						break;
+   					}
+   					if ($count == 6){
+   						$count = 0;
+   						$win = 0;
+   						break;
+   					}
+   					if ($count == 4){
+   						if ($win != 0){
+   							win_state($win);
+   						}
+   						$win = 0;
+   						break;
+   					}
+   				}
+   				//up/down
+   				try
+   				{	
+   					for ($y = 0;$y<4;$y++){
+   						$count = $count +1;
+   						if ($arrs[$x+($y*7)+$y] == $arr[$x-1-$y+((1+$y)*7)]){
+   							$win = $arrs[$x+($y*7)];
+   						}
+   						else{
+   							$win = 0;
+   							$count = $y;
+   							break;
+   						}
+   						if ($count == 6){
+   							$count = 0;
+   							$win = 0;
+   							break;
+   						}
+   						if ($count == 4){
+   							if ($win != 0){
+   								win_state($win);
+   							}
+   							$win = 0;
+   							break;
+   						}
+   					}
+   				}
+   				catch (Exception $e)
+   				{
+   					$win = 0;
+   				}
+   				//diaL
+   				for ($y = 0;$y<4;$y++){
+   					$count = $count +1;
+   					if ($arrs[$x+($y*7)-$y] == $arr[1+$y+$x+((1+$y)*7)]){
+   						$win = $arrs[$x+($y*7)];
+   					}
+   					else{
+   						$win = 0;
+   						$count = $y;
+   						break;
+   					}
+   					if ($count == 6){
+   						$count = 0;
+   						$win = 0;
+   						break;
+   					}
+   					if ($count == 4){
+   						if ($win != 0){
+   							win_state($win);
+   						}
+   						$win = 0;
+   						break;
+   					}
+   				}
+   				//diaR
+   				for ($y = 0;$y<4;$y++){
+   					$count = $count +1;
+   					if ($arrs[$x+($y*7)] == $arr[$x+((1+$y)*7)-1]){
+   						$win = $arrs[$x+($y*7)];
+   					}
+   					else{
+   						$win = 0;
+   						$count = $y;
+   						break;
+   					}
+   					if ($count == 6){
+   						$count = 0;
+   						$win = 0;
+   						break;
+   					}
+   					if ($count == 4){
+   						if ($win != 0){
+   							win_state($win);
+   						}
+   						$win = 0;
+   						break;
+   					}
+   				}
+   					
+   			} 
+   			
+   			
+			
     		//$loowestSlots = getLowestRowInColumn(2);
     		// Insert a token into the selected column, if there is room.
     		//lowestSlots.addClass('player' + 1).removeClass('emptySlot');
@@ -83,10 +198,8 @@ class Board extends CI_Controller {
     		}
     		
     		// The inviter 
-
     		$data["currentTurn"] = 1;
     		$data['otherUser'] = $otherUser;
-    		$date['arrs'] = $arrs;
     	}
     	
     	$data['user'] = $user;
@@ -191,8 +304,30 @@ class Board extends CI_Controller {
     	
     	$arr = json_decode($match->board_state);
     	
-
-		
+    	$arrs = array();
+    	try
+    	{
+    		foreach ($arr as $arrElem) {
+    			//place holder
+    			if (gettype($arrElem) != gettype(2)){
+    				foreach ($arrElem as $arrElemElem) {
+    					echo gettype($arrElemElem);
+    					foreach ($arrElemElem as $arrElemElemElem){
+    						echo $arrElemElemElem;
+    						array_push($arrs, $arrElemElemElem);
+    					}
+    				}
+    				//echo "<br/>";
+    			}
+    		};
+    		// Get the current match info.
+    	}
+    	catch (Exception $e)
+    	{
+    		throw new Exception( 'Something really gone wrong', 0, $e);
+    	}
+		$data['arrs'] = $arrs;
+    	
     	if ($this->db->trans_status() === FALSE) {
     		$errormsg = "Transaction error";
     		goto transactionerror;
