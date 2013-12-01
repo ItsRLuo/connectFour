@@ -134,9 +134,13 @@
 
 	function waitForOpponent() {
 		if (userID != currTurnID) {
-	        $.getJSON(opponentMadeMoveURL, function (data, text, jqXHR) {
-	            if (data && data.status == 'success' && parseInt(data.col_num) != -1 && parseInt(data.row_num) != -1) {
-					var idStr = "#row" + data.row_num.toString() + "-col" +  data.col_num.toString();
+			
+			var argArray = {"userTurn": userID};
+			var arguments = $.param(argArray);
+	        $.getJSON(opponentMadeMoveURL, argArray, function (data, text, jqXHR) {
+	        
+	            if (data && data.status == 'success') {
+					var idStr = "#row" + data.row_num + "-col" +  data.col_num;
 					$(idStr).addClass('player' + opponentStrID).removeClass('emptySlot');
 					currTurnID = 3 - currTurnID;
 	            }
@@ -147,22 +151,24 @@
 	
 	
 	function makeMove() {
+
+		var result = false;
 		
 		if (userID == currTurnID) {
-			var thisColNum = extractColNum($(this));
+	 		var thisColNum = extractColNum($(this));
 			var lowestSlot = getLowestRowInColumn(thisColNum);
-			lowestSlot.addClass('player' + userID).removeClass('emptySlot');
-
+	
 			var coordinates = new Array(thisColNum, extractRowNum(lowestSlot));
-			var argArray = {"currentPlayerTurn": currTurnID, "pieceAdded": coordinates};
+			var argArray = {"currentPlayerTurn": currTurnID, "pieceAdded": coordinates, "playerID": userID};
 			var arguments = $.param(argArray);
-
-	        $.post(makeMoveURL, arguments, function (data, textStatus, jqXHR) {
-				
-		    });
 			
+	        $.post(makeMoveURL, arguments, function (data, textStatus, jqXHR) {
+
+	        });
+
+			lowestSlot.addClass('player' + userID).removeClass('emptySlot');
 	        currTurnID = 3 - currTurnID;
-	        
+	        return false;
 		}
 	}
 	

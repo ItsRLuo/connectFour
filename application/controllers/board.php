@@ -119,6 +119,12 @@ class Board extends CI_Controller {
 			goto error;
  		}
  		
+ 		if ($this->input->post('playerID') != $this->input->post('currentPlayerTurn')) {
+ 			$msg = "NOT YOUR TURN!";
+ 			goto waiting;
+ 		}
+ 		
+ 		
  		// Get the current match info.
     	$match = $this->match_model->get($user->match_id);
     	$board_state = json_decode($match->board_state);
@@ -159,6 +165,9 @@ class Board extends CI_Controller {
     	error:
     	echo json_encode(array('status'=>'failure','message'=>$errormsg));
 
+    	waiting:
+    	echo json_encode(array('status' => 'waiting'));
+    	
     	
     	//////////////////////////////////
     	
@@ -186,18 +195,32 @@ class Board extends CI_Controller {
     		$errormsg="Not in PLAYING state";
     		goto error;
     	}
+    	
+
+    	
+    	
     	// start transactional mode
     	$this->db->trans_begin();
     	 
 
     	$match = $this->match_model->get($user->match_id);
     	
+    	
+    	
     	if ($this->db->trans_status() === FALSE) {
     		$errormsg = "Transaction error";
     		goto transactionerror;
     	}
     	
+    	
     	$board_state = json_decode($match->board_state);
+    	if (intval($this->input->get('userTurn')) != intval($board_state->curr_player)) {
+    		$errormsg = "Not your turn";
+    		goto waiting;
+    	}
+
+    	
+    	
 
     	// if all went well commit changes
     	$this->db->trans_commit();
@@ -211,6 +234,10 @@ class Board extends CI_Controller {
     	 
     	error:
     	echo json_encode(array('status'=>'failure','message'=>$errormsg));
+    	
+    	waiting:
+    	$this->db->trans_rollback();
+    	echo json_encode(array('status' => 'waiting'));
     	
     	///////////////
     	//echo json_encode(array('status'=>'success'));
