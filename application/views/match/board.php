@@ -52,18 +52,8 @@
 	                }
 	            }
 	        });
-	        var url = "<?= base_url() ?>board/getMsg";
-	        $.getJSON(url, function (data, text, jqXHR) {
-	            if (data && data.status == 'success') {
-	                var conversation = $('[name=conversation]').val();
-	                var msg = data.message;
-	                if (msg != null && msg.length > 0 ) {
-	                    $('[name=conversation]').val(conversation + "\n" + otherUser + ": " + msg);
-	                }
-	            }
-	        });
-	    });
-	    
+
+		});
 	});
 </script>
 
@@ -113,27 +103,30 @@
 	<script>
 	var userID;
 	var currTurnID;
-	//*****************************
-	//var boardState = new Array();
-	//for (var i = 0; i < 6; i++) {
-	//	for (var j = 0; j < 7; j++) {
-	//		boardState[i][j] = 0;
-	//	}
-	//}
-	
+	var opponentID;
+	var opponentStrID;
+	var opponentMadeMoveURL;
+	var makeMoveURL;
 
 	Array.prototype.max = function() {
 		 return Math.max.apply(null, this);
 	};
 
 	$(document).ready(function() {
-	
+		
 		currTurnID = <?php echo $currentTurn; ?>;
 		userID = <?php echo $userPlayerID; ?>;
-		
+		opponentID = 3 - userID;
+		opponentStrID = opponentID.toString();
+		opponentMadeMoveURL = "<?= base_url() ?>board/opponentMadeMove";
+		makeMoveURL = "<?= base_url() ?>board/makeMove";
+
 		// Inserts a token into a slot, if it's the user's turn.
 		$('body').delegate('.emptySlot','click', makeMove);
+
+		
 		// If it's the opponent's turn, this waits for the opponent to make a move.
+		
 		$('body').everyTime(200, waitForOpponent);
 
 		
@@ -141,15 +134,20 @@
 
 	function waitForOpponent() {
 		if (userID != currTurnID) {
-	        var url = "<?= base_url() ?>board/opponentMadeMove";
-	        $.getJSON(url, function (data, text, jqXHR) {
-	            if (data && data.status == 'success') {
-					console.log("Received a message, loud and clear!");
+	        $.getJSON(opponentMadeMoveURL, function (data, text, jqXHR) {
+	            if (data && data.status == 'success' && parseInt(data.col_num) != -1 && parseInt(data.row_num) != -1) {
+					var idStr = "#row" + data.row_num.toString() + "-col" +  data.col_num.toString();
+					$(idStr).addClass('player' + opponentStrID).removeClass('emptySlot');
+					currTurnID = 3 - currTurnID;
 	            }
+<<<<<<< HEAD
 	            // Update the board.
 
 	            currTurnID = 3 - currTurnID;
+=======
+>>>>>>> 5573fab726b1b4e34efb480d8a424a85c4fd409d
 	        });
+	        
 		}
 	}
 	
@@ -157,12 +155,10 @@
 	function makeMove() {
 		
 		if (userID == currTurnID) {
-			// Get the column clicked, and the lowest slot in the column.
 			var thisColNum = extractColNum($(this));
 			var lowestSlot = getLowestRowInColumn(thisColNum);
-			var lowestSlots = getLowestRowInColumn(2);
-			// Insert a token into the selected column, if there is room.
 			lowestSlot.addClass('player' + userID).removeClass('emptySlot');
+<<<<<<< HEAD
 			//lowestSlots.addClass('player' + 1).removeClass('emptySlot');
 			//alert(arr);
 			
@@ -172,13 +168,19 @@
     		//	alert(arr[index]);
 			//}
 			var argArray = {"currentPlayerTurn": currTurnID, "pieceAdded": new Array(thisColNum, extractRowNum(lowestSlot))};
+=======
+
+			var coordinates = new Array(thisColNum, extractRowNum(lowestSlot));
+			var argArray = {"currentPlayerTurn": currTurnID, "pieceAdded": coordinates};
+>>>>>>> 5573fab726b1b4e34efb480d8a424a85c4fd409d
 			var arguments = $.param(argArray);
 
-	        var url = "<?= base_url() ?>board/makeMove";
-	        $.post(url, arguments, function (data, textStatus, jqXHR) {});
+	        $.post(makeMoveURL, arguments, function (data, textStatus, jqXHR) {
+				
+		    });
 			
 	        currTurnID = 3 - currTurnID;
-			return false;
+	        
 		}
 	}
 	
