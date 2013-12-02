@@ -241,6 +241,7 @@ class Board extends CI_Controller {
 		$this->load->model('invite_model');
 		$user = $_SESSION['user'];
 		$user = $this->user_model->getExclusive($user->login);
+		$userID = $user->id;
 		if ($user->user_status_id != User::PLAYING) {
 			$errormsg="Not in PLAYING state";
 			goto error;
@@ -256,27 +257,21 @@ class Board extends CI_Controller {
 		} else {
 			$winner = 3;
 		}
+		$this->match_model->updateStatus($user->match_id, $winner);
 		
 		// Set the MATCH ID and INVITE ID of both players to NULL, and userSTATUSID to AVAILABLE.
-		$this->match_model->updateStatus($user->match_id, $winner);
-		if ($match->user1_id == $user->id) {
+		if ($match->user1_id == $userID) {
 			$otherUser = $this->user_model->getFromId($match->user2_id);
-			$data["userPlayerID"] = 2;
-			$data["otherPlayerID"] = 1;
 		} else {
 			$otherUser = $this->user_model->getFromId($match->user1_id);
-			$data["userPlayerID"] = 1;
-			$data["otherPlayerID"] = 2;
 		}
-		
- 		$this->user_model->updateMatchStatusID(3, 3);
- 		$this->user_model->updateMatchStatusID(3, 3);
- 		$this->user_model->updateMatch(3, 3);
- 		$this->user_model->updateMatch(3, 3);
- 		$this->user_model->updateStatus(3, 3);
- 		$this->user_model->updateStatus(3, 3);
- 		$this->user_model->updateInvitation(3, 3);
- 		$this->user_model->updateInvitation(3, 3);
+		$otherUserID = $otherUser->id;
+ 		$this->user_model->updateMatch($otherUserID, NULL);
+ 		$this->user_model->updateMatch($userID, NULL);
+ 		$this->user_model->updateStatus($otherUserID, 2);
+ 		$this->user_model->updateStatus($userID, 2);
+ 		$this->user_model->updateInvitation($otherUserID, NULL);
+ 		$this->user_model->updateInvitation($userID, NULL);
 		
 		// DELETE THE ASSOCIATED INVITE.
 		$this->invite_model->deleteByID($user->match_id);

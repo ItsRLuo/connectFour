@@ -235,10 +235,7 @@
 				var outcomes = ["win", "lose", "draw"];
 				if (outcomes.contains(data_decode.outcome)) {
 					alert(data_decode.message);
-					if (outcome == "win" || outcome == "draw") {
-						//gameFinished();
-					}
-					
+					gameFinished();
 				}
 			},
             error: function(x, y, z) {
@@ -258,7 +255,6 @@
 			url: finishGameURL,
 			data: arguments,
 			success: function() {
-
 			}, 
 			complete: function() {
 				window.location.href = '<?= base_url() ?>arcade/index';
