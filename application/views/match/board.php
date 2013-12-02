@@ -120,6 +120,7 @@
 		opponentStrID = opponentID.toString();
 		opponentMadeMoveURL = "<?= base_url() ?>board/opponentMadeMove";
 		makeMoveURL = "<?= base_url() ?>board/makeMove";
+		checkVictoryURL = "<?= base_url() ?>board/checkVictory";
 
 		// Inserts a token into a slot, if it's the user's turn.
 		$('body').delegate('.emptySlot','click', makeMove);
@@ -137,14 +138,7 @@
 			
 			var argArray = {"userTurn": userID};
 			var arguments = $.param(argArray);
-	        /*$.getJSON(opponentMadeMoveURL, argArray, function (data, text, jqXHR) {
-	        
-	            if (data && data.status == 'success') {
-					var idStr = "#row" + data.row_num + "-col" +  data.col_num;
-					$(idStr).addClass('player' + opponentStrID).removeClass('emptySlot');
-					currTurnID = 3 - currTurnID;
-	            }
-	        });*/
+
 
 	        $.ajax({
 	            type: "GET",
@@ -164,7 +158,6 @@
 	      	});
 
 	        
-	        
 		}
 	}
 	
@@ -176,17 +169,11 @@
 		if (userID == currTurnID) {
 	 		var thisColNum = extractColNum($(this));
 			var lowestSlot = getLowestRowInColumn(thisColNum);
-	
-			var coordinates = new Array(thisColNum, extractRowNum(lowestSlot));
-			var argArray = {"currentPlayerTurn": currTurnID, "pieceAdded": coordinates, "playerID": userID};
+			lowestSlot.addClass('player' + userID).removeClass('emptySlot');
+
+			var argArray = {"playerID": userID, "currentPlayerTurn": currTurnID, "pieceAdded": new Array(thisColNum, extractRowNum(lowestSlot))};
 			var arguments = $.param(argArray);
-			
-	      /*  $.post(makeMoveURL, arguments, function (data, textStatus, jqXHR) {
-		        if (data && data.status == 'success') {
-			        alert("made a move");
-		        	updateBoard(data.board);
-		        }
-	        });*/
+
 
 	        $.ajax({
 	            type: "POST",
@@ -206,10 +193,6 @@
 	            }
 	      	});
 	        
-			
-	        
-			// lowestSlot.addClass('player' + userID).removeClass('emptySlot');
-	        
 	        return false;
 		}
 	}
@@ -226,9 +209,31 @@
 				}
 			} 
 		}
-		
+
+		checkVictory();
 	}
 
+	function checkVictory() {
+		$.ajax({
+			type: "POST",
+			url: checkVictoryURL,
+			success: function(data) {
+				if (data == "lose") {
+
+				} else if (data == "draw") {
+
+				} else if (data == "win") {
+
+				}
+			},
+            error: function(x, y, z) {
+                  alert('error\n'+x+'\n'+y+'\n'+z);
+            },
+            complete: function(x, y){
+            }
+		});
+	}
+	
 	
 	function getLowestRowInColumn(colNum) {
 		

@@ -16,11 +16,151 @@ class Board extends CI_Controller {
     		}
 	    	return call_user_func_array(array($this, $method), $params);
     }
+    function win_state($win){
+    	//save to database here
+    }
     
+	function checkVictory() {
+		
+		$this->load->model('user_model');
+		$this->load->model('match_model');
+		$user = $_SESSION['user'];
+		$user = $this->user_model->get($user->login);
+		$match = $this->match_model->get($user->match_id);
+		$arr = json_decode($match->board_state);
+		$arrs = array();
+		// try
+		//    			{
+		//    				foreach ($arr as $arrElem) {
+		//    					//place holder
+		//    					if (gettype($arrElem) != gettype(2)){
+		//    						foreach ($arrElem as $arrElemElem) {
+		//    							//echo gettype($arrElemElem);
+		//    							foreach ($arrElemElem as $arrElemElemElem){
+		//    								//echo $arrElemElemElem;
+		//    								array_push($arrs, $arrElemElemElem);
+		//    							}
+		//    						}
+		//    					}
+		//    				};
+		//    			}
+		//    			catch (Exception $e)
+		//    			{
+		//    				throw new Exception( 'Something really gone wrong', 0, $e);
+		//    			}
+		//    			$win = 0;
+		//    			$count = 0;
+		//    			$count2 = 0;
+		//    			for ($x=0;$x<sizeof($arrs);$x++){
+		//    				for ($y = 0;$y<4;$y++){
+		//    					$count = $count +1;
+		//    					if ($arrs[$x+$y] == $arr[$x+1+$y]){
+		//    						$win = $arrs[$x+$y];
+		//    					}
+		//    					else{
+		//    						$win = 0;
+		//    						$count = $y;
+		//    						break;
+		//    					}
+		//    					if ($count == 6){
+		//    						$count = 0;
+		//    						$win = 0;
+		//    						break;
+		//    					}
+		//    					if ($count == 4){
+		//    						if ($win != 0){
+		//    							win_state($win);
+		//    						}
+		//    						$win = 0;
+		//    						break;
+		//    					}
+		//    				}
+		//    				//up/down
+		//    				try
+		//    				{
+		//    					for ($y = 0;$y<4;$y++){
+		//    						$count = $count +1;
+		//    						if ($arrs[$x+($y*7)+$y] == $arr[$x-1-$y+((1+$y)*7)]){
+		//    							$win = $arrs[$x+($y*7)];
+		//    						}
+		//    						else{
+		//    							$win = 0;
+		//    							$count = $y;
+		//    							break;
+		//    						}
+		//    						if ($count == 6){
+		//    							$count = 0;
+		//    							$win = 0;
+		//    							break;
+		//    						}
+		//    						if ($count == 4){
+		//    							if ($win != 0){
+		//    								win_state($win);
+		//    							}
+		//    							$win = 0;
+		//    							break;
+		//    						}
+		//    					}
+		//    				}
+		//    				catch (Exception $e)
+		//    				{
+		//    					$win = 0;
+		//    				}
+		//    				//diaL
+		//    				for ($y = 0;$y<4;$y++){
+		//    					$count = $count +1;
+		//    					if ($arrs[$x+($y*7)-$y] == $arr[1+$y+$x+((1+$y)*7)]){
+		//    						$win = $arrs[$x+($y*7)];
+		//    					}
+		//    					else{
+		//    						$win = 0;
+		//    						$count = $y;
+		//    						break;
+		//    					}
+		//    					if ($count == 6){
+		//    						$count = 0;
+		//    						$win = 0;
+		//    						break;
+		//    					}
+		//    					if ($count == 4){
+		//    						if ($win != 0){
+		//    							win_state($win);
+		//    						}
+		//    						$win = 0;
+		//    						break;
+		//    					}
+		//    				}
+		//    				//diaR
+		//    				for ($y = 0;$y<4;$y++){
+		//    					$count = $count +1;
+		//    					if ($arrs[$x+($y*7)] == $arr[$x+((1+$y)*7)-1]){
+		//    						$win = $arrs[$x+($y*7)];
+		//    					}
+		//    					else{
+		//    						$win = 0;
+		//    						$count = $y;
+		//    						break;
+		//    					}
+		//    					if ($count == 6){
+		//    						$count = 0;
+		//    						$win = 0;
+		//    						break;
+		//    					}
+		//    					if ($count == 4){
+		//    						if ($win != 0){
+		//    							win_state($win);
+		//    						}
+		//    						$win = 0;
+		//    						break;
+		//    					}
+		//    				}
+		
+		//    			}
+		
+	}    
     
     function index() {
 		$user = $_SESSION['user'];
-    		    	
     	$this->load->model('user_model');
     	$this->load->model('invite_model');
     	$this->load->model('match_model');
@@ -34,44 +174,16 @@ class Board extends CI_Controller {
     		$invite = $this->invite_model->get($user->invite_id);
     		$otherUser = $this->user_model->getFromId($invite->user2_id);
     		$data['otherUser'] = $otherUser;
-    		
-    		// The inviter
     		$data["currentTurn"] = 1;
-    		$data['otherUser'] = $otherUser;
     	}
     	
     	// The invited
     	else if ($user->user_status_id == User::PLAYING) {
-    		$match = $this->match_model->get($user->match_id);
     		
-//     		$arr = json_decode($match->board_state);
-//    			$arrs = array();
-//     		try
-//     		{
-//     			foreach ($arr as $arrElem) {
-//     				//place holder
-//     				if (gettype($arrElem) != gettype(2)){
-//     					foreach ($arrElem as $arrElemElem) {
-//     						echo gettype($arrElemElem);
-//     						foreach ($arrElemElem as $arrElemElemElem){
-//     							echo $arrElemElemElem;
-// 								array_push($arrs, $arrElemElemElem);
-//     						}
-//     					}
-//     					//echo "<br/>";
-//     				}
-//     			};
-//     			// Get the current match info.
-//     		}
-//     		catch (Exception $e)
-//     		{
-//     			throw new Exception( 'Something really gone wrong', 0, $e);
-//     		}
-
-    		//$loowestSlots = getLowestRowInColumn(2);
-    		// Insert a token into the selected column, if there is room.
-    		//lowestSlots.addClass('player' + 1).removeClass('emptySlot');
-    		// Determine who the other user is.
+    		$arr = json_decode($match->board_state);
+   			$arrs = array();
+   			$match = $this->match_model->get($user->match_id);
+   			 
     		if ($match->user1_id == $user->id) {
     			$otherUser = $this->user_model->getFromId($match->user2_id);
     			$data["userPlayerID"] = 2;
@@ -83,7 +195,6 @@ class Board extends CI_Controller {
     		}
     		
     		// The inviter 
-
     		$data["currentTurn"] = 1;
     		$data['otherUser'] = $otherUser;
     		// $date['arrs'] = $arrs;
@@ -91,7 +202,6 @@ class Board extends CI_Controller {
     	
     	$data['user'] = $user;
 
-    	
     	switch($user->user_status_id) {
     		case User::PLAYING:	
     			$data['status'] = 'playing';
@@ -119,7 +229,9 @@ class Board extends CI_Controller {
 			goto error;
  		}
  		
- 		if ($this->input->post('playerID') != $this->input->post('currentPlayerTurn')) {
+//  		echo intval($this->input->post('playerID'));
+//  		echo intval($this->input->post('currentPlayerTurn'));
+ 		if (intval($this->input->post('playerID')) != intval($this->input->post('currentPlayerTurn'))) {
  			$msg = "NOT YOUR TURN!";
  			goto waiting;
  		}
@@ -155,7 +267,7 @@ class Board extends CI_Controller {
     	// if all went well commit changes
     	$this->db->trans_commit();
     		
-    	echo json_encode(array('status'=>'success', 'board' => $board_state->match_arr, 'curr_player' => $board_state->curr_player));
+    	echo json_encode(array('status' => 'success', 'board' => $board_state->match_arr, 'curr_player' => $board_state->curr_player));
     	return;
     	
     	transactionerror:
@@ -204,7 +316,32 @@ class Board extends CI_Controller {
 
     	$match = $this->match_model->get($user->match_id);
     	
+    	$arr = json_decode($match->board_state);
     	
+//     	$arrs = array();
+//     	try
+//     	{
+//     		foreach ($arr as $arrElem) {
+//     			//place holder
+//     			if (gettype($arrElem) != gettype(2)){
+//     				foreach ($arrElem as $arrElemElem) {
+//     					echo gettype($arrElemElem);
+//     					foreach ($arrElemElem as $arrElemElemElem){
+//     						echo $arrElemElemElem;
+//     						array_push($arrs, $arrElemElemElem);
+//     					}
+//     				}
+//     				//echo "<br/>";
+//     			}
+//     		};
+//     		// Get the current match info.
+//     	}
+//     	catch (Exception $e)
+//     	{
+//     		throw new Exception( 'Something really gone wrong', 0, $e);
+//     	}
+// 		$data['arrs'] = $arrs;
+		
     	
     	if ($this->db->trans_status() === FALSE) {
     		$errormsg = "Transaction error";
@@ -225,9 +362,7 @@ class Board extends CI_Controller {
     	$this->db->trans_commit();
     	
     	
-    	echo json_encode(array('status'=>'success', 'board' => $board_state->match_arr, 
-    			'col_num' => $board_state->col_num, 'row_num' => $board_state->row_num,
-    			'curr_player' => $board_state->curr_player));
+    	echo json_encode(array('status'=>'success', 'board' => $board_state->match_arr, 'col_num' => $board_state->col_num, 'row_num' => $board_state->row_num, 'curr_player' => $board_state->curr_player));
     	return;
     	 
     	transactionerror:
@@ -240,9 +375,6 @@ class Board extends CI_Controller {
     	$this->db->trans_rollback();
     	echo json_encode(array('status' => 'waiting'));
     	
-    	///////////////
-    	//echo json_encode(array('status'=>'success'));
-    	//return;
     }
     
     
