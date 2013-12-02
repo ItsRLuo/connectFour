@@ -137,14 +137,33 @@
 			
 			var argArray = {"userTurn": userID};
 			var arguments = $.param(argArray);
-	        $.getJSON(opponentMadeMoveURL, argArray, function (data, text, jqXHR) {
+	        /*$.getJSON(opponentMadeMoveURL, argArray, function (data, text, jqXHR) {
 	        
 	            if (data && data.status == 'success') {
 					var idStr = "#row" + data.row_num + "-col" +  data.col_num;
 					$(idStr).addClass('player' + opponentStrID).removeClass('emptySlot');
 					currTurnID = 3 - currTurnID;
 	            }
-	        });
+	        });*/
+
+	        $.ajax({
+	            type: "GET",
+	            url: opponentMadeMoveURL,
+	            data: arguments,
+	            success: function(data) {
+		            var data_decode = JSON.parse(data);
+		            if (data_decode.status == "success" && data_decode.board && data_decode.curr_player == userID) {
+	            		updateBoard(data_decode.board);
+	            		currTurnID = userID;
+	            	}
+	            },
+	            error: function(x,y,z){
+	            },
+	            complete: function(x,y){
+	            }
+	      	});
+
+	        
 	        
 		}
 	}
@@ -152,7 +171,7 @@
 	
 	function makeMove() {
 
-		var result = false;
+		var board;
 		
 		if (userID == currTurnID) {
 	 		var thisColNum = extractColNum($(this));
@@ -162,15 +181,54 @@
 			var argArray = {"currentPlayerTurn": currTurnID, "pieceAdded": coordinates, "playerID": userID};
 			var arguments = $.param(argArray);
 			
-	        $.post(makeMoveURL, arguments, function (data, textStatus, jqXHR) {
+	      /*  $.post(makeMoveURL, arguments, function (data, textStatus, jqXHR) {
+		        if (data && data.status == 'success') {
+			        alert("made a move");
+		        	updateBoard(data.board);
+		        }
+	        });*/
 
-	        });
-
-			lowestSlot.addClass('player' + userID).removeClass('emptySlot');
-	        currTurnID = 3 - currTurnID;
+	        $.ajax({
+	            type: "POST",
+	            url: makeMoveURL,
+	            data: arguments,
+	            success: function(data){
+		            var data_decode = JSON.parse(data);
+		            if (data_decode.status == "success" && data_decode.board) {
+	            		updateBoard(data_decode.board);
+	            		currTurnID = 3 - currTurnID;
+	            	}
+	            },
+	            error: function(x, y, z) {
+	                  alert('error\n'+x+'\n'+y+'\n'+z);
+	            },
+	            complete: function(x, y){
+	            }
+	      	});
+	        
+			
+	        
+			// lowestSlot.addClass('player' + userID).removeClass('emptySlot');
+	        
 	        return false;
 		}
 	}
+
+	function updateBoard(boardArr) {
+
+		for (var i = 0; i < 6; i++) {
+			for (var j = 0; j < 7; j++) {
+				var item = getByRowColIndexFull(i, j);
+				if (boardArr[i][j] == 0) {
+					item.addClass('emptySlot').removeClass('player1').removeClass('player2');
+				} else {
+					item.addClass('player' + boardArr[i][j]).removeClass('emptySlot');
+				}
+			} 
+		}
+		
+	}
+
 	
 	function getLowestRowInColumn(colNum) {
 		
@@ -181,6 +239,7 @@
 			if (colNum == thisColNum) {
 				slots.push(extractRowNum($(this)));
 			}
+			
 		});
 	
 		var lowestRow = slots.max();
@@ -192,6 +251,19 @@
 	
 		retVal = null;
 		$(".boardSlot.emptySlot").each(function() {
+			if ((extractRowNum($(this)) == row) && (extractColNum($(this)) == col)) {
+				retVal = $(this);
+				return false;
+			} 
+		});
+		return retVal;
+	
+	}
+
+	function getByRowColIndexFull(row, col) {
+		
+		retVal = null;
+		$(".boardSlot").each(function() {
 			if ((extractRowNum($(this)) == row) && (extractColNum($(this)) == col)) {
 				retVal = $(this);
 				return false;

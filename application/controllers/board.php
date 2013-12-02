@@ -124,7 +124,6 @@ class Board extends CI_Controller {
  			goto waiting;
  		}
  		
- 		
  		// Get the current match info.
     	$match = $this->match_model->get($user->match_id);
     	$board_state = json_decode($match->board_state);
@@ -141,12 +140,12 @@ class Board extends CI_Controller {
     	$board_state->row_num = $rowNum;
     	
     	
-    	$board_state = json_encode($board_state);
+    	$encoded_board_state = json_encode($board_state);
     	
     	// start transactional mode
     	$this->db->trans_begin();
     	
-    	$this->match_model->updateBoard($user->match_id, $board_state);
+    	$this->match_model->updateBoard($user->match_id, $encoded_board_state);
 
     	if ($this->db->trans_status() === FALSE) {
     		$errormsg = "Transaction error";
@@ -156,7 +155,7 @@ class Board extends CI_Controller {
     	// if all went well commit changes
     	$this->db->trans_commit();
     		
-    	echo json_encode(array('status'=>'success'));
+    	echo json_encode(array('status'=>'success', 'board' => $board_state->match_arr, 'curr_player' => $board_state->curr_player));
     	return;
     	
     	transactionerror:
@@ -226,7 +225,9 @@ class Board extends CI_Controller {
     	$this->db->trans_commit();
     	
     	
-    	echo json_encode(array('status'=>'success', 'col_num' => $board_state->col_num, 'row_num' => $board_state->row_num));
+    	echo json_encode(array('status'=>'success', 'board' => $board_state->match_arr, 
+    			'col_num' => $board_state->col_num, 'row_num' => $board_state->row_num,
+    			'curr_player' => $board_state->curr_player));
     	return;
     	 
     	transactionerror:
