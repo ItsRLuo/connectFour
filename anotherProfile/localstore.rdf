@@ -4,6 +4,8 @@
   <RDF:Description RDF:about="chrome://browser/content/devtools/framework/toolbox-window.xul">
     <NC:persist RDF:resource="chrome://browser/content/devtools/framework/toolbox-window.xul#devtools-toolbox-window"/>
   </RDF:Description>
+  <RDF:Description RDF:about="chrome://browser/content/browser.xul#sidebar-title"
+                   value="" />
   <RDF:Description RDF:about="chrome://browser/content/places/places.xul#placesContentLastModified"
                    ordinal="17" />
   <RDF:Description RDF:about="chrome://browser/content/places/places.xul#placesContentKeyword"
@@ -11,11 +13,11 @@
   <RDF:Description RDF:about="chrome://browser/content/browser.xul#search-container"
                    width="270" />
   <RDF:Description RDF:about="chrome://browser/content/browser.xul#main-window"
-                   sizemode="normal"
                    width="1035"
                    height="901"
-                   screenX="182"
-                   screenY="28" />
+                   screenX="-3"
+                   screenY="-3"
+                   sizemode="maximized" />
   <RDF:Description RDF:about="chrome://browser/content/places/places.xul">
     <NC:persist RDF:resource="chrome://browser/content/places/places.xul#placesContentTags"/>
     <NC:persist RDF:resource="chrome://browser/content/places/places.xul#placesContentUrl"/>
@@ -48,9 +50,9 @@
   <RDF:Description RDF:about="chrome://browser/content/devtools/framework/toolbox-window.xul#devtools-toolbox-window"
                    sizemode="normal"
                    height="652"
-                   width="1370"
-                   screenX="-374"
-                   screenY="250" />
+                   width="1274"
+                   screenX="-102"
+                   screenY="772" />
   <RDF:Description RDF:about="chrome://browser/content/places/places.xul#placesContentDateAdded"
                    ordinal="15" />
   <RDF:Description RDF:about="chrome://browser/content/browser.xul">
@@ -78,10 +80,6 @@
                    ordinal="3" />
   <RDF:Description RDF:about="chrome://browser/content/places/places.xul#placesContentDate"
                    ordinal="7" />
-  <RDF:Description RDF:about="chrome://browser/content/browser.xul#sidebar-box"
-                   sidebarcommand=""
-                   width=""
-                   src="" />
   <RDF:Description RDF:about="chrome://mozapps/content/downloads/unknownContentType.xul">
     <NC:persist RDF:resource="chrome://mozapps/content/downloads/unknownContentType.xul#unknownContentType"/>
   </RDF:Description>
