@@ -14,6 +14,18 @@ Shockwave Flash:$
 2
 0:application/x-shockwave-flash:Shockwave Flash:swf:$
 1:application/futuresplash:FutureSplash Player:spl:$
+npwrapper.nppdf.so:$
+/usr/lib/mozilla/plugins/npwrapper.nppdf.so:$
+:$
+1377793090000:0:0:$
+The Adobe Reader plugin is used to enable viewing of PDF and FDF files from within the browser. :$
+Adobe Reader 9.5:$
+5
+0:application/pdf:Portable Document Format:pdf:$
+1:application/vnd.fdf:Acrobat Forms Data Format:fdf:$
+2:application/vnd.adobe.xfdf:XML Version of Acrobat Forms Data Format:xfdf:$
+3:application/vnd.adobe.xdp+xml:Acrobat XML Data Package:xdp:$
+4:application/vnd.adobe.xfd+xml:Adobe FormFlow99 Data File:xfd:$
 IcedTeaPlugin.so:$
 /usr/lib/jvm/java-7-openjdk-amd64/jre/lib/amd64/IcedTeaPlugin.so:$
 :$
@@ -57,17 +69,5 @@ IcedTea-Web Plugin (using IcedTea-Web 1.2.3 (1.2.3-0ubuntu0.12.04.3)):$
 33:application/x-java-bean;version=1.7:IcedTea:class,jar:$
 34:application/x-java-bean;jpi-version=1.7.0_50:IcedTea:class,jar:$
 35:application/x-java-vm-npruntime:IcedTea::$
-npwrapper.nppdf.so:$
-/usr/lib/mozilla/plugins/npwrapper.nppdf.so:$
-:$
-1368646594000:0:0:$
-The Adobe Reader plugin is used to enable viewing of PDF and FDF files from within the browser. :$
-Adobe Reader 9.5:$
-5
-0:application/pdf:Portable Document Format:pdf:$
-1:application/vnd.fdf:Acrobat Forms Data Format:fdf:$
-2:application/vnd.adobe.xfdf:XML Version of Acrobat Forms Data Format:xfdf:$
-3:application/vnd.adobe.xdp+xml:Acrobat XML Data Package:xdp:$
-4:application/vnd.adobe.xfd+xml:Adobe FormFlow99 Data File:xfd:$
 
 [INVALID]

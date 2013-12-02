@@ -33,6 +33,13 @@ class Invite_model extends CI_Model {
 		return $this->db->insert('invite',$invite);
 	}
 	
+	function delete($invite) {
+		return $this->db->delete('invite', $invite);
+	}
+	
+	function deleteByID($id) {
+		$this->db->delete('invite', array('id' => $id));
+	}
 	
 	function updateStatus($id, $status) {
 		$this->db->where('id',$id);

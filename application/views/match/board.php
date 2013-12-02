@@ -112,6 +112,10 @@
 		 return Math.max.apply(null, this);
 	};
 
+	Array.prototype.contains = function(item) {
+		return this.indexOf(item) >= 0;
+	}
+	
 	$(document).ready(function() {
 		
 		currTurnID = <?php echo $currentTurn; ?>;
@@ -121,6 +125,7 @@
 		opponentMadeMoveURL = "<?= base_url() ?>board/opponentMadeMove";
 		makeMoveURL = "<?= base_url() ?>board/makeMove";
 		checkVictoryURL = "<?= base_url() ?>board/checkVictory";
+		finishGameURL = '<?= base_url() ?>board/finishGame';
 
 		// Inserts a token into a slot, if it's the user's turn.
 		$('body').delegate('.emptySlot','click', makeMove);
@@ -149,6 +154,10 @@
 		            if (data_decode.status == "success" && data_decode.board && data_decode.curr_player == userID) {
 	            		updateBoard(data_decode.board);
 	            		currTurnID = userID;
+
+	            		var arguments = {'playerID': opponentID, 'col_num': data_decode.col_num, 
+	    	            				 'row_num': data_decode.row_num, 'userID': userID};
+	            		checkVictory(arguments);
 	            	}
 	            },
 	            error: function(x,y,z){
@@ -170,10 +179,10 @@
 	 		var thisColNum = extractColNum($(this));
 			var lowestSlot = getLowestRowInColumn(thisColNum);
 			lowestSlot.addClass('player' + userID).removeClass('emptySlot');
+			var thisRowNum = extractRowNum(lowestSlot);
 
-			var argArray = {"playerID": userID, "currentPlayerTurn": currTurnID, "pieceAdded": new Array(thisColNum, extractRowNum(lowestSlot))};
+			var argArray = {"playerID": userID, "currentPlayerTurn": currTurnID, "pieceAdded": new Array(thisColNum, thisRowNum)};
 			var arguments = $.param(argArray);
-
 
 	        $.ajax({
 	            type: "POST",
@@ -184,10 +193,15 @@
 		            if (data_decode.status == "success" && data_decode.board) {
 	            		updateBoard(data_decode.board);
 	            		currTurnID = 3 - currTurnID;
+
+	            		var arguments = {'playerID': userID, 'col_num': thisColNum, 
+	    	            		'row_num': thisRowNum, 'userID': userID};
+	            		
+	            		checkVictory(arguments);
 	            	}
 	            },
 	            error: function(x, y, z) {
-	                  alert('error\n'+x+'\n'+y+'\n'+z);
+	                 //  alert('error\n'+x+'\n'+y+'\n'+z);
 	            },
 	            complete: function(x, y){
 	            }
@@ -209,31 +223,49 @@
 				}
 			} 
 		}
-
-		checkVictory();
 	}
 
-	function checkVictory() {
+	function checkVictory(arguments) {
 		$.ajax({
-			type: "POST",
+			type: "GET",
 			url: checkVictoryURL,
+			data: arguments,
 			success: function(data) {
-				if (data == "lose") {
-
-				} else if (data == "draw") {
-
-				} else if (data == "win") {
-
+				data_decode = JSON.parse(data);
+				var outcomes = ["win", "lose", "draw"];
+				if (outcomes.contains(data_decode.outcome)) {
+					alert(data_decode.message);
+					if (outcome == "win" || outcome == "draw") {
+						//gameFinished();
+					}
+					
 				}
 			},
             error: function(x, y, z) {
-                  alert('error\n'+x+'\n'+y+'\n'+z);
             },
             complete: function(x, y){
             }
 		});
 	}
 	
+
+	function gameFinished() {
+
+		var arguments = {"player": userID};
+		
+		$.ajax({
+			type: "POST",
+			url: finishGameURL,
+			data: arguments,
+			success: function() {
+
+			}, 
+			complete: function() {
+				window.location.href = '<?= base_url() ?>arcade/index';
+			}
+		});
+		
+	}
 	
 	function getLowestRowInColumn(colNum) {
 		
