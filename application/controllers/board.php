@@ -17,6 +17,8 @@ class Board extends CI_Controller {
 	    return call_user_func_array(array($this, $method), $params);
     }
   
+    // Unused function: given a nested array, flatten it so that all elements are within the same
+    // array.
     function flattenArr($arr) {
     	
     	$arrs = array();
@@ -46,21 +48,29 @@ class Board extends CI_Controller {
     	
     }
     
+    // Check if there is a horizontal victory.
     function checkHorizontal($player, $board, $col_num, $row_num) {
     	
     	$currentLongest = 0;
     	
     	for ($i = -3; $i < 4; $i++) {
+    		
+    		// This denotes the slot where a piece was inserted by $player.
     		if ($i == 0) {
     			$currentLongest++;
     		}
+    		
+    		// Ignore any indices that are off the board.
     		else if ($col_num + $i < 0) {
     			$currentLongest = 0;
     			continue;
     		}
+    		
+    		// Return false if we iterate onto an off-the-board slot.
     		else if ($col_num + $i > 6) {
     			return false;
     		}
+    		
     		else if ($board[$row_num][$col_num + $i] == $player) {
     			$currentLongest++;
     		} 
@@ -78,6 +88,7 @@ class Board extends CI_Controller {
 
     }
     
+    // Check if there is a vertical victory.
     function checkVertical($player, $board, $col_num, $row_num) {
     	
     	$currentLongest = 0;
@@ -110,8 +121,10 @@ class Board extends CI_Controller {
 
     }
     
+    // Check if there is a diagonal victory.
     function checkDiagonal($player, $board, $col_num, $row_num) {
     	
+    	// First diagonal
 	    $currentLongest = 0;
 	    
 	    for ($i = -3; $i <= 3; $i++) {
@@ -137,6 +150,9 @@ class Board extends CI_Controller {
 	    		return true;
 	    	}
 	    }
+	    
+	    // Second diagonal
+	    $currentLongest = 0;
 	    
 	    for ($i = -3; $i <= 3; $i++) {
 	    	if ($i == 0) {
@@ -166,8 +182,8 @@ class Board extends CI_Controller {
 
     }
     
+    // If the board is filled and no one has won, return true.
     function checkDraw($board){
-    	//If all board is filled and there is no one has won, checkDraw returns true
 
      	for ($j = 0; $j < 6; $j++) {
     	    if ($board[0][$j] == 0) {
@@ -178,8 +194,10 @@ class Board extends CI_Controller {
     	return True;
     }
     
+    // Run through all the above functions to check for a victory condition, and echo
+    // an appropriate JSON object representing the win state.
 	function checkVictory() {
-		//Run through all above checking condition to get a outcome and json_encode it
+		
 		$this->load->model('user_model');
 		$this->load->model('match_model');
 		$user = $_SESSION['user'];
@@ -188,41 +206,45 @@ class Board extends CI_Controller {
 		$arr = json_decode($match->board_state);
 		$board = $arr->match_arr;
 		 
-		//get variable from inputs
+		// Get all input variables.
 		$player = $this->input->get("playerID");
 		$userID = $this->input->get("userID");
 		$col_num = $this->input->get("col_num");
 		$row_num = $this->input->get("row_num");
 		 
-		//init different conditon to array
+		// Create different arrays for each of the win conditions.
 		$winArray = array('status'=>'success','message'=>"You win!", 'outcome' => 'win');
 		$loseArray = array('status'=>'success','message'=>"You lose!", 'outcome' => 'lose');
 		$drawArray = array('status'=>'success','message'=>"Draw!", 'outcome' => 'draw');
 		$noWinArray = array('status' => 'success', 'message'=> 'No victory conditions', 'outcome' => 'none');
 		 
-		//run check condition functions 
+		// Run the victory condition functions. 
 		if ($this->checkVertical($player, $board, $col_num, $row_num) ||
 			$this->checkHorizontal($player, $board, $col_num, $row_num) ||
 			$this->checkDiagonal($player, $board, $col_num, $row_num)) {
 			 
 			if ($userID == $player) {
-				echo json_encode($winArray);
+				echo json_encode($winArray); // Win
 			} else {
-				echo json_encode($loseArray);
+				echo json_encode($loseArray); // Loss
 			}
 			 
 		}
-		 
+
+		// Check if the board is full and no one has won.
 		else if ($this->checkDraw($board)) {
 			echo json_encode($drawArray);
 		}
+		
+		// Otherwise, the game can continue.
 		else {
 			echo json_encode($noWinArray);
 		}
 	}    
     
+	// Run this code after a game finishes, to clear the match, adjust the user match_id statuses,
+	// and destroy the created invite.
 	function finishGame() {
-		//Reset everything to make sure there is no carry over for the next play through
 		$winner;
 		$this->load->model('user_model');
 		$this->load->model('match_model');
@@ -253,7 +275,8 @@ class Board extends CI_Controller {
 		} else {
 			$otherUser = $this->user_model->getFromId($match->user1_id);
 		}
-		//update everything
+		
+		// Update the appropriate values under the appropriate tables.
 		$otherUserID = $otherUser->id;
  		$this->user_model->updateMatch($otherUserID, NULL);
  		$this->user_model->updateMatch($userID, NULL);
@@ -262,10 +285,10 @@ class Board extends CI_Controller {
  		$this->user_model->updateInvitation($otherUserID, NULL);
  		$this->user_model->updateInvitation($userID, NULL);
 		
-		// DELETE THE ASSOCIATED INVITE.
+		// Delete the associated invite.
 		$this->invite_model->deleteByID($user->match_id);
 		
-		// CHECK IF EVERYTHING WENT WELL, AND RETURN THE PROPER ENCODED ARRAY:
+		// Check if everything went well, and return the proper encoded array:
 		if ($this->db->trans_status() === FALSE) {
  			$errormsg = "Transaction error";
  			goto transactionerror;

@@ -14,7 +14,7 @@
 	var status = "<?= $status ?>";
 	$(document).ready(function () {
 		
-			
+		// Run this code when ever a chat message is submitted.
 	    $('form').submit(function () {
 	        var arguments = $(this).serialize();
 	        var url = "<?= base_url() ?>board/postMsg";
@@ -27,6 +27,8 @@
 	    });
 
 	    $('body').everyTime(2000, function () {
+
+		    // Run this if we are waiting for an opponent to accept OR reject a game request.
 	        if (status == 'waiting') {
 	            $.getJSON('<?= base_url() ?>arcade/checkInvitation', function (data, text, jqZHR) {
 	                if (data && data.status == 'rejected') {
@@ -41,6 +43,8 @@
 	
 	            });
 	        }
+
+	        // Get any messages the opponent sends through chat.
 	        var url = "<?= base_url() ?>board/getMsg";
 	        $.getJSON(url, function (data, text, jqXHR) {
 	            if (data && data.status == 'success') {
@@ -54,9 +58,12 @@
 
 		});
 	});
-//Drawing the Info,gameBoard and chat
+
 </script>
 </head>
+
+<!-- Display the gameboard, game info and the chat interface. -->
+
 <body>
 	<h1>Game Area</h1>
 	<div class="infoMessage">
@@ -83,10 +90,6 @@
 					echo "<td><div id='row$row-col$col' class='circleBase boardSlot emptySlot'></div></td>";
 				}
 				echo "</tr>";
-			}
-
-			if (isset($userPlayerID)) {
-				echo $userPlayerID;
 			}
 		?>
 	</table>
@@ -116,27 +119,30 @@
 	}
 	
 	$(document).ready(function() {
-		//init variables
+		// Initialized variables:
 		currTurnID = <?php echo $currentTurn; ?>;
 		userID = <?php echo $userPlayerID; ?>;
 		opponentID = 3 - userID;
 		opponentStrID = opponentID.toString();
+
+		// URLs
 		opponentMadeMoveURL = "<?= base_url() ?>board/opponentMadeMove";
 		makeMoveURL = "<?= base_url() ?>board/makeMove";
 		checkVictoryURL = "<?= base_url() ?>board/checkVictory";
 		finishGameURL = '<?= base_url() ?>board/finishGame';
 
-		// Inserts a token into a slot, if it's the user's turn.
+		// Insert a token into a slot, if it's the user's turn.
 		$('body').delegate('.emptySlot','click', makeMove);
 
-		// If it's the opponent's turn, this waits for the opponent to make a move.
+		// If it's the opponent's turn, wait for the opponent to make a move.
 		$('body').everyTime(200, waitForOpponent);
 
 		
 	});
 
+	// Wait for the opponent to make a move.
 	function waitForOpponent() {
-		//Run after a move is made and updating for the other player
+		
 		if (userID != currTurnID) {
 			var argArray = {"userTurn": userID};
 			var arguments = $.param(argArray);
@@ -164,9 +170,10 @@
 		}
 	}
 	
-	
+
+	// Make a move on the game board.
 	function makeMove() {
-		//function runs if player made a move on the board
+
 		var board;
 		if (userID == currTurnID) {
 	 		var thisColNum = extractColNum($(this));
@@ -200,6 +207,7 @@
 		}
 	}
 
+	// Update the game board, with the contents in boardArr. 
 	function updateBoard(boardArr) {
 		//Go through the game board 
 		for (var i = 0; i < 6; i++) {
@@ -214,8 +222,8 @@
 		}
 	}
 
+	// Use controller/board.php to see if a win, loss or draw has occurred.
 	function checkVictory(arguments) {
-		//with the controller, check to see the outcome(win,lose or draw) and act accordingly
 		$.ajax({
 			type: "GET",
 			url: checkVictoryURL,
@@ -227,19 +235,14 @@
 					alert(data_decode.message);
 					gameFinished();
 				}
-			},
-            error: function(x, y, z) {
-            },
-            complete: function(x, y){
-            }
+			}
 		});
 	}
 	
-
+	// Return to arcade/index once the game is complete.
 	function gameFinished() {
-		//Jump back to arcade/index page when there is a outcome for checkvictory
-		var arguments = {"player": userID};
 		
+		var arguments = {"player": userID};
 		$.ajax({
 			type: "POST",
 			url: finishGameURL,
@@ -254,8 +257,9 @@
 		
 	}
 	
+	// Return the lowest unfilled slot on the board in the given column number.
 	function getLowestRowInColumn(colNum) {
-		//find the lowest unfilled circle for the board
+	
 		slots = new Array();
 		$(".boardSlot.emptySlot").each(function() { 
 
@@ -270,7 +274,9 @@
 		return getByRowColIndex(lowestRow, colNum);
 		
 	}
-	
+
+	// Given a row and column index, return the appropriate slot on the game board,
+	// as a JQuery object, if it is empty.
 	function getByRowColIndex(row, col) {
 	
 		retVal = null;
@@ -284,8 +290,9 @@
 	
 	}
 
+	// Given a row and column index, return the appropriate slot on the game board,
+	// as a JQuery object.
 	function getByRowColIndexFull(row, col) {
-		
 		retVal = null;
 		$(".boardSlot").each(function() {
 			if ((extractRowNum($(this)) == row) && (extractColNum($(this)) == col)) {
@@ -294,18 +301,19 @@
 			} 
 		});
 		return retVal;
-	
 	}
-	
+
+	// Given a slot on the game board, get its row number.
 	function extractRowNum(slot) {
-		//Take out the row numbest of the slot
+		
 		var regex = /row(\d)-col\d/;
 		var returnSlot = slot.attr('id').replace(regex, "$1");
 		return parseInt(returnSlot);
 	}
 	
+	// Given a slot on the game board, get its column number.
 	function extractColNum(slot) {
-		//take out the colnum number of the slot
+		
 		var regex = /row\d-col(\d)/;
 		var returnSlot = slot.attr('id').replace(regex, "$1");
 		return parseInt(returnSlot);
@@ -316,19 +324,3 @@
 </body>
 
 </html>
-<!-- 	<script>//Create Alert as long as the invited user hasn't decided to join the game or not
-	/* while (status == "waiting"){
-			jAlert('Waiting On Other Player', 'Waiting On Other Player', function() { $('#popup_ok').hide(); });
-            $.getJSON('<\?= base_url() ?>arcade/checkInvitation', function (data, text, jqZHR) {
-                if (data && data.status == 'rejected') {
-                    alert("Sorry, your invitation to play was declined!");
-                    window.location.href = '<\?= base_url() ?>arcade/index';
-                }
-                if (data && data.status == 'accepted') {
-                    status = 'playing';
-                    $('#status').html('Playing ' + otherUser);
-                    window.location.href = '<\?= base_url() ?>board/index';
-                }
-
-            });
-	} */</script>  -->

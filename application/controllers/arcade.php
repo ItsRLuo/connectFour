@@ -71,19 +71,16 @@ class Arcade extends CI_Controller {
 	    $invite = $this->invite_model->get($user->invite_id);
 	    $hostUser = $this->user_model->getFromId($invite->user1_id);
 
-	    
 	    // start transactional mode
 	    $this->db->trans_begin();
 	    
 	    // change status of invitation to ACCEPTED
 	    $this->invite_model->updateStatus($invite->id,Invite::ACCEPTED);
 	    
-	    
-	    // create a match entry
+	    // Create a new match entry in the SQL database.
 	    $match = new Match();
 	    $match->user1_id = $user->id;
 	    $match->user2_id = $hostUser->id;
-	    
     	$match_arr = array();
     	for ($i = 0; $i < 6; $i++) {
     		array_push($match_arr, array());
@@ -91,10 +88,9 @@ class Arcade extends CI_Controller {
     			array_push($match_arr[$i], 0);
     		}
     	}
-	    
     	$match->board_state = json_encode(array("match_arr" => $match_arr, "curr_player" => 1, "col_num" => -1, "row_num" => -1));
-	    
 	    $this->match_model->insert($match);
+	    
 	    $matchId = mysql_insert_id();
 
 	    // update status of both users
@@ -197,7 +193,6 @@ class Arcade extends CI_Controller {
 		
 		// start transactional mode
 		$this->db->trans_begin();	
-
 
 		// lock both user records in alphabetic order to prevent deadlocks	
 		if (strcmp($user1->login, $login) < 0) {
