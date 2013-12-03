@@ -49,7 +49,9 @@ class Board extends CI_Controller {
     function checkHorizontal($player, $board, $col_num, $row_num) {
     	
     	// Check left:
+    	//victory will init to true
     	$victory = true;
+    	//If one fails then just break and go to the next for loop
     	for ($i = 1; $i < 4; $i++) {
     		if ($col_num - $i < 0) {
     			$victory = false;
@@ -61,14 +63,15 @@ class Board extends CI_Controller {
     		}
     	
     	}
-    	 
+    	
+    	//if  victory is still true return
     	if ($victory) {
-
     		return true;
     	}
     	
     	// Check right:
     	$victory = true;
+    	//If one if loop fails then just return false for victory
     	for ($i = 1; $i < 4; $i++) {
     		if ($col_num + $i > 6) {
     			return false;
@@ -83,7 +86,7 @@ class Board extends CI_Controller {
     }
     
     function checkVertical($player, $board, $col_num, $row_num) {
-    	
+    	//mostly the same as function checkHorizontal but instead checking above and below
     	$first_row = 0;
     	$first_col = 0;
     	$last_row = 5;
@@ -123,6 +126,7 @@ class Board extends CI_Controller {
     }
     
     function checkDiagonal($player, $board, $col_num, $row_num) {
+    	//mostly the same as function checkHorizontal but instead checking diagonal
     	// Check diagonal, up and left:
         $victory = true;
     	for ($i = 1; $i < 4; $i++) {
@@ -193,7 +197,7 @@ class Board extends CI_Controller {
     }
     
     function checkDraw($board){
-    	
+    	//If all board is filled and there is no one has won, checkDraw returns true
     	for ($i = 0; $i < sizeof($board); $i++) {
     	
     	  for ($j = 0; $j < sizeof($board[$i]); $j++) {
@@ -214,6 +218,7 @@ class Board extends CI_Controller {
     }
     
 	function checkVictory() {
+		//Run through all above checking condition to get a outcome and json_encode it
 		$this->load->model('user_model');
 		$this->load->model('match_model');
 		$user = $_SESSION['user'];
@@ -222,16 +227,19 @@ class Board extends CI_Controller {
 		$arr = json_decode($match->board_state);
 		$board = $arr->match_arr;
 		 
+		//get variable from inputs
 		$player = $this->input->get("playerID");
 		$userID = $this->input->get("userID");
 		$col_num = $this->input->get("col_num");
 		$row_num = $this->input->get("row_num");
 		 
+		//init different conditon to array
 		$winArray = array('status'=>'success','message'=>"You win!", 'outcome' => 'win');
 		$loseArray = array('status'=>'success','message'=>"You lose!", 'outcome' => 'lose');
 		$drawArray = array('status'=>'success','message'=>"Draw!", 'outcome' => 'draw');
 		$noWinArray = array('status' => 'success', 'message'=> 'No victory conditions', 'outcome' => 'none');
 		 
+		//run check condition functions 
 		if ($this->checkVertical($player, $board, $col_num, $row_num) ||
 				$this->checkHorizontal($player, $board, $col_num, $row_num) ||
 				$this->checkDiagonal($player, $board, $col_num, $row_num)) {
@@ -253,7 +261,7 @@ class Board extends CI_Controller {
 	}    
     
 	function finishGame() {
-			
+		//Reset everything to make sure there is no carry over for the next play through
 		$winner;
 		$this->load->model('user_model');
 		$this->load->model('match_model');
@@ -284,6 +292,7 @@ class Board extends CI_Controller {
 		} else {
 			$otherUser = $this->user_model->getFromId($match->user1_id);
 		}
+		//update everything
 		$otherUserID = $otherUser->id;
  		$this->user_model->updateMatch($otherUserID, NULL);
  		$this->user_model->updateMatch($userID, NULL);
@@ -318,7 +327,7 @@ class Board extends CI_Controller {
     	$this->load->model('user_model');
     	$this->load->model('invite_model');
     	$this->load->model('match_model');
-    	
+    	//load model
     	$user = $this->user_model->get($user->login);
     	$match = $this->match_model->get($user->match_id);
     	$invite = $this->invite_model->get($user->invite_id);
@@ -333,9 +342,7 @@ class Board extends CI_Controller {
     	
     	// The invited
     	else if ($user->user_status_id == User::PLAYING) {
-    		
     		$arr = json_decode($match->board_state);
-   			 
     		if ($match->user1_id == $user->id) {
     			$otherUser = $this->user_model->getFromId($match->user2_id);
     			$data["userPlayerID"] = 2;
@@ -380,8 +387,6 @@ class Board extends CI_Controller {
 			goto error;
  		}
  		
-//  		echo intval($this->input->post('playerID'));
-//  		echo intval($this->input->post('currentPlayerTurn'));
  		if (intval($this->input->post('playerID')) != intval($this->input->post('currentPlayerTurn'))) {
  			$msg = "NOT YOUR TURN!";
  			goto waiting;
@@ -394,7 +399,6 @@ class Board extends CI_Controller {
     	
     	$colNum = $position[0];
     	$rowNum = $position[1];
-    	//echo print_r($board_state);
     	
     	// Update the board with a player's move and change the current player.
     	$board_state->match_arr[$rowNum][$colNum] = $board_state->curr_player;
@@ -469,31 +473,6 @@ class Board extends CI_Controller {
     	
     	$arr = json_decode($match->board_state);
     	
-//     	$arrs = array();
-//     	try
-//     	{
-//     		foreach ($arr as $arrElem) {
-//     			//place holder
-//     			if (gettype($arrElem) != gettype(2)){
-//     				foreach ($arrElem as $arrElemElem) {
-//     					echo gettype($arrElemElem);
-//     					foreach ($arrElemElem as $arrElemElemElem){
-//     						echo $arrElemElemElem;
-//     						array_push($arrs, $arrElemElemElem);
-//     					}
-//     				}
-//     				//echo "<br/>";
-//     			}
-//     		};
-//     		// Get the current match info.
-//     	}
-//     	catch (Exception $e)
-//     	{
-//     		throw new Exception( 'Something really gone wrong', 0, $e);
-//     	}
-// 		$data['arrs'] = $arrs;
-		
-    	
     	if ($this->db->trans_status() === FALSE) {
     		$errormsg = "Transaction error";
     		goto transactionerror;
@@ -512,7 +491,7 @@ class Board extends CI_Controller {
     	// if all went well commit changes
     	$this->db->trans_commit();
     	
-    	
+    	//save data of current board and player
     	echo json_encode(array('status'=>'success', 'board' => $board_state->match_arr, 'col_num' => $board_state->col_num, 'row_num' => $board_state->row_num, 'curr_player' => $board_state->curr_player));
     	return;
     	 
@@ -611,120 +590,5 @@ class Board extends CI_Controller {
 		error:
 		echo json_encode(array('status'=>'failure','message'=>$errormsg));
  	}
- 	
-
- 	
  }
- 
-
- // 		$flattened_array = $this->flattenArr($arr)
- //    			$win = 0;
- //    			$count = 0;
- //    			$count2 = 0;
- //    			for ($x=0;$x<sizeof($arrs);$x++){
- //    				for ($y = 0;$y<4;$y++){
- //    					$count = $count +1;
- 	//    					if ($arrs[$x+$y] == $arr[$x+1+$y]){
- 	//    						$win = $arrs[$x+$y];
- 		//    					}
- 		//    					else{
- 		//    						$win = 0;
- 		//    						$count = $y;
- 		//    						break;
- 		//    					}
- 		//    					if ($count == 6){
- 		//    						$count = 0;
- 		//    						$win = 0;
- 		//    						break;
- 		//    					}
- 		//    					if ($count == 4){
- 		//    						if ($win != 0){
- 		//    							win_state($win);
- 		//    						}
- 		//    						$win = 0;
- 		//    						break;
- 		//    					}
- 		//    				}
- 		//    				//up/down
- 		//    				try
- 		//    				{
- 		//    					for ($y = 0;$y<4;$y++){
- 		//    						$count = $count +1;
- 		//    						if ($arrs[$x+($y*7)+$y] == $arr[$x-1-$y+((1+$y)*7)]){
- 		//    							$win = $arrs[$x+($y*7)];
- 		//    						}
- 		//    						else{
- 		//    							$win = 0;
- 		//    							$count = $y;
- 		//    							break;
- 		//    						}
- 		//    						if ($count == 6){
- 		//    							$count = 0;
- 		//    							$win = 0;
- 		//    							break;
- 		//    						}
- 		//    						if ($count == 4){
- 		//    							if ($win != 0){
- 		//    								win_state($win);
- 		//    							}
- 		//    							$win = 0;
- 		//    							break;
- 		//    						}
- 		//    					}
- 		//    				}
- 		//    				catch (Exception $e)
- 		//    				{
- 		//    					$win = 0;
- 		//    				}
- 		//    				//diaL
- 		//    				for ($y = 0;$y<4;$y++){
- 		//    					$count = $count +1;
- 		//    					if ($arrs[$x+($y*7)-$y] == $arr[1+$y+$x+((1+$y)*7)]){
- 		//    						$win = $arrs[$x+($y*7)];
- 		//    					}
- 		//    					else{
- 		//    						$win = 0;
- 		//    						$count = $y;
- 		//    						break;
- 		//    					}
- 		//    					if ($count == 6){
- 		//    						$count = 0;
- 		//    						$win = 0;
- 		//    						break;
- 		//    					}
- 		//    					if ($count == 4){
- 		//    						if ($win != 0){
- 		//    							win_state($win);
- 		//    						}
- 		//    						$win = 0;
- 		//    						break;
- 		//    					}
- 		//    				}
- 		//    				//diaR
- 		//    				for ($y = 0;$y<4;$y++){
- 		//    					$count = $count +1;
- 		//    					if ($arrs[$x+($y*7)] == $arr[$x+((1+$y)*7)-1]){
- 		//    						$win = $arrs[$x+($y*7)];
- 		//    					}
- 		//    					else{
- 		//    						$win = 0;
- 		//    						$count = $y;
- 		//    						break;
- 		//    					}
- 		//    					if ($count == 6){
- 		//    						$count = 0;
- 		//    						$win = 0;
- 		//    						break;
- 		//    					}
- 		//    					if ($count == 4){
- 		//    						if ($win != 0){
- 		//    							win_state($win);
- 		//    						}
- 		//    						$win = 0;
- 		//    						break;
- 		//    					}
- 		//    				}
- 
- 		//    			}
- 
 ?>
