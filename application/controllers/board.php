@@ -48,183 +48,138 @@ class Board extends CI_Controller {
     
     function checkHorizontal($player, $board, $col_num, $row_num) {
     	
-    	// Check left:
-    	$victory = true;
-    	for ($i = 1; $i < 4; $i++) {
-    		if ($col_num - $i < 0) {
-    			$victory = false;
-    			break;
-    		}
-    		if ($board[$row_num][$col_num - $i] != $player) {
-    			$victory = false;
-    			break;
-    		}
-    	}
-  
-    	if ($victory) {
-    		return true;
-    	}
+    	$currentLongest = 0;
     	
-    	// Check in-between:
-    	$victory = true;
-    	for ($i = 1; $i < 4; $i++) {
-    		if ($col_num - $i < 0) {
-    			$victory = false;
-    			break;
+    	for ($i = -3; $i < 4; $i++) {
+    		if ($i == 0) {
+    			$currentLongest++;
     		}
-    		if ($board[$row_num][$col_num - $i] != $player) {
-    			$victory = false;
-    			break;
+    		else if ($col_num + $i < 0) {
+    			$currentLongest = 0;
+    			continue;
     		}
-    	}
-    	
-    	if ($victory) {
-    		return true;
-    	}
-    	
-    	// Check right:
-    	$victory = true;
-    	for ($i = 1; $i < 4; $i++) {
-    		if ($col_num + $i > 6) {
+    		else if ($col_num + $i > 6) {
     			return false;
     		}
-    		if ($board[$row_num][$col_num + $i] != $player) {
-    			return false;
+    		else if ($board[$row_num][$col_num + $i] == $player) {
+    			$currentLongest++;
+    		} 
+    		else {
+    			$currentLongest = 0;
+    			continue;
+    		}
+    		
+    		if ($currentLongest == 4) {
+    			return true;
     		}
     	}
+    	
+    	return false;
 
-    	return true;
-    	
     }
     
     function checkVertical($player, $board, $col_num, $row_num) {
     	
-    	$first_row = 0;
-    	$first_col = 0;
-    	$last_row = 5;
-    	$last_col = 6;
-    	
-    	// Check above:
-    	$victory = true;
-    	for ($i = 1; $i < 4; $i++) {
-    		if ($row_num - $i < 0) {
-    			$victory = false;
-    			break;
+    	$currentLongest = 0;
+    	 
+    	for ($i = -3; $i < 4; $i++) {
+    		if ($i == 0) {
+    			$currentLongest++;
     		}
-    		if ($board[$row_num - $i][$col_num] != $player) {
-    			$victory = false;
-    			break;
+    		else if ($row_num + $i < 0) {
+    			$currentLongest = 0;
+    			continue;
     		}
-    	}
-    	
-    	if ($victory) {
-    		return true;
-    	}
-    	
-    	// Check in-between:
-    	
-    	// Check below:
-    	$victory = true;
-    	for ($i = 1; $i < 4; $i++) {
-    		if ($row_num + $i > 5) {
+    		else if ($row_num + $i > 5) {
     			return false;
     		}
-    		if ($board[$row_num + $i][$col_num] != $player) {
-    			return false;
+    		else if ($board[$row_num + $i][$col_num] == $player) {
+    			$currentLongest++;
+    		}
+    		else {
+    			$currentLongest = 0;
+    			continue;
+    		}
+    	
+    		if ($currentLongest == 4) {
+    			return true;
     		}
     	}
+    	 
+    	return false;
 
-    	return true;
-    	
-    	
-    	
     }
     
     function checkDiagonal($player, $board, $col_num, $row_num) {
+    	
+	    $currentLongest = 0;
+	    
+	    for ($i = -3; $i <= 3; $i++) {
+	    	if ($i == 0) {
+	    		$currentLongest++;
+	    	}
+	    	else if ($row_num + $i < 0 || $col_num + $i < 0) {
+	    		$currentLongest = 0;
+	    		continue;
+	    	}
+	    	else if ($row_num + $i > 5 || $col_num + $i > 6) {
+	    		return false;
+	    	}
+	    	else if ($board[$row_num + $i][$col_num + $i] == $player) {
+	    		$currentLongest++;
+	    	}
+	    	else {
+	    		$currentLongest = 0;
+	    		continue;
+	    	}
+	    	 
+	    	if ($currentLongest == 4) {
+	    		return true;
+	    	}
+	    }
+	    
+	    for ($i = -3; $i <= 3; $i++) {
+	    	if ($i == 0) {
+	    		$currentLongest++;
+	    	}
+	    	else if ($row_num + $i < 0 || $col_num + $i > 6) {
+	    		$currentLongest = 0;
+	    		continue;
+	    	}
+	    	else if ($row_num + $i > 5 || $col_num + $i < 0) {
+	    		return false;
+	    	}
+	    	else if ($board[$row_num + $i][$col_num + $i] == $player) {
+	    		$currentLongest++;
+	    	}
+	    	else {
+	    		$currentLongest = 0;
+	    		continue;
+	    	}
+	    
+	    	if ($currentLongest == 4) {
+	    		return true;
+	    	}
+	    }
+	    
+	    return false;
 
-    	// Check diagonal, up and right:
-        $victory = true;
-    	for ($i = 1; $i < 4; $i++) {
-    		if ($row_num - $i < 0 || $col_num + $i > 6) {
-    			$victory = false;
-    			break;
-    		}
-    		if ($board[$row_num - $i][$col_num + $i] != $player) {
-    			$victory = false;
-    			break;
-    		}
-    	}
-    	
-    	if ($victory) {
-    		return true;
-    	}
-    	
-    	// Check in-between:
-    	
-    	// Check diagonal, down and left:
-        $victory = true;
-    	for ($i = 1; $i < 4; $i++) {
-    		if ($row_num + $i > 5 || $col_num - $i < 0) {
-    			$victory = false;
-    			break;
-    		}
-    		if ($board[$row_num + $i][$col_num - $i] != $player) {
-    			$victory = false;
-    			break;
-    		}
-    	}
-    	 
-    	if ($victory) {
-
-    		return true;
-    	}
-
-    	// Check diagonal, up and left:
-    	$victory = true;
-    	for ($i = 1; $i < 4; $i++) {
-    		if ($row_num - $i < 0 || $col_num - $i < 0) {
-    			$victory = false;
-    			break;
-    		}
-    		if ($board[$row_num - $i][$col_num - $i] != $player) {
-    			$victory = false;
-    			break;
-    		}
-    	}
-    	 
-    	if ($victory) {
-    		return true;
-    	}
-    	
-    	// Check in-between:
-    	
-    	// Check diagonal, down and right:
-    	$victory = true;
-    	for ($i = 1; $i < 4; $i++) {
-    		if ($row_num + $i > 5 || $col_num + $i > 6) {
-    			return false;
-    		}
-    		if ($board[$row_num + $i][$col_num + $i] != $player) {
-    			return false;
-    		}
-    	}
-
-    	return true;
     }
     
     function checkDraw($board){
-    	
-        for ($i = 0; $i < sizeof($board); $i++) {
-    	    for ($j = 0; $j < sizeof($board[$i]); $j++) {
-    	        if ($board[$i][$j] == 0) {
-    	            return False;
-    	        }
+    	//If all board is filled and there is no one has won, checkDraw returns true
+
+     	for ($j = 0; $j < 6; $j++) {
+    	    if ($board[0][$j] == 0) {
+    	        return False;
     	    }
     	}
+    	
     	return True;
     }
     
 	function checkVictory() {
+		//Run through all above checking condition to get a outcome and json_encode it
 		$this->load->model('user_model');
 		$this->load->model('match_model');
 		$user = $_SESSION['user'];
@@ -233,16 +188,19 @@ class Board extends CI_Controller {
 		$arr = json_decode($match->board_state);
 		$board = $arr->match_arr;
 		 
+		//get variable from inputs
 		$player = $this->input->get("playerID");
 		$userID = $this->input->get("userID");
 		$col_num = $this->input->get("col_num");
 		$row_num = $this->input->get("row_num");
 		 
+		//init different conditon to array
 		$winArray = array('status'=>'success','message'=>"You win!", 'outcome' => 'win');
 		$loseArray = array('status'=>'success','message'=>"You lose!", 'outcome' => 'lose');
 		$drawArray = array('status'=>'success','message'=>"Draw!", 'outcome' => 'draw');
 		$noWinArray = array('status' => 'success', 'message'=> 'No victory conditions', 'outcome' => 'none');
 		 
+		//run check condition functions 
 		if ($this->checkVertical($player, $board, $col_num, $row_num) ||
 			$this->checkHorizontal($player, $board, $col_num, $row_num) ||
 			$this->checkDiagonal($player, $board, $col_num, $row_num)) {
@@ -264,7 +222,7 @@ class Board extends CI_Controller {
 	}    
     
 	function finishGame() {
-			
+		//Reset everything to make sure there is no carry over for the next play through
 		$winner;
 		$this->load->model('user_model');
 		$this->load->model('match_model');
@@ -295,6 +253,7 @@ class Board extends CI_Controller {
 		} else {
 			$otherUser = $this->user_model->getFromId($match->user1_id);
 		}
+		//update everything
 		$otherUserID = $otherUser->id;
  		$this->user_model->updateMatch($otherUserID, NULL);
  		$this->user_model->updateMatch($userID, NULL);
@@ -329,7 +288,7 @@ class Board extends CI_Controller {
     	$this->load->model('user_model');
     	$this->load->model('invite_model');
     	$this->load->model('match_model');
-    	
+    	//load model
     	$user = $this->user_model->get($user->login);
     	$match = $this->match_model->get($user->match_id);
     	$invite = $this->invite_model->get($user->invite_id);
@@ -344,9 +303,7 @@ class Board extends CI_Controller {
     	
     	// The invited
     	else if ($user->user_status_id == User::PLAYING) {
-    		
     		$arr = json_decode($match->board_state);
-   			 
     		if ($match->user1_id == $user->id) {
     			$otherUser = $this->user_model->getFromId($match->user2_id);
     			$data["userPlayerID"] = 2;
@@ -391,8 +348,6 @@ class Board extends CI_Controller {
 			goto error;
  		}
  		
-//  		echo intval($this->input->post('playerID'));
-//  		echo intval($this->input->post('currentPlayerTurn'));
  		if (intval($this->input->post('playerID')) != intval($this->input->post('currentPlayerTurn'))) {
  			$msg = "NOT YOUR TURN!";
  			goto waiting;
@@ -482,6 +437,7 @@ class Board extends CI_Controller {
     	// if all went well commit changes
     	$this->db->trans_commit();
     	
+    	//save data of current board and player
     	echo json_encode(array('status'=>'success', 'board' => $board_state->match_arr, 'col_num' => $board_state->col_num, 'row_num' => $board_state->row_num, 'curr_player' => $board_state->curr_player));
     	return;
     	 
@@ -580,118 +536,5 @@ class Board extends CI_Controller {
 		error:
 		echo json_encode(array('status'=>'failure','message'=>$errormsg));
  	}
- 	
  }
- 
-
- // 		$flattened_array = $this->flattenArr($arr)
- //    			$win = 0;
- //    			$count = 0;
- //    			$count2 = 0;
- //    			for ($x=0;$x<sizeof($arrs);$x++){
- //    				for ($y = 0;$y<4;$y++){
- //    					$count = $count +1;
- 	//    					if ($arrs[$x+$y] == $arr[$x+1+$y]){
- 	//    						$win = $arrs[$x+$y];
- 		//    					}
- 		//    					else{
- 		//    						$win = 0;
- 		//    						$count = $y;
- 		//    						break;
- 		//    					}
- 		//    					if ($count == 6){
- 		//    						$count = 0;
- 		//    						$win = 0;
- 		//    						break;
- 		//    					}
- 		//    					if ($count == 4){
- 		//    						if ($win != 0){
- 		//    							win_state($win);
- 		//    						}
- 		//    						$win = 0;
- 		//    						break;
- 		//    					}
- 		//    				}
- 		//    				//up/down
- 		//    				try
- 		//    				{
- 		//    					for ($y = 0;$y<4;$y++){
- 		//    						$count = $count +1;
- 		//    						if ($arrs[$x+($y*7)+$y] == $arr[$x-1-$y+((1+$y)*7)]){
- 		//    							$win = $arrs[$x+($y*7)];
- 		//    						}
- 		//    						else{
- 		//    							$win = 0;
- 		//    							$count = $y;
- 		//    							break;
- 		//    						}
- 		//    						if ($count == 6){
- 		//    							$count = 0;
- 		//    							$win = 0;
- 		//    							break;
- 		//    						}
- 		//    						if ($count == 4){
- 		//    							if ($win != 0){
- 		//    								win_state($win);
- 		//    							}
- 		//    							$win = 0;
- 		//    							break;
- 		//    						}
- 		//    					}
- 		//    				}
- 		//    				catch (Exception $e)
- 		//    				{
- 		//    					$win = 0;
- 		//    				}
- 		//    				//diaL
- 		//    				for ($y = 0;$y<4;$y++){
- 		//    					$count = $count +1;
- 		//    					if ($arrs[$x+($y*7)-$y] == $arr[1+$y+$x+((1+$y)*7)]){
- 		//    						$win = $arrs[$x+($y*7)];
- 		//    					}
- 		//    					else{
- 		//    						$win = 0;
- 		//    						$count = $y;
- 		//    						break;
- 		//    					}
- 		//    					if ($count == 6){
- 		//    						$count = 0;
- 		//    						$win = 0;
- 		//    						break;
- 		//    					}
- 		//    					if ($count == 4){
- 		//    						if ($win != 0){
- 		//    							win_state($win);
- 		//    						}
- 		//    						$win = 0;
- 		//    						break;
- 		//    					}
- 		//    				}
- 		//    				//diaR
- 		//    				for ($y = 0;$y<4;$y++){
- 		//    					$count = $count +1;
- 		//    					if ($arrs[$x+($y*7)] == $arr[$x+((1+$y)*7)-1]){
- 		//    						$win = $arrs[$x+($y*7)];
- 		//    					}
- 		//    					else{
- 		//    						$win = 0;
- 		//    						$count = $y;
- 		//    						break;
- 		//    					}
- 		//    					if ($count == 6){
- 		//    						$count = 0;
- 		//    						$win = 0;
- 		//    						break;
- 		//    					}
- 		//    					if ($count == 4){
- 		//    						if ($win != 0){
- 		//    							win_state($win);
- 		//    						}
- 		//    						$win = 0;
- 		//    						break;
- 		//    					}
- 		//    				}
- 
- 		//    			}
- 
 ?>

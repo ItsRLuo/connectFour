@@ -136,9 +136,8 @@
 	});
 
 	function waitForOpponent() {
-		//Refresh the page to match the other player
+		//Run after a move is made and updating for the other player
 		if (userID != currTurnID) {
-			
 			var argArray = {"userTurn": userID};
 			var arguments = $.param(argArray);
 
@@ -149,11 +148,13 @@
 	            success: function(data) {
 		            var data_decode = JSON.parse(data);
 		            if (data_decode.status == "success" && data_decode.board && data_decode.curr_player == userID) {
+		            	//Refresh the page to match the other player
 	            		updateBoard(data_decode.board);
 	            		currTurnID = userID;
 
 	            		var arguments = {'playerID': opponentID, 'col_num': data_decode.col_num, 
 	    	            				 'row_num': data_decode.row_num, 'userID': userID};
+						//Check to see if anybody has won
 	            		checkVictory(arguments);
 	            	}
 	            }
@@ -165,8 +166,8 @@
 	
 	
 	function makeMove() {
+		//function runs if player made a move on the board
 		var board;
-		
 		if (userID == currTurnID) {
 	 		var thisColNum = extractColNum($(this));
 			var lowestSlot = getLowestRowInColumn(thisColNum);
@@ -183,12 +184,13 @@
 	            success: function(data){
 		            var data_decode = JSON.parse(data);
 		            if (data_decode.status == "success" && data_decode.board) {
+		            	//Refresh the page to match the other player
 	            		updateBoard(data_decode.board);
 	            		currTurnID = 3 - currTurnID;
 
 	            		var arguments = {'playerID': userID, 'col_num': thisColNum, 
 	    	            		'row_num': thisRowNum, 'userID': userID};
-	            		
+						//Check to see if anybody has won
 	            		checkVictory(arguments);
 	            	}
 	            }
@@ -199,7 +201,7 @@
 	}
 
 	function updateBoard(boardArr) {
-
+		//Go through the game board 
 		for (var i = 0; i < 6; i++) {
 			for (var j = 0; j < 7; j++) {
 				var item = getByRowColIndexFull(i, j);
@@ -213,6 +215,7 @@
 	}
 
 	function checkVictory(arguments) {
+		//with the controller, check to see the outcome(win,lose or draw) and act accordingly
 		$.ajax({
 			type: "GET",
 			url: checkVictoryURL,
@@ -234,7 +237,7 @@
 	
 
 	function gameFinished() {
-
+		//Jump back to arcade/index page when there is a outcome for checkvictory
 		var arguments = {"player": userID};
 		
 		$.ajax({
@@ -244,6 +247,7 @@
 			success: function() {
 			}, 
 			complete: function() {
+				//go back to index
 				window.location.href = '<?= base_url() ?>arcade/index';
 			}
 		});
@@ -251,7 +255,7 @@
 	}
 	
 	function getLowestRowInColumn(colNum) {
-		
+		//find the lowest unfilled circle for the board
 		slots = new Array();
 		$(".boardSlot.emptySlot").each(function() { 
 
@@ -294,12 +298,14 @@
 	}
 	
 	function extractRowNum(slot) {
+		//Take out the row numbest of the slot
 		var regex = /row(\d)-col\d/;
 		var returnSlot = slot.attr('id').replace(regex, "$1");
 		return parseInt(returnSlot);
 	}
 	
 	function extractColNum(slot) {
+		//take out the colnum number of the slot
 		var regex = /row\d-col(\d)/;
 		var returnSlot = slot.attr('id').replace(regex, "$1");
 		return parseInt(returnSlot);
@@ -310,8 +316,6 @@
 </body>
 
 </html>
-
-
 <!-- 	<script>//Create Alert as long as the invited user hasn't decided to join the game or not
 	/* while (status == "waiting"){
 			jAlert('Waiting On Other Player', 'Waiting On Other Player', function() { $('#popup_ok').hide(); });
