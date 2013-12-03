@@ -11,11 +11,29 @@
 	<link rel='stylesheet' type='text/css' href="<?= base_url(); ?>css/gameboard.css"></link>
 	<link rel='stylesheet' type='text/css' href="<?= base_url(); ?>css/style.css"></link>
 	<script>
+	
 	var otherUser = "<?= $otherUser->login ?>";
 	var user = "<?= $user->login ?>";
 	var status = "<?= $status ?>";
+	//Create Alert as long as the invited user hasn't decided to join the game or not
+	while(status=="waiting"){
+			alert("Waiting On Other Player");
+	            $.getJSON('<?= base_url() ?>arcade/checkInvitation', function (data, text, jqZHR) {
+	                if (data && data.status == 'rejected') {
+	                    alert("Sorry, your invitation to play was declined!");
+	                    window.location.href = '<?= base_url() ?>arcade/index';
+	                }
+	                if (data && data.status == 'accepted') {
+	                    status = 'playing';
+	                    $('#status').html('Playing ' + otherUser);
+	                    window.location.href = '<?= base_url() ?>board/index';
+	                }
+	
+	            });
+	}
 	$(document).ready(function () {
-
+		
+			
 	    $('form').submit(function () {
 	        var arguments = $(this).serialize();
 	        var url = "<?= base_url() ?>board/postMsg";
@@ -55,8 +73,8 @@
 
 		});
 	});
+//Drawing the Info,gameBoard and chat
 </script>
-
 </head>
 <body>
 	<h1>Game Area</h1>
@@ -117,7 +135,7 @@
 	}
 	
 	$(document).ready(function() {
-		
+		//init variables
 		currTurnID = <?php echo $currentTurn; ?>;
 		userID = <?php echo $userPlayerID; ?>;
 		opponentID = 3 - userID;
@@ -139,6 +157,7 @@
 	});
 
 	function waitForOpponent() {
+		//Refresh the page to match the other player
 		if (userID != currTurnID) {
 			
 			var argArray = {"userTurn": userID};
@@ -172,7 +191,6 @@
 	
 	
 	function makeMove() {
-
 		var board;
 		
 		if (userID == currTurnID) {

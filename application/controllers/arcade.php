@@ -51,8 +51,8 @@ class Arcade extends CI_Controller {
 	    		$this->load->model('invite_model');
 	    		$invite = $this->invite_model->get($user->invite_id);
 	    		$hostUser = $this->user_model->getFromId($invite->user1_id);
-
-	    		$msg = array('invited'=>true,'login'=>$hostUser->login);
+				$InvUser = $this->user_model->getFromId($invite->user2_id);
+	    		$msg = array('invited'=>true,'logins'=>$hostUser->login,'login'=>$InvUser->login);
 	    		echo json_encode($msg);	
 	    	}
 	    	else {
@@ -238,10 +238,7 @@ class Arcade extends CI_Controller {
 		
 		// if all went well commit changes
 		$this->db->trans_commit();
-		
-		redirect('board/index', 'refresh'); //redirect to match stage
-		
-		
+			redirect('board/index', 'refresh'); //redirect to match stage
 		
 		return;
 		

@@ -24,8 +24,7 @@
 	                    });
 	                else
 	                    $.post("<?= base_url() ?>arcade/declineInvitation");
-	            }
-	        });
+	            }});
 	    });
 	});
 	

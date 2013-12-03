@@ -192,8 +192,28 @@ class Board extends CI_Controller {
     	
     }
     
+    function checkDraw($board){
+    	
+    	for ($i = 0; $i < sizeof($board); $i++) {
+    	
+    	  for ($j = 0; $j < sizeof($board[$i]); $j++) {
+    	
+    	    if ($board[$i][$j] == 0){
+    	    	return False;
+    	    }
+    	
+    	  }
+    	
+    	}
+    	
+    	
+    	return True;
+    	 
+    	
+    	 
+    }
+    
 	function checkVictory() {
-		
 		$this->load->model('user_model');
 		$this->load->model('match_model');
 		$user = $_SESSION['user'];
@@ -201,36 +221,35 @@ class Board extends CI_Controller {
 		$match = $this->match_model->get($user->match_id);
 		$arr = json_decode($match->board_state);
 		$board = $arr->match_arr;
-		
+		 
 		$player = $this->input->get("playerID");
 		$userID = $this->input->get("userID");
 		$col_num = $this->input->get("col_num");
 		$row_num = $this->input->get("row_num");
-
+		 
 		$winArray = array('status'=>'success','message'=>"You win!", 'outcome' => 'win');
 		$loseArray = array('status'=>'success','message'=>"You lose!", 'outcome' => 'lose');
 		$drawArray = array('status'=>'success','message'=>"Draw!", 'outcome' => 'draw');
 		$noWinArray = array('status' => 'success', 'message'=> 'No victory conditions', 'outcome' => 'none');
-		
-		if ($this->checkVertical($player, $board, $col_num, $row_num) || 
-			$this->checkHorizontal($player, $board, $col_num, $row_num) || 
-			$this->checkDiagonal($player, $board, $col_num, $row_num)) {
-			
+		 
+		if ($this->checkVertical($player, $board, $col_num, $row_num) ||
+				$this->checkHorizontal($player, $board, $col_num, $row_num) ||
+				$this->checkDiagonal($player, $board, $col_num, $row_num)) {
+			 
 			if ($userID == $player) {
 				echo json_encode($winArray);
 			} else {
 				echo json_encode($loseArray);
 			}
-			
+			 
 		}
-
-		else if ($this->checkDraw()) {
+		 
+		else if ($this->checkDraw($board)) {
 			echo json_encode($drawArray);
 		}
 		else {
 			echo json_encode($noWinArray);
 		}
-
 	}    
     
 	function finishGame() {
