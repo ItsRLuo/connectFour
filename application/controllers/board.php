@@ -4,17 +4,17 @@ class Board extends CI_Controller {
      
     function __construct() {
     		// Call the Controller constructor
-	    	parent::__construct();
-	    	session_start();
+    	parent::__construct();
+    	session_start();
     } 
           
     public function _remap($method, $params = array()) {
 	    	// enforce access control to protected functions	
     		
-    		if (!isset($_SESSION['user'])) {
-   				redirect('account/loginForm', 'refresh'); //Then we redirect to the index page again
-    		}
-	    	return call_user_func_array(array($this, $method), $params);
+    	if (!isset($_SESSION['user'])) {
+   			redirect('account/loginForm', 'refresh'); //Then we redirect to the index page again
+    	}
+	    return call_user_func_array(array($this, $method), $params);
     }
   
     function flattenArr($arr) {
@@ -59,11 +59,26 @@ class Board extends CI_Controller {
     			$victory = false;
     			break;
     		}
-    	
     	}
-    	 
+  
     	if ($victory) {
-
+    		return true;
+    	}
+    	
+    	// Check in-between:
+    	$victory = true;
+    	for ($i = 1; $i < 4; $i++) {
+    		if ($col_num - $i < 0) {
+    			$victory = false;
+    			break;
+    		}
+    		if ($board[$row_num][$col_num - $i] != $player) {
+    			$victory = false;
+    			break;
+    		}
+    	}
+    	
+    	if ($victory) {
     		return true;
     	}
     	
@@ -103,9 +118,10 @@ class Board extends CI_Controller {
     	}
     	
     	if ($victory) {
-
     		return true;
     	}
+    	
+    	// Check in-between:
     	
     	// Check below:
     	$victory = true;
@@ -120,27 +136,12 @@ class Board extends CI_Controller {
 
     	return true;
     	
+    	
+    	
     }
     
     function checkDiagonal($player, $board, $col_num, $row_num) {
-    	// Check diagonal, up and left:
-        $victory = true;
-    	for ($i = 1; $i < 4; $i++) {
-    		if ($row_num - $i < 0 || $col_num - $i < 0) {
-    			$victory = false;
-    			break;
-    		}
-    		if ($board[$row_num - $i][$col_num - $i] != $player) {
-    			$victory = false;
-    			break;
-    		}
-    	}
-    	
-    	if ($victory) {
 
-    		return true;
-    	}
-    	
     	// Check diagonal, up and right:
         $victory = true;
     	for ($i = 1; $i < 4; $i++) {
@@ -155,9 +156,10 @@ class Board extends CI_Controller {
     	}
     	
     	if ($victory) {
-
     		return true;
     	}
+    	
+    	// Check in-between:
     	
     	// Check diagonal, down and left:
         $victory = true;
@@ -171,12 +173,31 @@ class Board extends CI_Controller {
     			break;
     		}
     	}
-    	
+    	 
     	if ($victory) {
 
     		return true;
     	}
+
+    	// Check diagonal, up and left:
+    	$victory = true;
+    	for ($i = 1; $i < 4; $i++) {
+    		if ($row_num - $i < 0 || $col_num - $i < 0) {
+    			$victory = false;
+    			break;
+    		}
+    		if ($board[$row_num - $i][$col_num - $i] != $player) {
+    			$victory = false;
+    			break;
+    		}
+    	}
     	 
+    	if ($victory) {
+    		return true;
+    	}
+    	
+    	// Check in-between:
+    	
     	// Check diagonal, down and right:
     	$victory = true;
     	for ($i = 1; $i < 4; $i++) {
@@ -189,28 +210,18 @@ class Board extends CI_Controller {
     	}
 
     	return true;
-    	
     }
     
     function checkDraw($board){
     	
-    	for ($i = 0; $i < sizeof($board); $i++) {
-    	
-    	  for ($j = 0; $j < sizeof($board[$i]); $j++) {
-    	
-    	    if ($board[$i][$j] == 0){
-    	    	return False;
+        for ($i = 0; $i < sizeof($board); $i++) {
+    	    for ($j = 0; $j < sizeof($board[$i]); $j++) {
+    	        if ($board[$i][$j] == 0) {
+    	            return False;
+    	        }
     	    }
-    	
-    	  }
-    	
     	}
-    	
-    	
     	return True;
-    	 
-    	
-    	 
     }
     
 	function checkVictory() {
@@ -233,8 +244,8 @@ class Board extends CI_Controller {
 		$noWinArray = array('status' => 'success', 'message'=> 'No victory conditions', 'outcome' => 'none');
 		 
 		if ($this->checkVertical($player, $board, $col_num, $row_num) ||
-				$this->checkHorizontal($player, $board, $col_num, $row_num) ||
-				$this->checkDiagonal($player, $board, $col_num, $row_num)) {
+			$this->checkHorizontal($player, $board, $col_num, $row_num) ||
+			$this->checkDiagonal($player, $board, $col_num, $row_num)) {
 			 
 			if ($userID == $player) {
 				echo json_encode($winArray);
@@ -391,23 +402,19 @@ class Board extends CI_Controller {
     	$match = $this->match_model->get($user->match_id);
     	$board_state = json_decode($match->board_state);
     	$position = $this->input->post('pieceAdded');
-    	
     	$colNum = $position[0];
     	$rowNum = $position[1];
-    	//echo print_r($board_state);
     	
     	// Update the board with a player's move and change the current player.
     	$board_state->match_arr[$rowNum][$colNum] = $board_state->curr_player;
     	$board_state->curr_player = 3 - $board_state->curr_player;
     	$board_state->col_num = $colNum;
     	$board_state->row_num = $rowNum;
-    	
-    	
-    	$encoded_board_state = json_encode($board_state);
-    	
+
     	// start transactional mode
     	$this->db->trans_begin();
     	
+    	$encoded_board_state = json_encode($board_state);
     	$this->match_model->updateBoard($user->match_id, $encoded_board_state);
 
     	if ($this->db->trans_status() === FALSE) {
@@ -430,9 +437,7 @@ class Board extends CI_Controller {
     	waiting:
     	echo json_encode(array('status' => 'waiting'));
     	
-    	
     	//////////////////////////////////
-    	
     	
     }
     
@@ -443,9 +448,6 @@ class Board extends CI_Controller {
     	
     	// If the baord has changed:
     		// get the board
-    	
-    	// Otherwise
-    		// .....
     		
     	$this->load->model('match_model');
     	$this->load->model('user_model');
@@ -458,9 +460,6 @@ class Board extends CI_Controller {
     		goto error;
     	}
     	
-
-    	
-    	
     	// start transactional mode
     	$this->db->trans_begin();
     	 
@@ -469,36 +468,10 @@ class Board extends CI_Controller {
     	
     	$arr = json_decode($match->board_state);
     	
-//     	$arrs = array();
-//     	try
-//     	{
-//     		foreach ($arr as $arrElem) {
-//     			//place holder
-//     			if (gettype($arrElem) != gettype(2)){
-//     				foreach ($arrElem as $arrElemElem) {
-//     					echo gettype($arrElemElem);
-//     					foreach ($arrElemElem as $arrElemElemElem){
-//     						echo $arrElemElemElem;
-//     						array_push($arrs, $arrElemElemElem);
-//     					}
-//     				}
-//     				//echo "<br/>";
-//     			}
-//     		};
-//     		// Get the current match info.
-//     	}
-//     	catch (Exception $e)
-//     	{
-//     		throw new Exception( 'Something really gone wrong', 0, $e);
-//     	}
-// 		$data['arrs'] = $arrs;
-		
-    	
     	if ($this->db->trans_status() === FALSE) {
     		$errormsg = "Transaction error";
     		goto transactionerror;
     	}
-    	
     	
     	$board_state = json_decode($match->board_state);
     	if (intval($this->input->get('userTurn')) != intval($board_state->curr_player)) {
@@ -506,12 +479,8 @@ class Board extends CI_Controller {
     		goto waiting;
     	}
 
-    	
-    	
-
     	// if all went well commit changes
     	$this->db->trans_commit();
-    	
     	
     	echo json_encode(array('status'=>'success', 'board' => $board_state->match_arr, 'col_num' => $board_state->col_num, 'row_num' => $board_state->row_num, 'curr_player' => $board_state->curr_player));
     	return;
@@ -611,8 +580,6 @@ class Board extends CI_Controller {
 		error:
 		echo json_encode(array('status'=>'failure','message'=>$errormsg));
  	}
- 	
-
  	
  }
  

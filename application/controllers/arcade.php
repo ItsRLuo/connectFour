@@ -11,25 +11,22 @@ class Arcade extends CI_Controller {
     public function _remap($method, $params = array()) {
 	    	// enforce access control to protected functions	
     		
-    		if (!isset($_SESSION['user']))
-   			redirect('account/loginForm', 'refresh'); //Then we redirect to the index page again
- 	    	
+    		if (!isset($_SESSION['user'])) {
+   				redirect('account/loginForm', 'refresh'); //Then we redirect to the index page again
+    		}
 	    	return call_user_func_array(array($this, $method), $params);
     }
        
     
     function index() {
-    			$this->load->helper('url');
-    			$this->base = $this->config->item('base_url');
-		    	$data['user']=$_SESSION['user'];
-		    	if (isset($_SESSION['errmsg'])) {
-		    		$data['errmsg']=	$_SESSION['errmsg'];
-		    		unset($_SESSION['errmsg']);
-		    	}
-		    	
-		    	
-		    	
-		    	$this->load->view('arcade/mainPage',$data);
+    	$this->load->helper('url');
+    	$this->base = $this->config->item('base_url');
+		$data['user']=$_SESSION['user'];
+		if (isset($_SESSION['errmsg'])) {
+		    $data['errmsg']=	$_SESSION['errmsg'];
+		    unset($_SESSION['errmsg']);
+		}
+		$this->load->view('arcade/mainPage',$data);
     }
 
     function getAvailableUsers() {

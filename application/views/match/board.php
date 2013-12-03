@@ -1,8 +1,5 @@
-
 <!DOCTYPE html>
-
 <html>
-	
 <head>
 
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
@@ -15,22 +12,6 @@
 	var otherUser = "<?= $otherUser->login ?>";
 	var user = "<?= $user->login ?>";
 	var status = "<?= $status ?>";
-	//Create Alert as long as the invited user hasn't decided to join the game or not
-	while(status=="waiting"){
-			alert("Waiting On Other Player");
-	            $.getJSON('<?= base_url() ?>arcade/checkInvitation', function (data, text, jqZHR) {
-	                if (data && data.status == 'rejected') {
-	                    alert("Sorry, your invitation to play was declined!");
-	                    window.location.href = '<?= base_url() ?>arcade/index';
-	                }
-	                if (data && data.status == 'accepted') {
-	                    status = 'playing';
-	                    $('#status').html('Playing ' + otherUser);
-	                    window.location.href = '<?= base_url() ?>board/index';
-	                }
-	
-	            });
-	}
 	$(document).ready(function () {
 		
 			
@@ -89,7 +70,7 @@
 				if ($status == "playing")
 					echo "Playing " . $otherUser->login;
 				else
-					echo "Waiting on " . $otherUser->login;
+					echo "Waiting on " . $otherUser->login . ", the game has NOT started yet...";
 			?>
 		</div>
 	</div>
@@ -148,9 +129,7 @@
 		// Inserts a token into a slot, if it's the user's turn.
 		$('body').delegate('.emptySlot','click', makeMove);
 
-		
 		// If it's the opponent's turn, this waits for the opponent to make a move.
-		
 		$('body').everyTime(200, waitForOpponent);
 
 		
@@ -162,7 +141,6 @@
 			
 			var argArray = {"userTurn": userID};
 			var arguments = $.param(argArray);
-
 
 	        $.ajax({
 	            type: "GET",
@@ -178,10 +156,6 @@
 	    	            				 'row_num': data_decode.row_num, 'userID': userID};
 	            		checkVictory(arguments);
 	            	}
-	            },
-	            error: function(x,y,z){
-	            },
-	            complete: function(x,y){
 	            }
 	      	});
 
@@ -217,11 +191,6 @@
 	            		
 	            		checkVictory(arguments);
 	            	}
-	            },
-	            error: function(x, y, z) {
-	                 //  alert('error\n'+x+'\n'+y+'\n'+z);
-	            },
-	            complete: function(x, y){
 	            }
 	      	});
 	        
@@ -343,24 +312,19 @@
 </html>
 
 
-<!--  <canvas id="myCanvas" width="500" height="500" style="border:5px solid #c3c3c3;"> </canvas> -->
-<!-- <div class='circleBase type1'></div> -->
-<!-- <div class='circleBase type2'></div> -->
+<!-- 	<script>//Create Alert as long as the invited user hasn't decided to join the game or not
+	/* while (status == "waiting"){
+			jAlert('Waiting On Other Player', 'Waiting On Other Player', function() { $('#popup_ok').hide(); });
+            $.getJSON('<\?= base_url() ?>arcade/checkInvitation', function (data, text, jqZHR) {
+                if (data && data.status == 'rejected') {
+                    alert("Sorry, your invitation to play was declined!");
+                    window.location.href = '<\?= base_url() ?>arcade/index';
+                }
+                if (data && data.status == 'accepted') {
+                    status = 'playing';
+                    $('#status').html('Playing ' + otherUser);
+                    window.location.href = '<\?= base_url() ?>board/index';
+                }
 
-<!-- <div class='circleBase type2'></div> -->
-
-<!-- <div class='circleBase type3'></div> -->
-<!-- 
-$(document).ready(function(){
-	
-  /*	$("p").click(function(){
-	var a=  document.getElementById("0-0");
-	var scrolltimes = 0;
-	$(document).ready(function() {
-	$('#clay').scroll(function() {
-	$('#scrollamount p').html({'<p>Scrolled: '+ .scrolltimes++ + '</p>'});
-	});*/
-});
-
-
--->
+            });
+	} */</script>  -->
