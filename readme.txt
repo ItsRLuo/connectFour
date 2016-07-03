@@ -2,6 +2,7 @@
 -------------------------------------------------------------------------------
                                 Instructions
 -------------------------------------------------------------------------------
+0, This is a web based game server needs to run index.php to play
 1, Replace database by going to /application/config/database.php with your own
 2, Register and login
 3, Use another browser to login to another account
