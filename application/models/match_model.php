@@ -26,12 +26,24 @@ class Match_model extends CI_Model {
 		return $this->db->insert('match',$match);
 	}
 	
+
+	function getBoardState($matchId){
+			$this->db->select('board_state');
+ 			$this->db->where('id', $matchId); 
+ 			$query = $this->db->get('match');
+ 			return $query->row(0);
+	}
 	
 	function updateMsgU1($id,$msg) {
 		$this->db->where('id',$id);
 		return $this->db->update('match',array('u1_msg'=>$msg));
 	}
 	
+	function updateBoardState($id,$bs) {
+		$this->db->where('id',$id);
+		return $this->db->update('match',array('board_state'=>$bs));
+	}
+
 	function updateMsgU2($id,$msg) {
 		$this->db->where('id',$id);
 		return $this->db->update('match',array('u2_msg'=>$msg));
@@ -40,17 +52,6 @@ class Match_model extends CI_Model {
 	function updateStatus($id, $status) {
 		$this->db->where('id',$id);
 		return $this->db->update('match',array('match_status_id'=>$status));
-	}
-	
-	function updateBoard($id, $boardState) {
-		$this->db->where('id',$id);
-		return $this->db->update('match',array('board_state'=>$boardState));
-	}
-	
-	function deleteMatch($id) {
-		$this->db->where('id',$id);
-		return $this->db->delete('match');
-		
 	}
 	
 }

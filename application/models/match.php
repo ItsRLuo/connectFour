@@ -11,16 +11,4 @@ class Match  {
 	
 	public $match_status_id = self::ACTIVE;
 		
-	public $board_state;
-	  
-
-	
-
-	
-	
-	
-
-
-	
 }
-?>

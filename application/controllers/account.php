@@ -3,10 +3,42 @@
 class Account extends CI_Controller {
 	 
 	function __construct() {
-		// Call the Controller constructor
-		parent::__construct();
-		session_start();
-	}
+    		// Call the Controller constructor
+	    	parent::__construct();
+			$this->load->library('securimage');
+			$this->load->helper('html');
+			$this->load->helper('url');
+			
+			// Create database for the game if no database exists
+			$checktable = mysql_query("SHOW TABLES LIKE 'user'");
+			if ($table_exists = mysql_num_rows($checktable) == 0)
+			{
+				$this->db->query("create table User(id int not null AUTO_INCREMENT, login CHAR(20), 
+						  first char(20), last char(20), 
+			              password char(200), salt int, email char(200), user_status_id int,
+			              invite_id int, match_id int, primary key(id));");	
+			}
+			$checktable = mysql_query("SHOW TABLES LIKE 'invite'");
+			if ($table_exists = mysql_num_rows($checktable) == 0)
+			{
+				$this->db->query("create table invite(id int not null AUTO_INCREMENT
+								  , user1_id int, user2_id int, 
+					              invite_status_id int, primary key(id), 
+					              foreign key(user1_id) references user(id),
+					              foreign key(user2_id) references user(id));");	
+			}
+			$checktable = mysql_query("SHOW TABLES LIKE 'match'");
+			if ($table_exists = mysql_num_rows($checktable) == 0)
+			{
+				$this->db->query("create table `match`(id int not null AUTO_INCREMENT
+					              , user1_id int, user2_id int, 
+					              match_status_id int, primary key(id), 
+					              foreign key(user1_id) references user(id),
+					              foreign key(user2_id) references user(id));");	
+			}
+			session_start();
+    }
+        
 
 	public function _remap($method, $params = array()) {
 		// enforce access control to protected functions
@@ -25,6 +57,19 @@ class Account extends CI_Controller {
 	}
 
 	function login() {
+		$servername = "localhost";
+		$username = "root";
+		$password = "123";
+		$dbname = "root";
+		$conn = mysqli_connect($servername, $username, $password, $dbname);
+		$sql = "CREATE TABLE MyGuessts (
+				id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
+				firstname VARCHAR(30) NOT NULL,
+				lastname VARCHAR(30) NOT NULL,
+				email VARCHAR(50),
+				reg_date TIMESTAMP
+				)";
+
 		$this->load->library('form_validation');
 		$this->form_validation->set_rules('username', 'Username', 'required');
 		$this->form_validation->set_rules('password', 'Password', 'required');
@@ -70,17 +115,19 @@ class Account extends CI_Controller {
 	}
 
 	function createNew() {
-		include_once $_SERVER['DOCUMENT_ROOT'] . '/A3/securimage/securimage.php';
+		include_once $_SERVER['DOCUMENT_ROOT'] . '/securimage/securimage.php';
 		$securimage = new Securimage();
 		
 		$this->load->library('form_validation');
 		$this->form_validation->set_rules('username', 'Username', 'required|is_unique[user.login]');
-		$this->form_validation->set_rules('password', 'Password', 'required');
-		$this->form_validation->set_rules('first', 'First', "required");
-		$this->form_validation->set_rules('last', 'last', "required");
-		$this->form_validation->set_rules('email', 'Email', "required|is_unique[user.email]");
+	    $this->form_validation->set_rules('password', 'Password', 'required');
+	    $this->form_validation->set_rules('first', 'First', "required");
+	    $this->form_validation->set_rules('last', 'last', "required");
+	    $this->form_validation->set_rules('email', 'Email', "required|is_unique[user.email]");
+	    	
 		$data['captchaErrorMessage'] = "";
 	  
+	  	#$this->db->query('insert into ')
 		if ($this->form_validation->run() == FALSE)
 		{
 			$this->load->view('account/newForm');
@@ -94,17 +141,14 @@ class Account extends CI_Controller {
 		else
 		{
 			$user = new User();
-
 			$user->login = $this->input->post('username');
 			$user->first = $this->input->post('first');
 			$user->last = $this->input->post('last');
 			$clearPassword = $this->input->post('password');
 			$user->encryptPassword($clearPassword);
 			$user->email = $this->input->post('email');
-	   
 			$this->load->model('user_model');
 
-	   
 			$error = $this->user_model->insert($user);
 	   
 			$this->load->view('account/loginForm');
@@ -174,8 +218,9 @@ class Account extends CI_Controller {
 				$config['smtp_host']    = 'ssl://smtp.gmail.com';
 				$config['smtp_port']    = '465';
 				$config['smtp_timeout'] = '7';
-				$config['smtp_user']    = 'richardchen922@gmail.com';
-				$config['smtp_pass']    = 'incarcerous';
+				//not used for now
+				$config['smtp_user']    = '***';
+				$config['smtp_pass']    = '***';
 				$config['charset']    = 'utf-8';
 				$config['newline']    = "\r\n";
 				$config['mailtype'] = 'text'; // or html

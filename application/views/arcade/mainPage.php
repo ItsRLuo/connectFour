@@ -4,7 +4,8 @@
 <html>
 	
 	<head>
-
+	<link rel="stylesheet" type="text/css" href="<?= base_url() ?>/css/style.css">
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,300' rel='stylesheet' type='text/css'>	
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<script src="<?= base_url() ?>/js/jquery.timers.js"></script>
 	<script>

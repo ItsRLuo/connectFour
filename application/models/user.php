@@ -43,5 +43,9 @@ class User  {
 	public function fullName() {
 		return $this->first . " " . $this->last;
 	}
+
+	public function firstName() {
+		return $this->first;
+	}	
 	
 }
